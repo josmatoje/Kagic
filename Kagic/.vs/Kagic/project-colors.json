@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "1997c130-eac0-4f3a-afdb-da7d8fa72ad7": {
+      "ProjectGuid": "1997c130-eac0-4f3a-afdb-da7d8fa72ad7",
+      "DisplayName": "Kagic_UI",
+      "ColorIndex": 0
+    },
+    "cca0931e-8a69-4816-bb6d-a07ea343688b": {
+      "ProjectGuid": "cca0931e-8a69-4816-bb6d-a07ea343688b",
+      "DisplayName": "Kagic_Entities",
+      "ColorIndex": 1
+    },
+    "c47be64b-1acd-4ed1-9ece-4110917980b1": {
+      "ProjectGuid": "c47be64b-1acd-4ed1-9ece-4110917980b1",
+      "DisplayName": "Kagic_DAL",
+      "ColorIndex": 2
+    },
+    "8fa89e18-38a6-4525-b563-e66d2abd576f": {
+      "ProjectGuid": "8fa89e18-38a6-4525-b563-e66d2abd576f",
+      "DisplayName": "Kagic_BL",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}
