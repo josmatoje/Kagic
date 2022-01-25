@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Kagic_Entities\Kagic_Entities.csproj" />
   </ItemGroup>
 

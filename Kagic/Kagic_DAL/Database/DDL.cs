@@ -6,6 +6,8 @@ namespace Kagic_DAL.Database
 {
     public class DDL
     {
-
+        public async static void initializeDatabase() {
+        
+        }
     }
 }
