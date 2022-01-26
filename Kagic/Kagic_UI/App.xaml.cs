@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using SQLite.Net;
+using SQLite.Net.Platform.WinRT;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,6 +26,13 @@ namespace Kagic_UI
     /// </summary>
     sealed partial class App : Application
     {
+        public static string DbConnectionString
+        {
+            get
+            {
+                return Path.Combine(ApplicationData.Current.LocalFolder.Path, "Storage.sqlite");
+            }
+        }
         /// <summary>
         /// Inicializa el objeto de aplicación Singleton. Esta es la primera línea de código creado
         /// ejecutado y, como tal, es el equivalente lógico de main() o WinMain().
@@ -30,6 +41,20 @@ namespace Kagic_UI
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            //using (var conn = new SqliteConnection(DbConnectionString)) //new SQLitePlatformWinRT(), DbConnectionString
+            //{
+            //    conn.CreateTable<Customer>();
+            //    conn.CreateTable<Project>();
+            //}
+
+            var SQLITE_PLATFORM = new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT();
+            if (!File.Exists("db.sqlite")//Comprobar archivo
+            {
+                using (var db = new SQLiteConnection(SQLITE_PLATFORM, DbConnectionString))
+                {
+                    db.CreateTable<Models.MSPCrew>(); //Creación de tablas
+                }
+            }
         }
 
         /// <summary>
