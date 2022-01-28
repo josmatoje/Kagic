@@ -47,14 +47,6 @@ namespace Kagic_UI
             //    conn.CreateTable<Project>();
             //}
 
-            var SQLITE_PLATFORM = new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT();
-            if (!File.Exists("db.sqlite")//Comprobar archivo
-            {
-                using (var db = new SQLiteConnection(SQLITE_PLATFORM, DbConnectionString))
-                {
-                    db.CreateTable<Models.MSPCrew>(); //Creación de tablas
-                }
-            }
         }
 
         /// <summary>

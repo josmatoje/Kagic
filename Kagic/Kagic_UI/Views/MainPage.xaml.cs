@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kagic_UI.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace Kagic_UI
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Game));
         }
     }
 }

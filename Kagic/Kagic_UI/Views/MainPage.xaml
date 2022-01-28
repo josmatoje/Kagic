@@ -8,7 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
-    </Grid>
+    <RelativePanel>
+        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click"
+                RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+    </RelativePanel>
 </Page>
