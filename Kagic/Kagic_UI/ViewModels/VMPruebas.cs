@@ -20,13 +20,13 @@ namespace Kagic_UI.ViewModels
             card = new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false);
 
             playerCards = new ObservableCollection<clsCard>();
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
-            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/Carta Azul.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
+            playerCards.Add(new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, false, 2, true, false));
         }
 
         public clsCard Card { get => card; set => card = value; }

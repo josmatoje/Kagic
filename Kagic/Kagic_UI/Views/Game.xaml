@@ -38,11 +38,15 @@
             
         </RelativePanel>
 
-        <RelativePanel Width="250" Height="400"  Background="Gold"
+        <RelativePanel Height="300" Width="200"  Background="Gold"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-            <Canvas RelativePanel.AlignLeftWithPanel="True">
-                <Image Source="{Binding Card.Image}" MaxWidth="300" MaxHeight="400" Margin="0, 0, 10, 0"/>
+            <Canvas  
+                 RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+                <Image Source="{Binding Card.Image}" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="1" Stretch="Uniform"/>
             </Canvas>
+            <Canvas Background="Red" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Opacity="0.30"/>
+            <Canvas Background="Green" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
+            <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
         </RelativePanel>
 
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}" Background="CornflowerBlue"
@@ -50,14 +54,19 @@
             
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <RelativePanel Height="200" Width="150">
-                        <Canvas Canvas.ZIndex="1"
+                    <RelativePanel Height="300" Width="200">
+                        <Canvas  
                             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-                            <Image Source="{Binding Image}" MaxHeight="200"/>
+                            <Image Source="{Binding Image}" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="1" Stretch="Uniform"/>
                         </Canvas>
-                        <Canvas Background="Red" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="2"/>
-                        <Canvas Background="Green" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="2"/>
-                        <Canvas Background="LightSteelBlue" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="2"/>
+                        <Canvas  
+                            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+                            <Image Source="/Assets/PRUEBAS/Marco Azul.png" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="2" Stretch="Uniform"/>
+                        </Canvas>
+
+                        <Canvas Background="Red" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Opacity="0.30" Canvas.ZIndex="3"/>
+                        <Canvas Background="Green" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="3" Opacity="0.30"/>
+                        <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="3" Opacity="0.30"/>
                     </RelativePanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
