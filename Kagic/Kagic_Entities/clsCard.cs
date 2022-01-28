@@ -4,24 +4,24 @@ using System.Text;
 
 namespace Kagic_Entities
 {
-    public abstract class clsCarta 
+    public abstract class clsCard 
     {
-        #region atributos
-        int id;
-        string name;
-        string description;
-        string image;
-        int manacost;
-        bool used;
+        #region atributes
+        protected int id;
+        protected string name;
+        protected string description;
+        protected string image;
+        protected int manacost;
+        protected bool used;
         #endregion
 
-        #region constantes
+        #region constants
         const string BACK_IMAGE = " ";
         #endregion
 
-        #region constructores
-        //Constuctor por parametros
-        public clsCarta(int id, string name, string description, string image, int manacost, bool used)
+        #region constructors
+        //Parameterized constuctor
+        public clsCard(int id, string name, string description, string image, int manacost, bool used)
         {
             this.id = id;
             this.name = name;
@@ -31,8 +31,8 @@ namespace Kagic_Entities
             this.used = used;
         }
 
-        //Constructor por defecto
-        public clsCarta()
+        //Default constructor
+        public clsCard()
         {
             this.id = 0;
             this.name = " ";
@@ -43,7 +43,7 @@ namespace Kagic_Entities
         }
         #endregion
 
-        #region propiedades publicas
+        #region public properties
         public int Id { get => id;}
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
