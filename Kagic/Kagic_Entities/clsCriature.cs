@@ -6,7 +6,7 @@ namespace Kagic_Entities
 {
     public class clsCriature : clsCard
     {
-        #region atributos
+        #region atributes
         int life;
         int actuallife;
         int atack;
