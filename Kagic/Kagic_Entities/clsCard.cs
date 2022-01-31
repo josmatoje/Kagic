@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,12 +8,12 @@ namespace Kagic_Entities
     public abstract class clsCard 
     {
         #region atributes
-        protected int id;
-        protected string name;
-        protected string description;
-        protected string image;
-        protected int manacost;
-        protected bool used;
+        int id;
+        string name;
+        string description;
+        string image;
+        int manacost;
+        bool used;
         #endregion
 
         #region constants
@@ -44,6 +45,7 @@ namespace Kagic_Entities
         #endregion
 
         #region public properties
+        [PrimaryKey, AutoIncrement]
         public int Id { get => id;}
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }

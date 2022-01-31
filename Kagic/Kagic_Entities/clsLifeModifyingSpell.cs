@@ -8,9 +8,9 @@ namespace Kagic_Entities
     {
 
         #region atributes
-        public int efect;
-        public bool isDamage;//boolean indicating if the efect makes damage or heal
-        public bool isArea;
+        int efect;
+        bool isDamage;//boolean indicating if the efect makes damage or heal
+        bool isArea;
         #endregion
 
         #region constructors
