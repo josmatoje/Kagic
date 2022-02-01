@@ -56,7 +56,7 @@ namespace Kagic_UI.Models
         #endregion
 
         #region private methods
-        private void initialHand()
+        private void InitialHand()
         {
             this.hand = new List<clsCard>();
             for(int i=0; i<3; i++)
@@ -66,7 +66,7 @@ namespace Kagic_UI.Models
             }
         }
 
-        private void drawCard()
+        private void DrawCard()
         {
             if (deck.Count == 0)
             {

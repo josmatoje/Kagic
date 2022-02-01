@@ -13,7 +13,7 @@ namespace Kagic_Entities
         string description;
         string image;
         int manacost;
-        bool used;
+        bool used; //¿Pertenece solo a criature, si la carta se usa desaparece de la mano?
         #endregion
 
         #region constants

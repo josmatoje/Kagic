@@ -26,37 +26,30 @@ namespace Kagic_UI.Models.Utilities
             return SelectedCard is null;
         }
         /// <summary>
-        /// Selecciona la criatura a la que va a atacar cada criatura y devuelve un array con las posiciones a las que desea atacar
-        /// todo: muy lioso, selecciona un objetivo y devuelve enemigo seleccionado
+        /// 
         /// </summary>
+        /// <param name="positionCriature">The index of the placedCriatures list for the criature that is attacking</param>
         /// <param name="enemyCriatures"></param>
-        public int[] AtackCriatures (List<clsCriature> enemyCriatures)
+        /// <returns></returns>
+        public int AtackCriatures (int positionCriature,List<clsCriature> enemyCriatures)
         {
-            int j;
-            int[] atackList = new int[MAX_PLACE_CRIATURES]; //Con el listado puedes atacar a un enemigo muerto(salvo que se valore el estado de la criatura),
-                                                            //hacer selección individual
+            int enemyIndex;
+            int atackPlace=-1; //Posición a la que va a atacar
             for(int i = 0; i<PlaceCriatures.Count; i++)
             {
                 if (!PlaceCriatures[i].Used)
                 {
-                    j = 0;
-                    //TODO Ataca de izquierda a derecha
-                    do
+                    enemyIndex = 0;
+                    //TODO Ataca de izquierda a derecha, mejorar valorando las criaturas que no han atacado los ataques de tus propias criaturas y las vidas de las criaturas enemigas
+                    if (enemyCriatures[enemyIndex] != null)
                     {
-                        if (enemyCriatures[j] != null)
-                        {
-                            atackList[i] = j;
-                        }
-                        j++;
-                    } while (j < enemyCriatures.Count);
-                }
-                else
-                {
-                    atackList[i] = -1;
+                        atackPlace = enemyIndex;
+                    }
+                    enemyIndex++;
                 }
             }
 
-            return atackList;
+            return atackPlace;
         }
     }
 }
