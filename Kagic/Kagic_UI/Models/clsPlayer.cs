@@ -21,10 +21,10 @@ namespace Kagic_UI.Models
         #endregion
 
         #region constant
-        const int MAX_MANA = 10;
-        const int MAX_LIFE= 10;
-        const int MAX_HAND_CARDS = 7;
-        const int MAX_PLACE_CRIATURES = 5;
+        protected const int MAX_MANA = 10;
+        protected const int MAX_LIFE= 10;
+        protected const int MAX_HAND_CARDS = 7;
+        protected const int MAX_PLACE_CRIATURES = 5;
         #endregion
 
         #region constructor
@@ -46,6 +46,7 @@ namespace Kagic_UI.Models
 
         #region public properties
         public int Life { get => life; set => life = value; }
+        public int TotalMana { get => totalMana; set => totalMana = value; }
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public List<clsCard> Hand { get => hand; set => hand = value; }
@@ -55,12 +56,6 @@ namespace Kagic_UI.Models
         #endregion
 
         #region private methods
-        private void prueba(int i)
-        {
-            if (hand[i].Id == 0)
-                hand[i] = SelectedCard;
-        }
-
         private void initialHand()
         {
             this.hand = new List<clsCard>();
@@ -75,7 +70,7 @@ namespace Kagic_UI.Models
         {
             if (deck.Count == 0)
             {
-                life--;
+                life--; //TODO incrementar la vida que se resta a medida que avanzan los turnos?
             }
             else
             { 
