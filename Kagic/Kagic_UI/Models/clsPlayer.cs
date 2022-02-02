@@ -35,7 +35,7 @@ namespace Kagic_UI.Models
             this.totalMana = 0;
             this.usedMana = 0;
             this.deck = deck;
-            initialHand();
+            InitialHand();
             this.placeCriatures = new List<clsCriature>(MAX_PLACE_CRIATURES);
             this.selectedCard = null;
         }

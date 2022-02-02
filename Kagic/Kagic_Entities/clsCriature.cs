@@ -10,15 +10,17 @@ namespace Kagic_Entities
         int life;
         int actuallife;
         int atack;
+        bool used;
         #endregion
 
         #region constructors
         //Parameterized constuctor
-        public clsCriature(int id, string name, string description, string image, int manacost, bool used,int life, int actuallife, int atack) : base( id,  name,  description,  image,  manacost,  used)
+        public clsCriature(int id, string name, string description, string image, int manacost, bool used,int life, int actuallife, int atack) : base( id,  name,  description,  image,  manacost)
         {
             this.life = life;
             this.actuallife = actuallife;
             this.atack = atack;
+            this.used = used;   
         }
 
         //Default constructor
@@ -34,6 +36,7 @@ namespace Kagic_Entities
         public int Life { get => life; set => life = value; }
         public int Actuallife { get => actuallife; set => actuallife = value; }
         public int Atack { get => atack; set => atack = value; }
+        public bool Used { get => used; set => used = value; }
 
         #endregion
     }

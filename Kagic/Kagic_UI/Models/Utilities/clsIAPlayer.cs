@@ -10,8 +10,12 @@ namespace Kagic_UI.Models.Utilities
     public class clsIAPlayer : clsPlayer
     {
         /// <summary>
-        /// Selecciona la primera carta que pueda usar la mano de la IA y devuelve true si ha seleccionado alguna y false en caso contrario
+        /// <b>Headboard: </b> public bool SelectHandCard()<br/>
+        /// <b>Description: </b>This method select the first card in the hand that could be used and returns a boolean <br/>
+        /// <b>Preconditions: </b> hand diferent of null<br/>
+        /// <b>Postconditions: </b>Selected card can be played with the available mana<br/>
         /// </summary>
+        /// <returns>bool</returns>
         public bool SelectHandCard()
         {
             SelectedCard = null;
@@ -20,18 +24,19 @@ namespace Kagic_UI.Models.Utilities
                 if (Hand[i].Manacost < TotalMana - UsedMana)
                 {
                     SelectedCard = Hand[i];
-                    UsedMana+=Hand[i].Manacost;
                 }
             }
             return SelectedCard is null;
         }
+
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCriature> enemyCriatures)<br/>
+        /// <b>Description: </b>This method select the target of the enemy criature <br/>
+        /// <b>Preconditions: </b> selected card different of null<br/>
+        /// <b>Postconditions: </b> <br/>
         /// </summary>
-        /// <param name="positionCriature">The index of the placedCriatures list for the criature that is attacking</param>
-        /// <param name="enemyCriatures"></param>
-        /// <returns></returns>
-        public int AtackCriatures (int positionCriature,List<clsCriature> enemyCriatures)
+        /// <returns>int indicating de position of the target</returns>
+        public int PickEnemyCriature(List<clsCriature> enemyCriatures)
         {
             int enemyIndex;
             int atackPlace=-1; //Posición a la que va a atacar

@@ -13,7 +13,7 @@ namespace Kagic_Entities
         string description;
         string image;
         int manacost;
-        bool used; //¿Pertenece solo a criature, si la carta se usa desaparece de la mano?
+
         #endregion
 
         #region constants
@@ -22,14 +22,13 @@ namespace Kagic_Entities
 
         #region constructors
         //Parameterized constuctor
-        public clsCard(int id, string name, string description, string image, int manacost, bool used)
+        public clsCard(int id, string name, string description, string image, int manacost)
         {
             this.id = id;
             this.name = name;
             this.description = description;
             this.image = image;
             this.manacost = manacost;
-            this.used = used;
         }
 
         //Default constructor
@@ -40,7 +39,6 @@ namespace Kagic_Entities
             this.description = " ";
             this.image = " ";
             this.manacost = 0;
-            this.used = true;
         }
         #endregion
 
@@ -51,7 +49,6 @@ namespace Kagic_Entities
         public string Description { get => description; set => description = value; }
         public string Image { get => image; set => image = value; }
         public int Manacost { get => manacost; set => manacost = value; }
-        public bool Used { get => used; set => used = value; }
         #endregion
     }
 }
