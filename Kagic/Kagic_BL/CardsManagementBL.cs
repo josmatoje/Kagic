@@ -6,18 +6,18 @@ using System.Text;
 
 namespace Kagic_BL
 {
-    public class CardsManagement
+    public class CardsManagementBL
     {
         /// <summary>
-        /// <b>Headboard: </b>public static ObservableCollection<clsCard> getCardsListBL()<br/>
+        /// <b>Headboard: </b>public static List<clsCard> getCardsListBL()<br/>
         /// <b>Description: </b>This method calls DAL`s one which gets a list of all the cards in the database<br/>
-        /// <b>Preconditions: </b> anyone<br/>
+        /// <b>Preconditions: </b> none<br/>
         /// <b>Postconditions: </b> you get a list of all the cards in the database<br/>
         /// </summary>
-        /// <returns>ObservableCollection<clsCard></returns>
-        public static ObservableCollection<clsCard> getCardsListBL()
+        /// <returns>List<clsCard></returns>
+        public static List<clsCard> getCardsListBL()
         {
-            ObservableCollection<clsCard> cardsList = new ObservableCollection<clsCard>();
+            List<clsCard> cardsList = new List<clsCard>();
 
             return cardsList;
         }

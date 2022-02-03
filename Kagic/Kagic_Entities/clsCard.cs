@@ -1,4 +1,4 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +13,6 @@ namespace Kagic_Entities
         string description;
         string image;
         int manacost;
-
         #endregion
 
         #region constants
@@ -39,6 +38,22 @@ namespace Kagic_Entities
             this.description = " ";
             this.image = " ";
             this.manacost = 0;
+        }
+        //Copy constructor
+        public clsCard(clsCard card)
+        {
+            if (card != null)
+            {
+                this.id = card.Id;
+                this.name = card.Name;
+                this.description = card.Description;
+                this.image = card.Image;
+                this.manacost = card.Manacost;
+            }
+            else
+            {
+                this = null;
+            }
         }
         #endregion
 
