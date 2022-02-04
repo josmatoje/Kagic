@@ -16,6 +16,7 @@ namespace Kagic_DAL.Database
             {
                 myconnection.Open();
                 createTables();
+                fillDatabase();
                 myconnection.Close();
             }
             catch
@@ -25,14 +26,30 @@ namespace Kagic_DAL.Database
         }
 
         public void fillDatabase() {
-            myconnection.Open();
-            fillTables();
-            myconnection.Close();
+
+            SqliteCommand countCreatures = new SqliteCommand("SELECT COUNT(*) FROM \"CreatureCard\"");
+            SqliteCommand countSpells = new SqliteCommand("SELECT COUNT(*) FROM \"SpellCard\"");
+
+            if (countCreatures.ExecuteNonQuery() <= 0) 
+            {
+                fillTableCreatures();
+            }
+            if (countSpells.ExecuteNonQuery() <= 0)
+            {
+                fillTableSpells();
+            }
+            
+        }
+
+        private void fillTableCreatures()
+        {
+            SqliteCommand createCreatureCard = new SqliteCommand("INSERT INTO \"CreatureCard \" VALUES ");
         }
 
         private void createTables()
         {
-            SqliteCommand createCreatureCard = new SqliteCommand("CREATE TABLE IF NOT EXISTS \"CreatureCard\"(" +                                                                   
+            SqliteCommand createCreatureCard = new SqliteCommand("CREATE TABLE IF NOT EXISTS \"CreatureCard\"(" +
+                                                                    "[Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +                                                                   
                                                                     "[Name] VARCHAR(50) NOT NULL," +
                                                                     "[Description] VARCHAR(255) NULL," +
                                                                     "[Image] TEXT NOT NULL," +
@@ -43,6 +60,7 @@ namespace Kagic_DAL.Database
                                                                     "[Attack] INTEGER NOT NULL");
 
             SqliteCommand createSpellCard = new SqliteCommand("CREATE TABLE IF NOT EXISTS SpellCard(" +
+                                                                "[Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                                                                 "[Name] VARCHAR(50) NOT NULL," +
                                                                 "[Description] VARCHAR(255) NULL," +
                                                                 "[Image] TEXT NOT NULL," +
