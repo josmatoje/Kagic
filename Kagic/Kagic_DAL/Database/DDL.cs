@@ -3,17 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Windows.Storage;
 
 namespace Kagic_DAL.Database
 {
     public class DDL
     {
-        SqliteConnection myconnection = new SqliteConnection("Kagic.sqlite");
+        private static string DBName = ApplicationData.Current.LocalFolder.Path + @"\Kagic.db";
+        private static SqliteConnection myconnection = new SqliteConnection("Kagic.sqlite");
 
-        public void createDatabase()
+        public static void createDatabase()
         {
             try
             {
+                System.Data.SQLite.SQLiteConnection.CreateFile(DBName);
                 myconnection.Open();
                 createTables();
                 fillDatabase();
@@ -25,7 +28,7 @@ namespace Kagic_DAL.Database
             }
         }
 
-        public void fillDatabase() {
+        public static void fillDatabase() {
 
             SqliteCommand countCreatures = new SqliteCommand("SELECT COUNT(*) FROM \"CreatureCard\"");
             SqliteCommand countSpells = new SqliteCommand("SELECT COUNT(*) FROM \"SpellCard\"");
@@ -41,12 +44,22 @@ namespace Kagic_DAL.Database
             
         }
 
-        private void fillTableCreatures()
+        private static void fillTableCreatures()
         {
-            SqliteCommand createCreatureCard = new SqliteCommand("INSERT INTO \"CreatureCard \" VALUES ");
+            SqliteCommand createCreatureCard = new SqliteCommand("INSERT INTO \"CreatureCard\" (Name, Description, Image, ManaCost, Life, Attack) " +
+                                                                 "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'\\Assets\\PRUEBAS\\solar_kitten.jpg\', 3, 3, 3 )");
+
+            createCreatureCard.ExecuteNonQuery();
         }
 
-        private void createTables()
+        private static void fillTableSpells()
+        {
+            SqliteCommand createSpellCard = new SqliteCommand("INSERT INTO \"SpellCard\" (Name, Description, Image, ManaCost) " +
+                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'\\Assets\\PRUEBAS\\CartaSeta.png\', 4, 4, 1, 0)");
+            createSpellCard.ExecuteNonQuery();
+        }
+
+        private static void createTables()
         {
             SqliteCommand createCreatureCard = new SqliteCommand("CREATE TABLE IF NOT EXISTS \"CreatureCard\"(" +
                                                                     "[Id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +                                                                   
@@ -54,9 +67,7 @@ namespace Kagic_DAL.Database
                                                                     "[Description] VARCHAR(255) NULL," +
                                                                     "[Image] TEXT NOT NULL," +
                                                                     "[ManaCost] INTEGER NOT NULL," +
-                                                                    "[Used] INTEGER NOT NULL," +
                                                                     "[Life] INTEGER NOT NULL," +
-                                                                    "[ActualLife] INTEGER NOT NULL," +
                                                                     "[Attack] INTEGER NOT NULL");
 
             SqliteCommand createSpellCard = new SqliteCommand("CREATE TABLE IF NOT EXISTS SpellCard(" +
@@ -65,7 +76,9 @@ namespace Kagic_DAL.Database
                                                                 "[Description] VARCHAR(255) NULL," +
                                                                 "[Image] TEXT NOT NULL," +
                                                                 "[ManaCost] INTEGER NOT NULL," +
-                                                                "[Used] INTEGER NOT NULL");
+                                                                "[Effect] INTEGER NOT NULL," +
+                                                                "[IsDamage] INTEGER NOT NULL," +
+                                                                "[IsArea] INTEGER NOT NULL");
 
             createCreatureCard.ExecuteNonQuery();
             createSpellCard.ExecuteNonQuery();

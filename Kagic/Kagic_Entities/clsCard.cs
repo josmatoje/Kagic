@@ -52,7 +52,7 @@ namespace Kagic_Entities
             }
             else
             {
-                this = null;
+                //this = null;
             }
         }
         #endregion

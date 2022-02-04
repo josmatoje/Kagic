@@ -41,11 +41,8 @@ namespace Kagic_UI
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            //using (var conn = new SqliteConnection(DbConnectionString)) //new SQLitePlatformWinRT(), DbConnectionString
-            //{
-            //    conn.CreateTable<Customer>();
-            //    conn.CreateTable<Project>();
-            //}
+            
+            Kagic_BL.DDL_BL.createDatabase();
 
         }
 
