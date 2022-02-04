@@ -28,6 +28,7 @@ namespace Kagic_UI.ViewModels
         public VMFight()
         {
             realPlayer = new clsPlayer();
+            iaPlayer = new clsIAPlayer();
         }
         #endregion
 
