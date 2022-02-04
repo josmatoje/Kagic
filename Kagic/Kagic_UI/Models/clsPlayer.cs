@@ -56,6 +56,12 @@ namespace Kagic_UI.Models
         #endregion
 
         #region private methods
+        /// <summary>
+        /// <b>Headboard: </b>private void InitialHand()<br/>
+        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
         private void InitialHand()
         {
             this.hand = new List<clsCard>();
@@ -66,6 +72,12 @@ namespace Kagic_UI.Models
             }
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>private void DrawCard()<br/>
+        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
         private void DrawCard()
         {
             if (deck.Count == 0)
