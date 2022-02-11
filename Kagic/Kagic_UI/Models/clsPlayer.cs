@@ -17,14 +17,15 @@ namespace Kagic_UI.Models
         List<clsCard> hand;
         List<clsCriature> placeCriatures;
         clsCard selectedCard;
+        clsCriature selectedCriature;
 
         #endregion
 
         #region constant
-        protected const int MAX_MANA = 10;
-        protected const int MAX_LIFE= 10;
-        protected const int MAX_HAND_CARDS = 7;
-        protected const int MAX_PLACE_CRIATURES = 5;
+        public const int MAX_MANA = 10;
+        public const int MAX_LIFE = 10;
+        public const int MAX_HAND_CARDS = 7;
+        public const int MAX_PLACE_CRIATURES = 5;
         #endregion
 
         #region constructor
@@ -52,6 +53,7 @@ namespace Kagic_UI.Models
         public List<clsCard> Hand { get => hand; set => hand = value; }
         public List<clsCriature> PlaceCriatures { get => placeCriatures; set => placeCriatures = value; }
         public clsCard SelectedCard { get => selectedCard; set => selectedCard = value; }
+        public clsCriature SelectedCriature { get => selectedCriature; set => selectedCriature = value; }
 
         #endregion
 

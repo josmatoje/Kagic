@@ -59,7 +59,7 @@ namespace Kagic_Entities
 
         #region public properties
         [PrimaryKey, AutoIncrement]
-        public int Id { get => id;}
+        public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
         public string Image { get => image; set => image = value; }
