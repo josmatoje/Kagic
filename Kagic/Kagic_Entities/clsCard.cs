@@ -16,7 +16,7 @@ namespace Kagic_Entities
         #endregion
 
         #region constants
-        const string BACK_IMAGE = " ";
+        public const string BACK_IMAGE = "/Assets/Images/Back image.png";
         #endregion
 
         #region constructors
