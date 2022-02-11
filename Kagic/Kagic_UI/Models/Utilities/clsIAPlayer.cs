@@ -31,7 +31,7 @@ namespace Kagic_UI.Models.Utilities
 
         //TODO cambiar summary
         /// <summary>
-        /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCriature> enemyCriatures)<br/>
+        /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCreature> enemyCriatures)<br/>
         /// <b>Description: </b>This method select the target of the enemy criature <br/>
         /// <b>Preconditions: </b> selected card different of null<br/>
         /// <b>Postconditions: </b> <br/>
@@ -54,13 +54,13 @@ namespace Kagic_UI.Models.Utilities
 
         //TODO cambiar summary
         /// <summary>
-        /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCriature> enemyCriatures)<br/>
+        /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCreature> enemyCriatures)<br/>
         /// <b>Description: </b>This method select the target of the enemy criature <br/>
         /// <b>Preconditions: </b> selected card different of null<br/>
         /// <b>Postconditions: </b> <br/>
         /// </summary>
         /// <returns>int indicating de position of the target</returns>
-        public int PickEnemyCriature(List<clsCriature> enemyCriatures)
+        public int PickEnemyCriature(List<clsCreature> enemyCriatures)
         {
             int atackPlace = -1; //Posición a la que va a atacar
             for (int i = 0; i < enemyCriatures.Count; i++)

@@ -15,7 +15,7 @@ namespace Kagic_UI.Models
         int usedMana;
         List<clsCard> deck;
         List<clsCard> hand;
-        List<clsCriature> placeCriatures;
+        List<clsCreature> placeCriatures;
         clsCard selectedCard;
 
         #endregion
@@ -36,7 +36,7 @@ namespace Kagic_UI.Models
             this.usedMana = 0;
             this.deck = deck;
             InitialHand();
-            this.placeCriatures = new List<clsCriature>(MAX_PLACE_CRIATURES);
+            this.placeCriatures = new List<clsCreature>(MAX_PLACE_CRIATURES);
             this.selectedCard = null;
         }
 
@@ -50,9 +50,53 @@ namespace Kagic_UI.Models
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public List<clsCard> Hand { get => hand; set => hand = value; }
-        public List<clsCriature> PlaceCriatures { get => placeCriatures; set => placeCriatures = value; }
+        public List<clsCreature> PlaceCriatures { get => placeCriatures; set => placeCriatures = value; }
         public clsCard SelectedCard { get => selectedCard; set => selectedCard = value; }
 
+        #endregion
+
+        #region public methods
+        /// <summary>
+        /// <b>Headboard: </b>private void DrawCard()<br/>
+        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
+        public void DrawCard()
+        {
+            if (deck.Count == 0)
+            {
+                life--; //TODO incrementar la vida que se resta a medida que avanzan los turnos?
+            }
+            else
+            {
+                if (hand.Count < MAX_HAND_CARDS)
+                {
+                    hand.Add(deck[0]);
+                }
+                deck.RemoveAt(0);
+            }
+        }
+        /// <summary>
+        /// <b>Headboard: </b>private void PutCard()<br/>
+        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand and field updated<br/>
+        /// </summary>
+        public void PutCard()
+        {
+
+        }
+        /// <summary>
+        /// <b>Headboard: </b>public void SetUsedCriatures()<br/>
+        /// <b>Description: </b>Set all the creatures on the field to unsed (used = false)<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Criatures are updated<br/>
+        /// </summary>
+        public void SetUsedCriatures()
+        {
+
+        }
         #endregion
 
         #region private methods
@@ -68,28 +112,6 @@ namespace Kagic_UI.Models
             for(int i=0; i<3; i++)
             {
                 hand.Add(deck[0]);
-                deck.RemoveAt(0);
-            }
-        }
-
-        /// <summary>
-        /// <b>Headboard: </b>private void DrawCard()<br/>
-        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
-        /// <b>Preconditions: </b> Anyone<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
-        /// </summary>
-        private void DrawCard()
-        {
-            if (deck.Count == 0)
-            {
-                life--; //TODO incrementar la vida que se resta a medida que avanzan los turnos?
-            }
-            else
-            { 
-                if (hand.Count < MAX_HAND_CARDS)
-                {
-                    hand.Add(deck[0]);
-                }
                 deck.RemoveAt(0);
             }
         }
