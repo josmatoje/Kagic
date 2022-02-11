@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Kagic_DAL.Listados;
 
 namespace Kagic_BL
 {
-    public class CardsManagementBL
+    public class clsCardsManagementBL
     {
         /// <summary>
         /// <b>Headboard: </b>public static List<clsCard> getCardsListBL()<br/>
@@ -17,9 +18,7 @@ namespace Kagic_BL
         /// <returns>List<clsCard></returns>
         public static List<clsCard> getCardsListBL()
         {
-            List<clsCard> cardsList = new List<clsCard>();
-
-            return cardsList;
+            return clsCardsManagementDAL.getCardsDAL();
         }
     }
 }
