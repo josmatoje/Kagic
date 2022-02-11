@@ -19,31 +19,40 @@
     <RelativePanel>
 
         <AppBarButton Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
-        <GridView x:Name="gdOpponentCards" MinHeight="200" MinWidth="400" Background="DarkRed"
+        <GridView x:Name="gdOpponentCards" MinHeight="200" MinWidth="400" ItemsSource="{Binding IaCards}" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <RelativePanel Height="300" Width="200">
+                        <Image Source="/Assets/Images/BackImage.png" MaxHeight="300" MaxWidth="200"
+                               RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                    </RelativePanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
             
         </GridView>
 
-        
-        <RelativePanel x:Name="stpBattlefield" Margin="5"
+
+        <RelativePanel x:Name="stpBattlefield" Margin="5" BorderThickness="3" Padding="5" BorderBrush="White"
                        RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
-            <GridView x:Name="gdOpponentCreatures" MinHeight="250" MinWidth="400" Margin="0,0,0,20" Background="DarkViolet"
+            <GridView x:Name="gdOpponentCreatures" MinHeight="250" MinWidth="400" Margin="0,0,0,20" BorderThickness="3" BorderBrush="Red"
                       RelativePanel.AlignHorizontalCenterWithPanel="True">
 
             </GridView>
-            <GridView x:Name="gdPlayerCreatures" MinHeight="250" MinWidth="400" Background="BlueViolet"
+            <GridView x:Name="gdPlayerCreatures" MinHeight="250" MinWidth="400" BorderThickness="3" BorderBrush="Blue"
                       RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures">
 
             </GridView>
         </RelativePanel>
-        
 
-        <RelativePanel x:Name="stpScoreboard" MinHeight="300" MinWidth="150" Background="Crimson"
+
+        
+        <RelativePanel x:Name="stpScoreboard" MinHeight="300" MinWidth="150" BorderThickness="3" BorderBrush="White"
                     RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             
         </RelativePanel>
 
-        <RelativePanel Height="300" Width="200"  Background="Gold"
+        <RelativePanel Height="300" Width="200" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <Canvas  
                  RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
@@ -54,7 +63,7 @@
             <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
         </RelativePanel>
 
-        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}" Background="CornflowerBlue"
+        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
             
             <GridView.ItemTemplate>

@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\Background.png" />
+    <Content Include="Assets\Images\BackImage.png" />
     <Content Include="Assets\Images\Logo.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
