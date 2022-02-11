@@ -10,16 +10,25 @@ namespace Kagic_DAL.Database
 {
     public class DDL
     {
-        //private static string DBName = ApplicationData.Current.LocalFolder.Path + @"\Kagic.db";
-        //private static SQLiteConnection myconnection = new SQLiteConnection("Kagic.sqlite", true);
+        #region Database path
         private static readonly string dbName = "Kagic.sqlite";
         private static string path = ApplicationData.Current.LocalFolder.Path + $"\\{dbName}";
+        #endregion
 
+        #region Database creation
+
+        /// <summary>
+        /// <b>Headboard: </b>public static void createDatabase()<br/>
+        /// <b>Description: </b>This method creates an SQLite Database in local storage filling it with data.<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Database created and data-filled.<br/>
+        /// </summary>
         public static void createDatabase()
         {
             try
             {
-                if (!File.Exists(path)) {
+                if (!File.Exists(path))
+                {
                     SQLiteConnection.CreateFile(path);
                 }
                 SQLiteConnection myconnection = new SQLiteConnection($"Data Source={path}; version=3;");
@@ -33,8 +42,18 @@ namespace Kagic_DAL.Database
                 throw;
             }
         }
+        #endregion
 
-        public static void fillDatabase(SQLiteConnection myconnection)
+        #region Database Tables
+
+        /// <summary>
+        /// <b>Headboard: </b>private void InitialHand()<br/>
+        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
+        /// <param name="myconnection"></param>
+        private static void fillDatabase(SQLiteConnection myconnection)
         {
 
             SQLiteCommand countCreatures = new SQLiteCommand("SELECT COUNT(*) FROM CreatureCards", myconnection);
@@ -51,6 +70,15 @@ namespace Kagic_DAL.Database
 
         }
 
+            #region Data insertions
+
+        /// <summary>
+        /// <b>Headboard: </b>private void InitialHand()<br/>
+        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
+        /// <param name="myconnection"></param>
         private static void fillTableCreatures(SQLiteConnection myconnection)
         {
             SQLiteCommand createCreatureCard = new SQLiteCommand("INSERT INTO CreatureCards (Name, Description, Image, ManaCost, Life, Attack) " +
@@ -59,13 +87,30 @@ namespace Kagic_DAL.Database
             createCreatureCard.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>private void InitialHand()<br/>
+        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
+        /// <param name="myconnection"></param>
         private static void fillTableSpells(SQLiteConnection myconnection)
         {
             SQLiteCommand createSpellCard = new SQLiteCommand("INSERT INTO SpellCards (Name, Description, Image, ManaCost, Effect, IsDamage, IsArea) " +
                                                               "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'\\Assets\\PRUEBAS\\CartaSeta.png\', 4, 4, 1, 0)", myconnection);
             createSpellCard.ExecuteNonQuery();
         }
+        #endregion
 
+            #region Tables creation
+
+        /// <summary>
+        /// <b>Headboard: </b>private void InitialHand()<br/>
+        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
+        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Postconditions: </b> Hand updated<br/>
+        /// </summary>
+        /// <param name="myconnection"></param>
         private static void createTables(SQLiteConnection myconnection)
         {
             SQLiteCommand createCreatureCard = new SQLiteCommand("CREATE TABLE IF NOT EXISTS CreatureCards(" +
@@ -90,5 +135,8 @@ namespace Kagic_DAL.Database
             createCreatureCard.ExecuteNonQuery();
             createSpellCard.ExecuteNonQuery();
         }
+        #endregion
+
+        #endregion
     }
 }
