@@ -15,7 +15,7 @@ namespace Kagic_UI.Models.Utilities
         /// <b>Preconditions: </b> hand diferent of null<br/>
         /// <b>Postconditions: </b>Selected card can be played with the available mana<br/>
         /// </summary>
-        /// <returns>bool</returns>
+        /// <returns>bool: true if a card has selected</returns>
         public bool SelectHandCard()
         {
             SelectedCard = null;
@@ -26,9 +26,33 @@ namespace Kagic_UI.Models.Utilities
                     SelectedCard = Hand[i];
                 }
             }
-            return SelectedCard is null;
+            return ! (SelectedCard is null); //
         }
 
+        //TODO cambiar summary
+        /// <summary>
+        /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCriature> enemyCriatures)<br/>
+        /// <b>Description: </b>This method select the target of the enemy criature <br/>
+        /// <b>Preconditions: </b> selected card different of null<br/>
+        /// <b>Postconditions: </b> <br/>
+        /// </summary>
+        /// <returns>int indicating de position of the target</returns>
+        public bool PickCriature()
+        {
+            bool picked = false;
+            for(int i = 0; i<PlaceCriatures.Count || !picked; i++)
+            {
+                if (!PlaceCriatures[i].Used)
+                {    
+                    SelectedCard = PlaceCriatures [i];
+                    picked = true;
+                }
+            }
+
+            return picked;
+        }
+
+        //TODO cambiar summary
         /// <summary>
         /// <b>Headboard: </b>  public int PickEnemyCriature(List<clsCriature> enemyCriatures)<br/>
         /// <b>Description: </b>This method select the target of the enemy criature <br/>
@@ -38,19 +62,13 @@ namespace Kagic_UI.Models.Utilities
         /// <returns>int indicating de position of the target</returns>
         public int PickEnemyCriature(List<clsCriature> enemyCriatures)
         {
-            int enemyIndex;
-            int atackPlace=-1; //Posición a la que va a atacar
-            for(int i = 0; i<PlaceCriatures.Count; i++)
+            int atackPlace = -1; //Posición a la que va a atacar
+            for (int i = 0; i < enemyCriatures.Count; i++)
             {
-                if (!PlaceCriatures[i].Used)
+                //TODO Ataca de izquierda a derecha, mejorar valorando las criaturas que no han atacado los ataques de tus propias criaturas y las vidas de las criaturas enemigas
+                if (enemyCriatures[i] != null)
                 {
-                    enemyIndex = 0;
-                    //TODO Ataca de izquierda a derecha, mejorar valorando las criaturas que no han atacado los ataques de tus propias criaturas y las vidas de las criaturas enemigas
-                    if (enemyCriatures[enemyIndex] != null)
-                    {
-                        atackPlace = enemyIndex;
-                    }
-                    enemyIndex++;
+                    atackPlace = i;
                 }
             }
 
