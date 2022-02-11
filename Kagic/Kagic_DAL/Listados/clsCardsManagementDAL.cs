@@ -87,14 +87,14 @@ namespace Kagic_DAL.Listados
         {
             clsCriature constructedCreature = new clsCriature();
 
-            constructedCreature.Id = (int)reader["Id"];
-            constructedCreature.Name = (string)reader["Name"];
-            constructedCreature.Description = (string)reader["Description"];
-            constructedCreature.Image = (string)reader["Image"];
-            constructedCreature.Manacost = (int)reader["ManaCost"];
-            constructedCreature.Life = (int)reader["Life"];
-            constructedCreature.Actuallife = (int)reader["ActualLife"];
-            constructedCreature.Attack = (int)reader["Attack"];
+            //constructedCreature.Id = (int)reader["Id"];
+            //constructedCreature.Name = (string)reader["Name"];
+            //constructedCreature.Description = (string)reader["Description"];
+            //constructedCreature.Image = (string)reader["Image"];
+            //constructedCreature.Manacost = (int)reader["ManaCost"];
+            //constructedCreature.Life = (int)reader["Life"];
+            //constructedCreature.Actuallife = (int)reader["ActualLife"];
+            //constructedCreature.Attack = (int)reader["Attack"];
 
             return constructedCreature;
         }
@@ -103,14 +103,14 @@ namespace Kagic_DAL.Listados
         {
             clsLifeModifyingSpell constructedSpell = new clsLifeModifyingSpell();
 
-            constructedSpell.Id = (int)reader["Id"];
-            constructedSpell.Name = (string)reader["Name"];
-            constructedSpell.Description = (string)reader["Description"];
-            constructedSpell.Image = (string)reader["Image"];
-            constructedSpell.Manacost = (int)reader["ManaCost"];
-            constructedSpell.Efect = (int)reader["Effect"];
-            constructedSpell.IsDamage = (bool)reader["IsDamage"];
-            constructedSpell.IsArea = (bool)reader["IsArea"];
+            //constructedSpell.Id = (int)reader["Id"];
+            //constructedSpell.Name = (string)reader["Name"];
+            //constructedSpell.Description = (string)reader["Description"];
+            //constructedSpell.Image = (string)reader["Image"];
+            //constructedSpell.Manacost = (int)reader["ManaCost"];
+            //constructedSpell.Efect = (int)reader["Effect"];
+            //constructedSpell.IsDamage = (bool)reader["IsDamage"];
+            //constructedSpell.IsArea = (bool)reader["IsArea"];
 
             return constructedSpell;
         }

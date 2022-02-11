@@ -6,14 +6,19 @@
     xmlns:vm="using:Kagic_UI.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
     <Page.DataContext>
         <vm:VMPruebas/>
     </Page.DataContext>
+
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/Images/Background.png"/>
+    </Page.Background>
     
     <RelativePanel>
+
+        <AppBarButton Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
         <GridView x:Name="gdOpponentCards" MinHeight="200" MinWidth="400" Background="DarkRed"
             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
             
