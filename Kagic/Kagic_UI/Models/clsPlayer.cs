@@ -16,9 +16,8 @@ namespace Kagic_UI.Models
         List<clsCard> deck;
         List<clsCard> hand;
         List<clsCreature> placeCriatures;
-        clsCard selectedCard;
-        clsCreature selectedCriature;
-
+        int selectedCard;
+        int selectedCriature;
         #endregion
 
         #region constant
@@ -38,7 +37,7 @@ namespace Kagic_UI.Models
             this.deck = deck;
             InitialHand();
             this.placeCriatures = new List<clsCreature>(MAX_PLACE_CRIATURES);
-            this.selectedCard = null;
+            this.selectedCard = 0;
         }
 
         //Default constructor
@@ -52,8 +51,8 @@ namespace Kagic_UI.Models
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public List<clsCard> Hand { get => hand; set => hand = value; }
         public List<clsCreature> PlaceCreatures { get => placeCriatures; set => placeCriatures = value; }
-        public clsCard SelectedCard { get => selectedCard; set => selectedCard = value; }
-        public clsCriature SelectedCreature { get => selectedCriature; set => selectedCriature = value; }
+        public int SelectedCard { get => selectedCard; set => selectedCard = value; }
+        public int SelectedCreature { get => selectedCriature; set => selectedCriature = value; }
 
         #endregion
 

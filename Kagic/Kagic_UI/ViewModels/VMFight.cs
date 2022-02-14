@@ -58,11 +58,8 @@ namespace Kagic_UI.ViewModels
 
         #region commands
         /// <summary>
-        ///     <cabecera>private void BuscarCommand_Executed()</cabecera>
-        ///     <descripcion>
-        ///         Método para realizar la función del command buscar al ser ejecutado.
-        ///         El command busca en la lista de personas, aquellos nombres o apellidos que contengan el contenido del textbox txbBarraBusqueda
-        ///     </descripcion> 
+        ///     <cabecera>private void passTurnCommand_Executed()</cabecera>
+        ///     <descripcion>Calls changeTurn's method </descripcion> 
         /// </summary>
         private void passTurnCommand_Executed()
         {
@@ -70,11 +67,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <cabecera>private bool PuedeEjercutarBuscarCommand()</cabecera>
-        ///     <descripcion>
-        ///         Método para comprobar que el command buscar se puede ejecutar.
-        ///         El boton se habilitará si la cadena txbBarraBusqueda es diferente de nula o no esta vacía
-        ///     </descripcion>
+        ///     <cabecera>private bool passTurnCommand_CanExecute()</cabecera>
+        ///     <descripcion>When isPlayerTurn is false, valido is true</descripcion>
         /// </summary>
         /// <returns></returns>
         private bool passTurnCommand_CanExecute()
@@ -93,7 +87,8 @@ namespace Kagic_UI.ViewModels
         #region private methods
 
         /// <summary>
-        /// Metodo para comenzar la partida
+        ///     <cabecera>private void startGame()</cabecera>
+        ///     <descripcion>First method done when a game start. Prepare the decks of the players</descripcion>
         /// </summary>
         private void startGame()
         {
@@ -141,7 +136,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// Metodo para el cambio de turno
+        ///     <cabecera>private void changeTurn()</cabecera>
+        ///     <descripcion>it is done when a turn finishes. Set mana used and  reset selected cards</descripcion>
         /// </summary>
         private void changeTurn()
         {
@@ -154,18 +150,18 @@ namespace Kagic_UI.ViewModels
             {
                 //iaPlayer.setMana();
             }
-            realPlayer.SelectedCard = null;
-            realPlayer.SelectedCreature = null;
-            iaPlayer.SelectedCard = null;
-            iaPlayer.SelectedCreature = null;
+            realPlayer.SelectedCard = -1;
+            realPlayer.SelectedCreature = -1;
+            iaPlayer.SelectedCard = -1;
+            iaPlayer.SelectedCreature = -1;
             //realPlayer.setUsedCriatures();
             //iaPlayer.setUsedCriatures();
-        }
-
+                }
         /// <summary>
-        /// Metodo para comprobar si se ha acabado la partida.
-        /// En caso afirmativo, muestra la vista de victoria o derrota
+        ///     <cabecera>private bool finishGame()</cabecera>
+        ///     <descripcion>Method to validate that anyone's life is 0 or lower </descripcion>
         /// </summary>
+        /// <returns></returns>
         private bool finishGame()
         {
             bool finished = false;
@@ -184,7 +180,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// Metodo principal del combate
+        ///     <cabecera>private void makeAction()</cabecera>
+        ///     <descripcion>Method to make the action during turn </descripcion>
         /// </summary>
         private void makeAction()
         {
@@ -201,7 +198,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// Metodo para realizar las acciones del combate dependiendo del turno
+        ///     <cabecera>private void actionForPlayerTurn(clsPlayer player)</cabecera>
+        ///     <descripcion>Method to choice the action depends of the player </descripcion>
         /// </summary>
         /// <param name="player"></param>
         private void actionForPlayerTurn(clsPlayer player)
@@ -212,7 +210,7 @@ namespace Kagic_UI.ViewModels
             }
             else
             {
-                if (((clsLifeModifyingSpell)player.SelectedCard).IsDamage)
+                if (((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsDamage)
                 {
                     sendAttackSpell();
                 }
@@ -220,33 +218,34 @@ namespace Kagic_UI.ViewModels
                 {
                     sendHealthSpell();
                 }
-                player.Hand.Remove(player.SelectedCard);
+                player.Hand.Remove(player.Hand[player.SelectedCard]);
             }
         }
 
         /// <summary>
         /// <b>Cabecera: </b> private void creaturebattle()<br/>
-        /// <b>Descripcion: </b> Method for update the selectedcards'life depends of selectedcards'atack
+        /// <b>Descripcion: </b> Method for update the criatures'life depends of criatures'atack
         /// </summary>
         private void creaturebattle()
         {
-            realPlayer.SelectedCreature.Actuallife = realPlayer.SelectedCreature.Actuallife - iaPlayer.SelectedCreature.Atack;
-            if(realPlayer.SelectedCreature.Actuallife <= 0){
-                realPlayer.PlaceCreatures.Remove(realPlayer.SelectedCreature);
+            realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife - iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
+            if(realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife <= 0){
+                realPlayer.PlaceCreatures.Remove(realPlayer.PlaceCreatures[realPlayer.SelectedCreature]);
                 NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("RealPlayer.SelectedCreature");
-            iaPlayer.SelectedCreature.Actuallife = iaPlayer.SelectedCreature.Actuallife - realPlayer.SelectedCreature.Atack;
-            if (iaPlayer.SelectedCreature.Actuallife <= 0)
+            NotifyPropertyChanged("RealPlayer.PlaceCreatures");
+            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife - realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
+            if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife <= 0)
             {
-                iaPlayer.PlaceCreatures.Remove(iaPlayer.SelectedCreature);
+                iaPlayer.PlaceCreatures.Remove(iaPlayer.PlaceCreatures[realPlayer.SelectedCreature]);
                 NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
             NotifyPropertyChanged("IaPlayer.SelectedCreature");
         }
 
         /// <summary>
-        /// Metodo para lanzar hechizo de ataque
+        /// <b>Cabecera: </b> private void sendAttackSpell()<br/>
+        /// <b>Descripcion: </b> Method for make spell attack action
         /// </summary>
         private void sendAttackSpell()
         {
@@ -264,21 +263,23 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// Metodo para realizar la accion de lanzar un hechizo de ataque
+        /// <b>Cabecera: </b> private void attackAction(clsPlayer ofense, clsPlayer defensor)<br/>
+        /// <b>Descripcion: </b> Method for make spell attack action
         /// </summary>
         /// <param name="ofense"></param>
         /// <param name="defensor"></param>
         private void attackAction(clsPlayer ofense, clsPlayer defensor)
         {
-            defensor.SelectedCreature.Actuallife = defensor.SelectedCreature.Actuallife - ((clsLifeModifyingSpell)ofense.SelectedCard).Effect;
-            if (defensor.SelectedCreature.Actuallife <= 0)
+            defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife = defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife - ((clsLifeModifyingSpell)ofense.Hand[ofense.SelectedCard]).Effect;
+            if (defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife <= 0)
             {
-                defensor.PlaceCreatures.Remove(defensor.SelectedCreature);
+                defensor.PlaceCreatures.Remove(defensor.PlaceCreatures[realPlayer.SelectedCreature]);
             }
         }
 
         /// <summary>
-        /// metodo para lanzar hechizos de curacion
+        /// <b>Cabecera: </b> private void sendHealthSpell()<br/>
+        /// <b>Descripcion: </b> Method for make spell health action
         /// </summary>
         private void sendHealthSpell()
         {
@@ -286,41 +287,42 @@ namespace Kagic_UI.ViewModels
             {
                 healthAction(realPlayer);
                 NotifyPropertyChanged("RealPlayer.Life");
-                NotifyPropertyChanged("RealPlayer.SelectedCreature");
 
             }
             else
             {
                 healthAction(iaPlayer);
                 NotifyPropertyChanged("IaPlayer.Life");
-                NotifyPropertyChanged("IaPlayer.SelectedCreature");
             }
             
         }
 
         /// <summary>
-        /// Metodo para realizar la accion de curar generico
+        /// <b>Cabecera: </b> private void healthAction(clsPlayer player)<br/>
+        /// <b>Descripcion: </b> Method for make spell health action
         /// </summary>
         /// <param name="player"></param>
         private void healthAction(clsPlayer player)
         {
-            if (player.SelectedCreature != null)
+            if (player.PlaceCreatures[player.SelectedCreature] != null)
             {
-                player.SelectedCreature.Actuallife = player.SelectedCreature.Actuallife + ((clsLifeModifyingSpell)player.SelectedCard).Effect;
-                if (player.SelectedCreature.Actuallife > player.SelectedCreature.Life)
+                player.PlaceCreatures[player.SelectedCreature].Actuallife = player.PlaceCreatures[player.SelectedCreature].Actuallife + ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).Effect;
+                if (player.PlaceCreatures[player.SelectedCreature].Actuallife > player.PlaceCreatures[player.SelectedCreature].Life)
                 {
-                    player.SelectedCreature.Actuallife = player.SelectedCreature.Life;
+                    player.PlaceCreatures[player.SelectedCreature].Actuallife = player.PlaceCreatures[player.SelectedCreature].Life;
                 }
             }
             else
             {
-                player.Life = player.Life + ((clsLifeModifyingSpell)player.SelectedCard).Effect;
+                player.Life = player.Life + ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).Effect;
                 if (player.Life > clsPlayer.MAX_LIFE)
                 {
                     player.Life = clsPlayer.MAX_LIFE;
                 }
             }
         }
+
+       
         #endregion
 
     }

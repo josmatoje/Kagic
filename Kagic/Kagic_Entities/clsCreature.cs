@@ -35,7 +35,7 @@ namespace Kagic_Entities
         #region public properties
         public int Life { get => life; set => life = value; }
         public int Actuallife { get => actuallife; set => actuallife = value; }
-        public int Atack { get => attack; set => attack = value; }
+        public int Attack { get => attack; set => attack = value; }
         public bool Used { get => used; set => used = value; }
 
         #endregion
