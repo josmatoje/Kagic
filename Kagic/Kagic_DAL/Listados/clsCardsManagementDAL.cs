@@ -83,9 +83,9 @@ namespace Kagic_DAL.Listados
             return cardList;
         }
 
-        private static clsCriature constructCreatureCard(SQLiteDataReader reader)
+        private static clsCreature constructCreatureCard(SQLiteDataReader reader)
         {
-            clsCriature constructedCreature = new clsCriature();
+            clsCreature constructedCreature = new clsCreature();
 
             constructedCreature.Id = (int)reader["Id"];
             constructedCreature.Name = (string)reader["Name"];
@@ -108,7 +108,7 @@ namespace Kagic_DAL.Listados
             constructedSpell.Description = (string)reader["Description"];
             constructedSpell.Image = (string)reader["Image"];
             constructedSpell.Manacost = (int)reader["ManaCost"];
-            constructedSpell.Efect = (int)reader["Effect"];
+            constructedSpell.Effect = (int)reader["Effect"];
             constructedSpell.IsDamage = (bool)reader["IsDamage"];
             constructedSpell.IsArea = (bool)reader["IsArea"];
 

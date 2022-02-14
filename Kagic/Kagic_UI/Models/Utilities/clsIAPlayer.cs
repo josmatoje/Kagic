@@ -18,15 +18,12 @@ namespace Kagic_UI.Models.Utilities
         /// <returns>bool: true if a card has selected</returns>
         public bool SelectHandCard()
         {
-            SelectedCard = null;
-            for (int i = 0; i<Hand.Count || SelectedCard is null; i++)
+            for (int i = 0; i<Hand.Count || SelectedCard==-1; i++)
             {
                 if (Hand[i].Manacost < TotalMana - UsedMana)
-                {
-                    SelectedCard = Hand[i];
-                }
+                    SelectedCard = i;
             }
-            return ! (SelectedCard is null); //
+            return SelectedCard !=-1; //Devuelve true si alguna carta ha sido seleccionadad
         }
 
         //TODO cambiar summary
@@ -44,7 +41,7 @@ namespace Kagic_UI.Models.Utilities
             {
                 if (!PlaceCreatures[i].Used)
                 {    
-                    SelectedCard = PlaceCreatures [i];
+                    SelectedCard = i;
                     picked = true;
                 }
             }

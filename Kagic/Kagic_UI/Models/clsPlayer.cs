@@ -15,9 +15,9 @@ namespace Kagic_UI.Models
         int usedMana;
         List<clsCard> deck;
         List<clsCard> hand;
-        List<clsCreature> placeCriatures;
+        List<clsCreature> placeCreatures;
         int selectedCard;
-        int selectedCriature;
+        int selectedCreature;
         #endregion
 
         #region constant
@@ -118,6 +118,12 @@ namespace Kagic_UI.Models
             {
                 creature.Used = false;
             }
+        }
+
+        public void SetAvaibleCards()
+        {
+            foreach(clsCard card in hand)
+                card.IsAvaible = card.Manacost<=totalMana-usedMana;
         }
         #endregion
 
