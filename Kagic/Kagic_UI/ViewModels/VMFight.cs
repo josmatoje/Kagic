@@ -58,8 +58,8 @@ namespace Kagic_UI.ViewModels
 
         #region commands
         /// <summary>
-        ///     <cabecera>private void passTurnCommand_Executed()</cabecera>
-        ///     <descripcion>Calls changeTurn's method </descripcion> 
+        ///     <Headboard>private void passTurnCommand_Executed()</cabecera>
+        ///     <Description>Calls changeTurn's method </descripcion> 
         /// </summary>
         private void passTurnCommand_Executed()
         {
@@ -67,8 +67,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <cabecera>private bool passTurnCommand_CanExecute()</cabecera>
-        ///     <descripcion>When isPlayerTurn is false, valido is true</descripcion>
+        ///     <Headboard>private bool passTurnCommand_CanExecute()</cabecera>
+        ///     <Description>When isPlayerTurn is false, valido is true</descripcion>
         /// </summary>
         /// <returns></returns>
         private bool passTurnCommand_CanExecute()
@@ -87,8 +87,8 @@ namespace Kagic_UI.ViewModels
         #region private methods
 
         /// <summary>
-        ///     <cabecera>private void startGame()</cabecera>
-        ///     <descripcion>First method done when a game start. Prepare the decks of the players</descripcion>
+        ///     <Headboard>private void startGame()</cabecera>
+        ///     <Description>First method done when a game start. Prepare the decks of the players</descripcion>
         /// </summary>
         private void startGame()
         {
@@ -136,8 +136,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <cabecera>private void changeTurn()</cabecera>
-        ///     <descripcion>it is done when a turn finishes. Set mana used and  reset selected cards</descripcion>
+        ///     <Headboard>private void changeTurn()</cabecera>
+        ///     <Description>it is done when a turn finishes. Set mana used and  reset selected cards</descripcion>
         /// </summary>
         private void changeTurn()
         {
@@ -156,10 +156,12 @@ namespace Kagic_UI.ViewModels
             iaPlayer.SelectedCreature = -1;
             //realPlayer.setUsedCriatures();
             //iaPlayer.setUsedCriatures();
-                }
+
+        }
+
         /// <summary>
-        ///     <cabecera>private bool finishGame()</cabecera>
-        ///     <descripcion>Method to validate that anyone's life is 0 or lower </descripcion>
+        ///     <Headboard>private bool finishGame()</cabecera>
+        ///     <Description>Method to validate that anyone's life is 0 or lower </descripcion>
         /// </summary>
         /// <returns></returns>
         private bool finishGame()
@@ -180,8 +182,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <cabecera>private void makeAction()</cabecera>
-        ///     <descripcion>Method to make the action during turn </descripcion>
+        ///     <Headboard>private void makeAction()</cabecera>
+        ///     <Description>Method to make the action during turn </descripcion>
         /// </summary>
         private void makeAction()
         {
@@ -198,8 +200,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <cabecera>private void actionForPlayerTurn(clsPlayer player)</cabecera>
-        ///     <descripcion>Method to choice the action depends of the player </descripcion>
+        ///     <Headboard>private void actionForPlayerTurn(clsPlayer player)</cabecera>
+        ///     <Description>Method to choice the action depends of the player </descripcion>
         /// </summary>
         /// <param name="player"></param>
         private void actionForPlayerTurn(clsPlayer player)
@@ -218,34 +220,40 @@ namespace Kagic_UI.ViewModels
                 {
                     sendHealthSpell();
                 }
-                player.Hand.Remove(player.Hand[player.SelectedCard]);
+                player.Hand.RemoveAt(player.SelectedCard);
             }
         }
 
         /// <summary>
-        /// <b>Cabecera: </b> private void creaturebattle()<br/>
-        /// <b>Descripcion: </b> Method for update the criatures'life depends of criatures'atack
+        /// <b>Headboard: </b> private void creaturebattle()<br/>
+        /// <b>Description: </b> Method for update the criatures'life depends of criatures'atack
         /// </summary>
         private void creaturebattle()
         {
             realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife - iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
             if(realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife <= 0){
-                realPlayer.PlaceCreatures.Remove(realPlayer.PlaceCreatures[realPlayer.SelectedCreature]);
+                //Forma de setear a null para mantener espacios
+                realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = null;
+                //Forma de eliminar de la lista
+                //realPlayer.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
                 NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
             NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife - realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
             if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife <= 0)
             {
-                iaPlayer.PlaceCreatures.Remove(iaPlayer.PlaceCreatures[realPlayer.SelectedCreature]);
+                //Forma de setear a null para mantener espacios
+                iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = null;
+                //Forma de eliminar de la lista
+                //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
                 NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
             NotifyPropertyChanged("IaPlayer.SelectedCreature");
         }
 
         /// <summary>
-        /// <b>Cabecera: </b> private void sendAttackSpell()<br/>
-        /// <b>Descripcion: </b> Method for make spell attack action
+        /// <b>Headboard: </b> private void sendAttackSpell()<br/>
+        /// <b>Description: </b> Method for make spell attack action
         /// </summary>
         private void sendAttackSpell()
         {
@@ -263,8 +271,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// <b>Cabecera: </b> private void attackAction(clsPlayer ofense, clsPlayer defensor)<br/>
-        /// <b>Descripcion: </b> Method for make spell attack action
+        /// <b>Headboard: </b> private void attackAction(clsPlayer ofense, clsPlayer defensor)<br/>
+        /// <b>Description: </b> Method for make spell attack action
         /// </summary>
         /// <param name="ofense"></param>
         /// <param name="defensor"></param>
@@ -273,13 +281,13 @@ namespace Kagic_UI.ViewModels
             defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife = defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife - ((clsLifeModifyingSpell)ofense.Hand[ofense.SelectedCard]).Effect;
             if (defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife <= 0)
             {
-                defensor.PlaceCreatures.Remove(defensor.PlaceCreatures[realPlayer.SelectedCreature]);
+                defensor.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
             }
         }
 
         /// <summary>
-        /// <b>Cabecera: </b> private void sendHealthSpell()<br/>
-        /// <b>Descripcion: </b> Method for make spell health action
+        /// <b>Headboard: </b> private void sendHealthSpell()<br/>
+        /// <b>Description: </b> Method for make spell health action
         /// </summary>
         private void sendHealthSpell()
         {
@@ -298,8 +306,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// <b>Cabecera: </b> private void healthAction(clsPlayer player)<br/>
-        /// <b>Descripcion: </b> Method for make spell health action
+        /// <b>Headboard: </b> private void healthAction(clsPlayer player)<br/>
+        /// <b>Description: </b> Method for make spell health action
         /// </summary>
         /// <param name="player"></param>
         private void healthAction(clsPlayer player)
