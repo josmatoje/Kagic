@@ -17,7 +17,7 @@ namespace Kagic_UI.Models
         List<clsCard> hand;
         List<clsCreature> placeCriatures;
         clsCard selectedCard;
-        clsCriature selectedCriature;
+        clsCreature selectedCriature;
 
         #endregion
 
@@ -51,9 +51,9 @@ namespace Kagic_UI.Models
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public List<clsCard> Hand { get => hand; set => hand = value; }
-        public List<clsCreature> PlaceCriatures { get => placeCriatures; set => placeCriatures = value; }
+        public List<clsCreature> PlaceCreatures { get => placeCriatures; set => placeCriatures = value; }
         public clsCard SelectedCard { get => selectedCard; set => selectedCard = value; }
-        public clsCriature SelectedCriature { get => selectedCriature; set => selectedCriature = value; }
+        public clsCriature SelectedCreature { get => selectedCriature; set => selectedCriature = value; }
 
         #endregion
 

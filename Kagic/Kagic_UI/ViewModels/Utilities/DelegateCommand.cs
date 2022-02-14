@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CRUD_Personas_UWP.ViewModels.Utilidades
+namespace Kagic_UI.ViewModels;
 {
     public class DelegateCommand : ICommand
     {

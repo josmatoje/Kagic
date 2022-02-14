@@ -40,11 +40,11 @@ namespace Kagic_UI.Models.Utilities
         public bool PickCriature()
         {
             bool picked = false;
-            for(int i = 0; i<PlaceCriatures.Count || !picked; i++)
+            for(int i = 0; i<PlaceCreatures.Count || !picked; i++)
             {
-                if (!PlaceCriatures[i].Used)
+                if (!PlaceCreatures[i].Used)
                 {    
-                    SelectedCard = PlaceCriatures [i];
+                    SelectedCard = PlaceCreatures [i];
                     picked = true;
                 }
             }

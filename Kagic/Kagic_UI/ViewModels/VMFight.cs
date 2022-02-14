@@ -16,6 +16,7 @@ namespace Kagic_UI.ViewModels
         clsPlayer realPlayer;
         clsIAPlayer iaPlayer;
         bool isPlayerTurn;
+        DelegateCommand pasarTurnoCommand;
         #endregion
 
         #region constants
@@ -36,6 +37,29 @@ namespace Kagic_UI.ViewModels
         public clsPlayer RealPlayer { get => realPlayer; set => realPlayer = value; }
         public clsIAPlayer IaPlayer { get => iaPlayer; set => iaPlayer = value; }
         public bool IsPlayerTurn { get => isPlayerTurn; set => isPlayerTurn = value; }
+        public DelegateCommand PasarTurnoCommand 
+        {
+            get 
+            {
+                pasarTurnoCommand = new DelegateCommand(pasarTurnoCommand_Executed);
+                return pasarTurnoCommand;
+            }
+            set => pasarTurnoCommand = value; 
+        }
+        #endregion
+
+        #region commands
+        /// <summary>
+        ///     <cabecera>private void BuscarCommand_Executed()</cabecera>
+        ///     <descripcion>
+        ///         Método para realizar la función del command buscar al ser ejecutado.
+        ///         El command busca en la lista de personas, aquellos nombres o apellidos que contengan el contenido del textbox txbBarraBusqueda
+        ///     </descripcion> 
+        /// </summary>
+        private void pasarTurnoCommand_Executed()
+        {
+            changeTurn();
+        }
         #endregion
 
         #region private methods
@@ -103,9 +127,9 @@ namespace Kagic_UI.ViewModels
                 //iaPlayer.setMana();
             }
             realPlayer.SelectedCard = null;
-            realPlayer.SelectedCriature = null;
+            realPlayer.SelectedCreature = null;
             iaPlayer.SelectedCard = null;
-            iaPlayer.SelectedCriature = null;
+            iaPlayer.SelectedCreature = null;
             //realPlayer.setUsedCriatures();
             //iaPlayer.setUsedCriatures();
         }
@@ -154,9 +178,9 @@ namespace Kagic_UI.ViewModels
         /// <param name="player"></param>
         private void actionForPlayerTurn(clsPlayer player)
         {
-            if (player.SelectedCard.GetType() == typeof(clsCriature))
+            if (player.SelectedCard.GetType() == typeof(clsCreature))
             {
-                criaturebattle();
+                creaturebattle();
             }
             else
             {
@@ -173,24 +197,24 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// <b>Cabecera: </b> private void criaturebattle()<br/>
+        /// <b>Cabecera: </b> private void creaturebattle()<br/>
         /// <b>Descripcion: </b> Method for update the selectedcards'life depends of selectedcards'atack
         /// </summary>
-        private void criaturebattle()
+        private void creaturebattle()
         {
-            realPlayer.SelectedCriature.Actuallife = realPlayer.SelectedCriature.Actuallife - iaPlayer.SelectedCriature.Atack;
-            if(realPlayer.SelectedCriature.Actuallife <= 0){
-                realPlayer.PlaceCriatures.Remove(realPlayer.SelectedCriature);
-                NotifyPropertyChanged("RealPlayer.PlaceCriatures");
+            realPlayer.SelectedCreature.Actuallife = realPlayer.SelectedCreature.Actuallife - iaPlayer.SelectedCreature.Atack;
+            if(realPlayer.SelectedCreature.Actuallife <= 0){
+                realPlayer.PlaceCreatures.Remove(realPlayer.SelectedCreature);
+                NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("RealPlayer.SelectedCriature");
-            iaPlayer.SelectedCriature.Actuallife = iaPlayer.SelectedCriature.Actuallife - realPlayer.SelectedCriature.Atack;
-            if (iaPlayer.SelectedCriature.Actuallife <= 0)
+            NotifyPropertyChanged("RealPlayer.SelectedCreature");
+            iaPlayer.SelectedCreature.Actuallife = iaPlayer.SelectedCreature.Actuallife - realPlayer.SelectedCreature.Atack;
+            if (iaPlayer.SelectedCreature.Actuallife <= 0)
             {
-                iaPlayer.PlaceCriatures.Remove(iaPlayer.SelectedCriature);
-                NotifyPropertyChanged("IaPlayer.PlaceCriatures");
+                iaPlayer.PlaceCreatures.Remove(iaPlayer.SelectedCreature);
+                NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("IaPlayer.SelectedCriature");
+            NotifyPropertyChanged("IaPlayer.SelectedCreature");
         }
 
         /// <summary>
@@ -207,8 +231,8 @@ namespace Kagic_UI.ViewModels
                 attackAction(iaPlayer, realPlayer);
                 
             }
-            NotifyPropertyChanged("IaPlayer.PlaceCriatures");
-            NotifyPropertyChanged("RealPlayer.PlaceCriatures");
+            NotifyPropertyChanged("IaPlayer.PlaceCreatures");
+            NotifyPropertyChanged("RealPlayer.PlaceCreatures");
         }
 
         /// <summary>
@@ -218,10 +242,10 @@ namespace Kagic_UI.ViewModels
         /// <param name="defensor"></param>
         private void attackAction(clsPlayer ofense, clsPlayer defensor)
         {
-            defensor.SelectedCriature.Actuallife = defensor.SelectedCriature.Actuallife - ((clsLifeModifyingSpell)ofense.SelectedCard).Efect;
-            if (defensor.SelectedCriature.Actuallife <= 0)
+            defensor.SelectedCreature.Actuallife = defensor.SelectedCreature.Actuallife - ((clsLifeModifyingSpell)ofense.SelectedCard).Effect;
+            if (defensor.SelectedCreature.Actuallife <= 0)
             {
-                defensor.PlaceCriatures.Remove(defensor.SelectedCriature);
+                defensor.PlaceCreatures.Remove(defensor.SelectedCreature);
             }
         }
 
@@ -234,14 +258,14 @@ namespace Kagic_UI.ViewModels
             {
                 healthAction(realPlayer);
                 NotifyPropertyChanged("RealPlayer.Life");
-                NotifyPropertyChanged("RealPlayer.SelectedCriature");
+                NotifyPropertyChanged("RealPlayer.SelectedCreature");
 
             }
             else
             {
                 healthAction(iaPlayer);
                 NotifyPropertyChanged("IaPlayer.Life");
-                NotifyPropertyChanged("IaPlayer.SelectedCriature");
+                NotifyPropertyChanged("IaPlayer.SelectedCreature");
             }
             
         }
@@ -252,17 +276,17 @@ namespace Kagic_UI.ViewModels
         /// <param name="player"></param>
         private void healthAction(clsPlayer player)
         {
-            if (player.SelectedCriature != null)
+            if (player.SelectedCreature != null)
             {
-                player.SelectedCriature.Actuallife = player.SelectedCriature.Actuallife + ((clsLifeModifyingSpell)player.SelectedCard).Efect;
-                if (player.SelectedCriature.Actuallife > player.SelectedCriature.Life)
+                player.SelectedCreature.Actuallife = player.SelectedCreature.Actuallife + ((clsLifeModifyingSpell)player.SelectedCard).Effect;
+                if (player.SelectedCreature.Actuallife > player.SelectedCreature.Life)
                 {
-                    player.SelectedCriature.Actuallife = player.SelectedCriature.Life;
+                    player.SelectedCreature.Actuallife = player.SelectedCreature.Life;
                 }
             }
             else
             {
-                player.Life = player.Life + ((clsLifeModifyingSpell)player.SelectedCard).Efect;
+                player.Life = player.Life + ((clsLifeModifyingSpell)player.SelectedCard).Effect;
                 if (player.Life > clsPlayer.MAX_LIFE)
                 {
                     player.Life = clsPlayer.MAX_LIFE;
