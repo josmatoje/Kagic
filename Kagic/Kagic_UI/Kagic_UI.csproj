@@ -140,6 +140,7 @@
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
     <Content Include="Assets\Images\Logo.png" />
+    <Content Include="Assets\Images\Numbers\1.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
     <Content Include="Assets\PRUEBAS\Marco Azul.png" />

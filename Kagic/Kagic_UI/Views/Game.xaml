@@ -16,15 +16,18 @@
         <ImageBrush ImageSource="/Assets/Images/Background.png"/>
     </Page.Background>
     
-    <RelativePanel>
+    <RelativePanel MinHeight="1020">
 
+        <!-- Back button -->
         <AppBarButton Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
+        
+        <!-- IA Cards -->
         <GridView x:Name="gdOpponentCards" MinHeight="200" MinWidth="400" ItemsSource="{Binding IaCards}" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <RelativePanel Height="300" Width="200">
-                        <Image Source="/Assets/Images/BackImage.png" MaxHeight="300" MaxWidth="200"
+                    <RelativePanel Height="250" Width="150">
+                        <Image Source="/Assets/Images/BackImage.png" MaxHeight="250" MaxWidth="150"
                                RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
                     </RelativePanel>
                 </DataTemplate>
@@ -32,55 +35,56 @@
             
         </GridView>
 
-
+        <!-- Battlefield -->
         <RelativePanel x:Name="stpBattlefield" Margin="5" BorderThickness="3" Padding="5" BorderBrush="White"
                        RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <!-- IA battlefield -->
             <GridView x:Name="gdOpponentCreatures" MinHeight="250" MinWidth="400" Margin="0,0,0,20" BorderThickness="3" BorderBrush="Red"
                       RelativePanel.AlignHorizontalCenterWithPanel="True">
 
             </GridView>
+
+            <!-- Player battlefield -->
             <GridView x:Name="gdPlayerCreatures" MinHeight="250" MinWidth="400" BorderThickness="3" BorderBrush="Blue"
                       RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures">
 
             </GridView>
         </RelativePanel>
 
-
-        
+        <!-- Scoreboard -->
         <RelativePanel x:Name="stpScoreboard" MinHeight="300" MinWidth="150" BorderThickness="3" BorderBrush="White"
                     RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             
         </RelativePanel>
 
+        <!-- Card details -->
+        
         <RelativePanel Height="300" Width="200" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-            <Canvas  
-                 RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-                <Image Source="{Binding Card.Image}" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="1" Stretch="Uniform"/>
+            <Canvas>
+                <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}"/>
+                <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
+                <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource ImageAttack}"/>
+                <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
+                <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
             </Canvas>
-            <Canvas Background="Red" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Opacity="0.30"/>
-            <Canvas Background="Green" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
-            <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
         </RelativePanel>
+        
 
+        <!-- Player Cards -->
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
             
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Height="300" Width="200">
-                        <Canvas  
-                            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-                            <Image Source="{Binding Image}" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="1" Stretch="Uniform"/>
+                        <Canvas>
+                            <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}"/>
+                            <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
+                            <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource ImageAttack}"/>
+                            <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
+                            <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
                         </Canvas>
-                        <Canvas  
-                            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-                            <Image Source="/Assets/PRUEBAS/Marco Azul.png" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="2" Stretch="Uniform"/>
-                        </Canvas>
-
-                        <Canvas Background="Red" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Opacity="0.30" Canvas.ZIndex="3"/>
-                        <Canvas Background="Green" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="3" Opacity="0.30"/>
-                        <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="3" Opacity="0.30"/>
                     </RelativePanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
