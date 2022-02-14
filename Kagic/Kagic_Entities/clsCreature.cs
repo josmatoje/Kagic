@@ -29,6 +29,7 @@ namespace Kagic_Entities
             this.life = 0;
             this.actuallife = 0;
             this.attack = 0;
+            this.used = true;
         }
         #endregion
 
