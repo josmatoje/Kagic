@@ -17,6 +17,7 @@ namespace Kagic_UI.ViewModels
         clsIAPlayer iaPlayer;
         bool isPlayerTurn;
         DelegateCommand passTurnCommand;
+        DelegateCommand attackContraryPlayerCommand;
         #endregion
 
         #region constants
@@ -54,6 +55,16 @@ namespace Kagic_UI.ViewModels
             }
             set => passTurnCommand = value; 
         }
+        public DelegateCommand AttackContraryPlayerCommand 
+        {
+            get 
+            {
+                attackContraryPlayerCommand = new DelegateCommand(atackContraryPlayerCommand_Executed, atackContraryPlayerCommand_CanExecute);
+                return attackContraryPlayerCommand; 
+            }
+
+            set => attackContraryPlayerCommand = value; 
+        }
         #endregion
 
         #region commands
@@ -79,6 +90,62 @@ namespace Kagic_UI.ViewModels
                 valido = false;
             {
 
+            }
+            return valido;
+        }
+
+        /// <summary>
+        ///     <Headboard>private void passTurnCommand_Executed()</cabecera>
+        ///     <Description>Calls changeTurn's method </descripcion> 
+        /// </summary>
+        private void atackContraryPlayerCommand_Executed()
+        {
+            int damage = 0;
+
+            if(isPlayerTurn == false)
+            {
+                if (realPlayer.SelectedCard != -1)
+                {
+                    damage = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCard]).Effect;
+                }
+                else
+                {
+                    damage = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
+                }
+            }
+            else
+            {
+                if (iaPlayer.SelectedCard != -1)
+                {
+                    damage = ((clsLifeModifyingSpell)iaPlayer.Hand[iaPlayer.SelectedCard]).Effect;
+                }
+                else
+                {
+                    damage = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
+                }
+            }
+            
+            attackContraryPlayer(damage);
+        }
+
+        /// <summary>
+        ///     <Headboard>private bool passTurnCommand_CanExecute()</cabecera>
+        ///     <Description>When isPlayerTurn is false, valido is true</descripcion>
+        /// </summary>
+        /// <returns></returns>
+        private bool atackContraryPlayerCommand_CanExecute()
+        {
+            bool valido = true;
+            clsPlayer player = realPlayer;
+
+            if (isPlayerTurn == false)
+            {
+                player = iaPlayer;
+            }
+
+            if (player.SelectedCard == -1 && noEnemiesFront())
+            {
+                valido = false;
             }
             return valido;
         }
@@ -307,8 +374,9 @@ namespace Kagic_UI.ViewModels
 
         /// <summary>
         /// <b>Headboard: </b> private void healthAction(clsPlayer player)<br/>
-        /// <b>Description: </b> Method for make spell health action
+        /// <b>Description: </b> Method for make spell health action, and Santi sucks
         /// </summary>
+        /// 
         /// <param name="player"></param>
         private void healthAction(clsPlayer player)
         {
@@ -330,7 +398,41 @@ namespace Kagic_UI.ViewModels
             }
         }
 
-       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+       private bool noEnemiesFront()
+        {
+            bool noEnemies = true;
+            clsPlayer player = realPlayer;
+
+            if (isPlayerTurn == false)
+            {
+                player = iaPlayer;
+            }
+
+            foreach (clsCreature auxCreature in player.PlaceCreatures)
+            {
+                if(auxCreature.Id != -1)
+                {
+                    noEnemies = false;
+                }
+            }
+            return noEnemies;
+        }
+
+        private void attackContraryPlayer(int damage)
+        {
+            if(isPlayerTurn == false)
+            {
+                realPlayer.Life -= damage;
+            }
+            else
+            {
+                iaPlayer.Life -= damage;
+            }
+        }
         #endregion
 
     }

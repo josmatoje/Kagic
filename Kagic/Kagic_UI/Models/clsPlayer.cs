@@ -50,7 +50,7 @@ namespace Kagic_UI.Models
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public List<clsCard> Hand { get => hand; set => hand = value; }
-        public List<clsCreature> PlaceCreatures { get => placeCriatures; set => placeCriatures = value; }
+        public List<clsCreature> PlaceCreatures { get => placeCriatures; set => placeCriatures = value;}
         public int SelectedCard { get => selectedCard; set => selectedCard = value; }
         public int SelectedCreature { get => selectedCriature; set => selectedCriature = value; }
 
