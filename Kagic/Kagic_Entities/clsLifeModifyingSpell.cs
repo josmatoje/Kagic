@@ -15,9 +15,9 @@ namespace Kagic_Entities
 
         #region constructors
         //Parameterized constuctor
-        public clsLifeModifyingSpell(int id, string name, string description, string image, int manacost, int efect, bool isDamage, bool isArea) : base( id,  name,  description,  image,  manacost)
+        public clsLifeModifyingSpell(int id, string name, string description, string image, int manacost, int effect, bool isDamage, bool isArea) : base( id,  name,  description,  image,  manacost)
         {
-            this.effect = efect;
+            this.effect = effect;
             this.isDamage = isDamage;
             this.isArea = isArea;
         }

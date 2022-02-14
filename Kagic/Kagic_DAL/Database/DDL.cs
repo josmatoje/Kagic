@@ -20,7 +20,7 @@ namespace Kagic_DAL.Database
         /// <summary>
         /// <b>Headboard: </b>public static void createDatabase()<br/>
         /// <b>Description: </b>This method creates an SQLite Database in local storage filling it with data.<br/>
-        /// <b>Preconditions: </b> Anyone<br/>
+        /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b> Database created and data-filled.<br/>
         /// </summary>
         public static void createDatabase()
@@ -47,10 +47,10 @@ namespace Kagic_DAL.Database
         #region Database Tables
 
         /// <summary>
-        /// <b>Headboard: </b>private void InitialHand()<br/>
-        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
-        /// <b>Preconditions: </b> Anyone<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
+        /// <b>Headboard: </b>private static void fillDatabase(SQLiteConnection myconnection)<br/>
+        /// <b>Description: </b>This method checks that the tables of an SQLite Database are empty and fills them with data.<br/>
+        /// <b>Preconditions: </b>SQLiteConnection must exists and must be opened.<br/>
+        /// <b>Postconditions: </b>Database filled with data.<br/>
         /// </summary>
         /// <param name="myconnection"></param>
         private static void fillDatabase(SQLiteConnection myconnection)
@@ -70,28 +70,28 @@ namespace Kagic_DAL.Database
 
         }
 
-            #region Data insertions
+        #region Data insertions
 
         /// <summary>
-        /// <b>Headboard: </b>private void InitialHand()<br/>
-        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
-        /// <b>Preconditions: </b> Anyone<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
+        /// <b>Headboard: </b>private static void fillTableCreatures(SQLiteConnection myconnection)<br/>
+        /// <b>Description: </b>This method inserts data into a CreatureCards-named table from an SQLiteDatabase.<br/>
+        /// <b>Preconditions: </b>SQLiteConnection must exists and must be opened.<br/>
+        /// <b>Postconditions: </b>CreatureCards table filled with data.<br/>
         /// </summary>
         /// <param name="myconnection"></param>
         private static void fillTableCreatures(SQLiteConnection myconnection)
         {
             SQLiteCommand createCreatureCard = new SQLiteCommand("INSERT INTO CreatureCards (Name, Description, Image, ManaCost, Life, Attack) " +
                                                                  "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'\\Assets\\PRUEBAS\\solar_kitten.jpg\', 3, 3, 3 )", myconnection);
-
+            
             createCreatureCard.ExecuteNonQuery();
         }
 
         /// <summary>
-        /// <b>Headboard: </b>private void InitialHand()<br/>
-        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
-        /// <b>Preconditions: </b> Anyone<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
+        /// <b>Headboard: </b>private static void fillTableSpells(SQLiteConnection myconnection)<br/>
+        /// <b>Description: </b>This method inserts data into a SpellCards-named table from an SQLiteDatabase.<br/>
+        /// <b>Preconditions: </b>SQLiteConnection must exists and must be opened.<br/>
+        /// <b>Postconditions: </b>SpellCards table filled with data.<br/>
         /// </summary>
         /// <param name="myconnection"></param>
         private static void fillTableSpells(SQLiteConnection myconnection)
@@ -102,13 +102,13 @@ namespace Kagic_DAL.Database
         }
         #endregion
 
-            #region Tables creation
+        #region Tables creation
 
         /// <summary>
-        /// <b>Headboard: </b>private void InitialHand()<br/>
-        /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
-        /// <b>Preconditions: </b> Anyone<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
+        /// <b>Headboard: </b>private static void createTables(SQLiteConnection myconnection)<br/>
+        /// <b>Description: </b>This method creates two tables with their respective columns.<br/>
+        /// <b>Preconditions: </b>SQLiteConnection must exists and must be opened.<br/>
+        /// <b>Postconditions: </b>Tables CreatureCards and SpellCards are created in the Database.<br/>
         /// </summary>
         /// <param name="myconnection"></param>
         private static void createTables(SQLiteConnection myconnection)
