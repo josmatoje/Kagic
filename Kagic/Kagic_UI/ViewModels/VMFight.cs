@@ -16,7 +16,7 @@ namespace Kagic_UI.ViewModels
         clsPlayer realPlayer;
         clsIAPlayer iaPlayer;
         bool isPlayerTurn;
-        DelegateCommand pasarTurnoCommand;
+        DelegateCommand passTurnCommand;
         #endregion
 
         #region constants
@@ -36,15 +36,23 @@ namespace Kagic_UI.ViewModels
         #region public properties
         public clsPlayer RealPlayer { get => realPlayer; set => realPlayer = value; }
         public clsIAPlayer IaPlayer { get => iaPlayer; set => iaPlayer = value; }
-        public bool IsPlayerTurn { get => isPlayerTurn; set => isPlayerTurn = value; }
-        public DelegateCommand PasarTurnoCommand 
+        public bool IsPlayerTurn 
+        { 
+            get => isPlayerTurn;
+            set
+            {
+                isPlayerTurn = value;
+                passTurnCommand.RaiseCanExecuteChanged();
+            }
+        }
+        public DelegateCommand PassTurnCommand 
         {
             get 
             {
-                pasarTurnoCommand = new DelegateCommand(pasarTurnoCommand_Executed);
-                return pasarTurnoCommand;
+                passTurnCommand = new DelegateCommand(passTurnCommand_Executed, passTurnCommand_CanExecute);
+                return passTurnCommand;
             }
-            set => pasarTurnoCommand = value; 
+            set => passTurnCommand = value; 
         }
         #endregion
 
@@ -56,9 +64,29 @@ namespace Kagic_UI.ViewModels
         ///         El command busca en la lista de personas, aquellos nombres o apellidos que contengan el contenido del textbox txbBarraBusqueda
         ///     </descripcion> 
         /// </summary>
-        private void pasarTurnoCommand_Executed()
+        private void passTurnCommand_Executed()
         {
             changeTurn();
+        }
+
+        /// <summary>
+        ///     <cabecera>private bool PuedeEjercutarBuscarCommand()</cabecera>
+        ///     <descripcion>
+        ///         Método para comprobar que el command buscar se puede ejecutar.
+        ///         El boton se habilitará si la cadena txbBarraBusqueda es diferente de nula o no esta vacía
+        ///     </descripcion>
+        /// </summary>
+        /// <returns></returns>
+        private bool passTurnCommand_CanExecute()
+        {
+            bool valido = true;
+
+            if (isPlayerTurn == false)
+                valido = false;
+            {
+
+            }
+            return valido;
         }
         #endregion
 
