@@ -16,16 +16,15 @@ namespace Kagic_UI.Models
         List<clsCard> deck;
         List<clsCard> hand;
         List<clsCreature> placeCreatures;
-        clsCard selectedCard;
-        clsCreature selectedCreature;
-
+        int selectedCard;
+        int selectedCreature;
         #endregion
 
         #region constant
         public const int MAX_MANA = 10;
         public const int MAX_LIFE = 10;
         public const int MAX_HAND_CARDS = 7;
-        public const int MAX_PLACE_CRIATURES = 5;
+        public const int MAX_PLACE_CREATURES = 5;
         #endregion
 
         #region constructor
@@ -37,8 +36,10 @@ namespace Kagic_UI.Models
             this.usedMana = 0;
             this.deck = deck;
             InitialHand();
-            this.placeCreatures = new List<clsCreature>(MAX_PLACE_CRIATURES);
-            this.selectedCard = null;
+            this.placeCreatures = new List<clsCreature>(MAX_PLACE_CREATURES);
+            InitializePlaceCreatures();
+            this.selectedCard = -1;
+            this.selectedCreature = -1;
         }
 
         //Default constructor
@@ -52,8 +53,8 @@ namespace Kagic_UI.Models
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public List<clsCard> Hand { get => hand; set => hand = value; }
         public List<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
-        public clsCard SelectedCard { get => selectedCard; set => selectedCard = value; }
-        public clsCreature SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
+        public int SelectedCard { get => selectedCard; set => selectedCard = value; }
+        public int SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
 
         #endregion
 
@@ -87,8 +88,24 @@ namespace Kagic_UI.Models
         /// </summary>
         public void PutCard()
         {
-
+            if (hand[selectedCard] is clsCreature)
+            {
+                placeCreatures[selectedCreature] = (clsCreature) hand[selectedCard];
+                hand.RemoveAt(selectedCard);
+            }
+            
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetMana()
+        {
+            if (totalMana < MAX_MANA)
+                totalMana++;
+            usedMana = 0;
+        }
+
         /// <summary>
         /// <b>Headboard: </b>public void SetUsedCreatures()<br/>
         /// <b>Description: </b>Set all the creatures on the field to unused (used = false)<br/>
@@ -97,7 +114,16 @@ namespace Kagic_UI.Models
         /// </summary>
         public void SetUsedCreatures()
         {
+            foreach(clsCreature creature in placeCreatures)
+            {
+                creature.Used = false;
+            }
+        }
 
+        public void SetAvaibleCards()
+        {
+            foreach(clsCard card in hand)
+                card.IsAvaible = card.Manacost<=totalMana-usedMana;
         }
         #endregion
 
@@ -117,6 +143,27 @@ namespace Kagic_UI.Models
                 deck.RemoveAt(0);
             }
         }
+
+
+        /// <summary>
+        /// <b>Headboard: </b>private void InitializePlaceCreatures()<br/>
+        /// <b>Description: </b>This method generate default creatures for the Place creatures list<br/>
+        /// <b>Preconditions: </b> None<br/>
+        /// <b>Postconditions: </b> None<br/>
+        /// </summary>
+        private void InitializePlaceCreatures()
+        {
+            for(int i = 0; i < MAX_PLACE_CREATURES; i++)
+            {
+                placeCreatures.Add(new clsCreature());
+            }
+        }
+
+        //private clsCard getSelectedCard()
+        //{
+        //    return placeCreatures[selectedCard]; ;
+        //}
+
         #endregion
 
     }

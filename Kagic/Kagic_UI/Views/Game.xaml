@@ -50,8 +50,8 @@
         </RelativePanel>
 
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}" Background="CornflowerBlue"
-            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
-            
+            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" ItemClick="{Binding }">
+
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Height="300" Width="200">

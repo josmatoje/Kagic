@@ -32,5 +32,6 @@ namespace Kagic_UI.ViewModels
         public clsCard Card { get => card; set => card = value; }
         public ObservableCollection<clsCard> IaCards { get => iaCards; set => iaCards = value; }
         public ObservableCollection<clsCard> PlayerCards { get => playerCards; set => playerCards = value; }
+
     }
 }
