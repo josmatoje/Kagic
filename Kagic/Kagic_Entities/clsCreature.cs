@@ -15,11 +15,11 @@ namespace Kagic_Entities
 
         #region constructors
         //Parameterized constuctor
-        public clsCreature(int id, string name, string description, string image, int manacost, int life, int actuallife, int atack) : base( id,  name,  description,  image,  manacost)
+        public clsCreature(int id, string name, string description, string image, int manacost, int life, int actuallife, int attack) : base( id,  name,  description,  image,  manacost)
         {
             this.life = life;
             this.actuallife = actuallife;
-            this.attack = atack;
+            this.attack = attack;
             this.used = true;   
         }
 

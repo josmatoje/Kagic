@@ -61,7 +61,7 @@ namespace Kagic_UI.Models
         #region public methods
         /// <summary>
         /// <b>Headboard: </b>private void DrawCard()<br/>
-        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
+        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life decrease<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
@@ -80,7 +80,7 @@ namespace Kagic_UI.Models
         }
         /// <summary>
         /// <b>Headboard: </b>private void PutCard()<br/>
-        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
+        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life decrease<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
@@ -108,12 +108,12 @@ namespace Kagic_UI.Models
         }
 
         /// <summary>
-        /// <b>Headboard: </b>public void SetUsedCriatures()<br/>
-        /// <b>Description: </b>Set all the creatures on the field to unsed (used = false)<br/>
+        /// <b>Headboard: </b>public void SetUsedCreatures()<br/>
+        /// <b>Description: </b>Set all the creatures on the field to unused (used = false)<br/>
         /// <b>Preconditions: </b>None<br/>
-        /// <b>Postconditions: </b>Criatures are updated<br/>
+        /// <b>Postconditions: </b>Creatures are updated<br/>
         /// </summary>
-        public void SetUsedCriatures()
+        public void SetUsedCreatures()
         {
             foreach(clsCreature creature in placeCreatures)
                 creature.Used = false;
