@@ -1,4 +1,5 @@
-﻿using Kagic_Entities;
+﻿using Kagic_BL;
+using Kagic_Entities;
 using Kagic_UI.Models;
 using Kagic_UI.Models.Utilities;
 using System;
@@ -31,6 +32,7 @@ namespace Kagic_UI.ViewModels
         {
             realPlayer = new clsPlayer();
             iaPlayer = new clsIAPlayer();
+            startGame();
         }
         #endregion
 
@@ -159,11 +161,11 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void startGame()
         {
-            List<clsCard> cards = new List<clsCard>();
-            //cards = DAL.obtenerListadoCartas()
+            List<clsCard> cards = new List<clsCard>(clsCardsManagementBL.getCardsListBL());
             realPlayer.Deck = CardsDeck(cards);
             iaPlayer.Deck = CardsDeck(cards);
             //random para ver quien empieza isPlayerTurn
+            isPlayerTurn = (new Random()).Next(10)>5;
         }
 
         /// <summary>

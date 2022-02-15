@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.DataContext>
-        <vm:VMPruebas/>
+        <vm:VMFight/>
     </Page.DataContext>
     
     <RelativePanel>
@@ -49,8 +49,8 @@
             <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
         </RelativePanel>
 
-        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}" Background="CornflowerBlue"
-            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" ItemClick="{Binding }">
+        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand}" Background="CornflowerBlue"
+            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True"  >
 
             <GridView.ItemTemplate>
                 <DataTemplate>

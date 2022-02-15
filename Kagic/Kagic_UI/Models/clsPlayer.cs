@@ -62,8 +62,8 @@ namespace Kagic_UI.Models
         /// <summary>
         /// <b>Headboard: </b>private void DrawCard()<br/>
         /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
-        /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
         public void DrawCard()
         {
@@ -74,17 +74,15 @@ namespace Kagic_UI.Models
             else
             {
                 if (hand.Count < MAX_HAND_CARDS)
-                {
                     hand.Add(deck[0]);
-                }
                 deck.RemoveAt(0);
             }
         }
         /// <summary>
         /// <b>Headboard: </b>private void PutCard()<br/>
         /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life goes down<br/>
-        /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> Hand and field updated<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
         public void PutCard()
         {
@@ -93,11 +91,14 @@ namespace Kagic_UI.Models
                 placeCreatures[selectedCreature] = (clsCreature) hand[selectedCard];
                 hand.RemoveAt(selectedCard);
             }
-            
+
         }
 
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>public void SetMana()<br/>
+        /// <b>Description: </b>Increases the total mana to the limit and set the used to zero<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Manas are updated<br/>
         /// </summary>
         public void SetMana()
         {
@@ -109,17 +110,20 @@ namespace Kagic_UI.Models
         /// <summary>
         /// <b>Headboard: </b>public void SetUsedCriatures()<br/>
         /// <b>Description: </b>Set all the creatures on the field to unsed (used = false)<br/>
-        /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> Criatures are updated<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Criatures are updated<br/>
         /// </summary>
         public void SetUsedCriatures()
         {
             foreach(clsCreature creature in placeCreatures)
-            {
                 creature.Used = false;
-            }
         }
-
+        /// <summary>
+        /// <b>Headboard: </b>public void SetAvaibleCards()<br/>
+        /// <b>Description: </b>Change the availability of the hand cards in view of the actual mana<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>cards are updated<br/>
+        /// </summary>
         public void SetAvaibleCards()
         {
             foreach(clsCard card in hand)
@@ -131,8 +135,8 @@ namespace Kagic_UI.Models
         /// <summary>
         /// <b>Headboard: </b>private void InitialHand()<br/>
         /// <b>Description: </b>This method add to the hand the first 3 cards of the deck<br/>
-        /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> Hand updated<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
         private void InitialHand()
         {
@@ -148,22 +152,14 @@ namespace Kagic_UI.Models
         /// <summary>
         /// <b>Headboard: </b>private void InitializePlaceCreatures()<br/>
         /// <b>Description: </b>This method generate default creatures for the Place creatures list<br/>
-        /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> None<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>None<br/>
         /// </summary>
         private void InitializePlaceCreatures()
         {
             for(int i = 0; i < MAX_PLACE_CREATURES; i++)
-            {
                 placeCreatures.Add(new clsCreature());
-            }
         }
-
-        //private clsCard getSelectedCard()
-        //{
-        //    return placeCreatures[selectedCard]; ;
-        //}
-
         #endregion
 
     }
