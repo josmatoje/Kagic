@@ -19,6 +19,8 @@ namespace Kagic_UI.ViewModels
         bool isPlayerTurn;
         DelegateCommand passTurnCommand;
         DelegateCommand attackContraryPlayerCommand;
+        DelegateCommand changeActualSelectedCardCommand;
+        clsCard selectedCard;
         #endregion
 
         #region constants
@@ -30,9 +32,7 @@ namespace Kagic_UI.ViewModels
         #region constructor
         public VMFight()
         {
-            realPlayer = new clsPlayer();
-            iaPlayer = new clsIAPlayer();
-            startGame();
+            StartGame();
         }
         #endregion
 
@@ -66,6 +66,14 @@ namespace Kagic_UI.ViewModels
             }
 
             set => attackContraryPlayerCommand = value; 
+        }
+        public DelegateCommand ChangeActualSelectedCardCommand 
+        {   get => changeActualSelectedCardCommand; 
+            set => changeActualSelectedCardCommand = value; 
+        }
+        public clsCard SelectedCard { 
+            get => selectedCard; 
+            set => selectedCard = value; 
         }
         #endregion
 
@@ -159,11 +167,11 @@ namespace Kagic_UI.ViewModels
         ///     <Headboard>private void startGame()</cabecera>
         ///     <Description>First method done when a game start. Prepare the decks of the players</descripcion>
         /// </summary>
-        private void startGame()
+        private void StartGame()
         {
             List<clsCard> cards = new List<clsCard>(clsCardsManagementBL.getCardsListBL());
-            realPlayer.Deck = CardsDeck(cards);
-            iaPlayer.Deck = CardsDeck(cards);
+            realPlayer = new clsPlayer(CardsDeck(cards));
+            iaPlayer = new clsIAPlayer(CardsDeck(cards));
             //random para ver quien empieza isPlayerTurn
             isPlayerTurn = (new Random()).Next(10)>5;
         }
@@ -182,23 +190,27 @@ namespace Kagic_UI.ViewModels
             List<clsCard> deck= new List<clsCard>();
             int position, counter;
 
-            for(int i = 0; i < DECK_SIZE;)
+            //for(int i = 0; i < DECK_SIZE;)
+            //{
+            //    position = random.Next(cardsList.Count);
+            //    counter = 0;
+            //    //foreach(clsCard card in deck)
+            //    for(int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
+            //    {
+            //       if (deck[j].GetType() == cardsList[i].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
+            //        {
+            //            counter++;
+            //        }
+            //    }
+            //    if(counter < MAX_REPETED_CARDS_DECK)
+            //    {
+            //        deck.Add(cardsList[i]);
+            //        i++;
+            //    }  
+            //}
+            for(int i = 0; i < DECK_SIZE; i++)
             {
-                position = random.Next(cardsList.Count);
-                counter = 0;
-                //foreach(clsCard card in deck)
-                for(int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
-                {
-                    if(deck[j].GetType() == cardsList[i].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
-                    {
-                        counter++;
-                    }
-                }
-                if(counter < MAX_REPETED_CARDS_DECK)
-                {
-                    deck.Add(cardsList[i]);
-                    i++;
-                }  
+                deck.Add(cardsList[0]);
             }
 
             return deck;

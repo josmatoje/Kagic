@@ -143,8 +143,8 @@ namespace Kagic_UI.Models
             this.hand = new List<clsCard>();
             for(int i=0; i<3; i++)
             {
-                hand.Add(deck[0]);
-                deck.RemoveAt(0);
+                this.hand.Add(deck[0]);
+                this.deck.RemoveAt(0);
             }
         }
 

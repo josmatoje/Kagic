@@ -93,7 +93,6 @@ namespace Kagic_DAL.Listados
             constructedCreature.Image = (string)reader["Image"];
             constructedCreature.Manacost = Convert.ToInt32(reader["ManaCost"]);
             constructedCreature.Life = Convert.ToInt32(reader["Life"]);
-            constructedCreature.Actuallife = Convert.ToInt32(reader["ActualLife"]);
             constructedCreature.Attack = Convert.ToInt32(reader["Attack"]);
 
             return constructedCreature;
@@ -109,8 +108,8 @@ namespace Kagic_DAL.Listados
             constructedSpell.Image = (string)reader["Image"];
             constructedSpell.Manacost = Convert.ToInt32(reader["ManaCost"]);
             constructedSpell.Effect = Convert.ToInt32(reader["Effect"]);
-            constructedSpell.IsDamage = (bool)reader["IsDamage"];
-            constructedSpell.IsArea = (bool)reader["IsArea"];
+            constructedSpell.IsDamage = Convert.ToInt32(reader["IsDamage"])==1; //Si es igual a 1 la comparación devuelve true (1 = true)
+            constructedSpell.IsArea = Convert.ToInt32(reader["IsArea"])==1;
 
             return constructedSpell;
         }

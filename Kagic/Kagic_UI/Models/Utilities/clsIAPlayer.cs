@@ -9,6 +9,12 @@ namespace Kagic_UI.Models.Utilities
 {
     public class clsIAPlayer : clsPlayer
     {
+        #region constructor
+
+        public clsIAPlayer(List<clsCard> deck) : base(deck){}
+        #endregion
+
+        #region public methods
         /// <summary>
         /// <b>Headboard: </b>public bool SelectHandCard()<br/>
         /// <b>Description: </b>This method select the first card in the hand that could be used and returns a boolean.<br/>
@@ -71,5 +77,6 @@ namespace Kagic_UI.Models.Utilities
 
             return atackPlace;
         }
+        #endregion
     }
 }

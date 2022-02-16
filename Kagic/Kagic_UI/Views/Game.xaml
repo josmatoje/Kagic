@@ -42,14 +42,14 @@
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <Canvas  
                  RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-                <Image Source="{Binding Card.Image}" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="1" Stretch="Uniform"/>
+                <Image Source="{Binding SelectedCard.Image}" MaxHeight="300" MaxWidth="200" Canvas.ZIndex="1" Stretch="Uniform"/>
             </Canvas>
             <Canvas Background="Red" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Opacity="0.30"/>
             <Canvas Background="Green" Margin="0,0,0,10" Width="50" Height="50" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
             <Canvas Background="LightSteelBlue" Width="50" Height="50" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Canvas.ZIndex="2" Opacity="0.30"/>
         </RelativePanel>
 
-        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand}" Background="CornflowerBlue"
+        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand, UpdateSourceTrigger=PropertyChanged}" Background="CornflowerBlue"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True"  >
 
             <GridView.ItemTemplate>
