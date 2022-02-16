@@ -54,7 +54,7 @@ namespace Kagic_DAL.Database
         private static void fillTableCreatures(SQLiteConnection myconnection)
         {
             SQLiteCommand createCreatureCard = new SQLiteCommand("INSERT INTO CreatureCards (Name, Description, Image, ManaCost, Life, Attack) " +
-                                                                 "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'\\Assets\\PRUEBAS\\solar_kitten.jpg\', 3, 3, 3 )", myconnection);
+                                                                 "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 3, 3 )", myconnection);
 
             createCreatureCard.ExecuteNonQuery();
         }
@@ -62,7 +62,7 @@ namespace Kagic_DAL.Database
         private static void fillTableSpells(SQLiteConnection myconnection)
         {
             SQLiteCommand createSpellCard = new SQLiteCommand("INSERT INTO SpellCards (Name, Description, Image, ManaCost, Effect, IsDamage, IsArea) " +
-                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'\\Assets\\PRUEBAS\\CartaSeta.png\', 4, 4, 1, 0)", myconnection);
+                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 4, 1, 0)", myconnection);
             createSpellCard.ExecuteNonQuery();
         }
 
