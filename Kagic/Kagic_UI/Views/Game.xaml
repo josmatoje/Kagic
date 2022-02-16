@@ -19,16 +19,19 @@
     <RelativePanel MinHeight="1020">
 
         <!-- Back button -->
-        <AppBarButton Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
+        <AppBarButton x:Name="btnBack" Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
         
         <!-- IA Cards -->
-        <GridView x:Name="gdOpponentCards" MinHeight="200" MinWidth="400" ItemsSource="{Binding IaCards}" BorderThickness="3" BorderBrush="White"
-            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaCards}" 
+            VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" >
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <RelativePanel Height="250" Width="150">
-                        <Image Source="/Assets/Images/BackImage.png" MaxHeight="250" MaxWidth="150"
-                               RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                    <RelativePanel Height="200" Width="150" VerticalAlignment="Bottom">
+                        <Canvas>
+                            <Image VerticalAlignment="top" Source="/Assets/Images/BackImage.png" MaxHeight="250" MaxWidth="150" Canvas.Top="-100"
+                                RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                        </Canvas>
                     </RelativePanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
@@ -37,7 +40,7 @@
 
         <!-- Battlefield -->
         <RelativePanel x:Name="stpBattlefield" Margin="5" BorderThickness="3" Padding="5" BorderBrush="White"
-                       RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                       RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True">
             <!-- IA battlefield -->
             <GridView x:Name="gdOpponentCreatures" MinHeight="250" MinWidth="400" Margin="0,0,0,20" BorderThickness="3" BorderBrush="Red"
                       RelativePanel.AlignHorizontalCenterWithPanel="True">
@@ -51,14 +54,27 @@
             </GridView>
         </RelativePanel>
 
-        <!-- Scoreboard -->
-        <RelativePanel x:Name="stpScoreboard" MinHeight="300" MinWidth="150" BorderThickness="3" BorderBrush="White"
-                    RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+        <!-- Scoreboards -->
+        <RelativePanel x:Name="stpIaScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
+                    RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
+            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="80" Foreground="Red"
+                     RelativePanel.AlignBottomWithPanel="True"/>
+            <Image x:Name="imgIaLife" Source="/Assets/Images/Life.png" Height="150" Canvas.ZIndex="1" RelativePanel.AlignTopWithPanel="True"/>
+            <Image x:Name="imgTensNumber" Source="{Binding Number}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+            <Image x:Name="imgUnitsNumber" Source="{Binding Number}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+            
+            
             
         </RelativePanel>
 
+        <RelativePanel x:Name="stpPlayerScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
+                    RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
+            <Image x:Name="imgPlayerLife" Source="/Assets/Images/Life.png" Height="150" RelativePanel.AlignTopWithPanel="True"/>
+            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20"
+                     RelativePanel.AlignBottomWithPanel="True"/>
+        </RelativePanel>
+
         <!-- Card details -->
-        
         <RelativePanel Height="300" Width="200" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <Canvas>

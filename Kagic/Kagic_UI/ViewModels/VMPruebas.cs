@@ -15,6 +15,8 @@ namespace Kagic_UI.ViewModels
         private ObservableCollection<clsCard> playerCards;
         private ObservableCollection<clsCard> iaCards;
 
+        private string number = "/Assets/Images/Numbers/1.png";
+
         //private string backImage = clsCard.BACK_IMAGE;
 
         public VMPruebas()
@@ -47,6 +49,7 @@ namespace Kagic_UI.ViewModels
         public clsCard Card { get => card; set => card = value; }
         public ObservableCollection<clsCard> IaCards { get => iaCards; set => iaCards = value; }
         public ObservableCollection<clsCard> PlayerCards { get => playerCards; set => playerCards = value; }
+        public string Number { get => number; set => number = value; }
         //public string BackImage { get => backImage;}
     }
 }
