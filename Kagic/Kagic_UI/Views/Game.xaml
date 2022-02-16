@@ -62,12 +62,13 @@
         <RelativePanel Height="300" Width="200" BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <Canvas>
-                <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}"/>
+                <Image Source="{Binding SelectedCard.Image}" Style="{StaticResource ImgCardImage}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
                 <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource ImageAttack}"/>
                 <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
                 <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
             </Canvas>
+            <TextBlock Text="{Binding SelectedCard.Name}" FontSize="12" Margin="2" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
         </RelativePanel>
         
 
@@ -78,13 +79,15 @@
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Height="300" Width="200">
-                        <Canvas>
-                            <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}"/>
+                        <Canvas >
+                            <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}" Canvas.Top="-70"/>
                             <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
                             <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource ImageAttack}"/>
                             <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
                             <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
                         </Canvas>
+                        <TextBlock x:Name="handCardName" Text="{Binding Name}" FontSize="12" Margin="2" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <TextBlock x:Name="handCardDescription" Text="{Binding Description}" RelativePanel.Below="handCardName" Margin="10"/>
                     </RelativePanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
