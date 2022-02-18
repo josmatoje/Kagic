@@ -4,11 +4,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-    <PackageReference Include="SQLite.Net.Standard" Version="1.0.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+  <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="SQLite.Net.Standard" Version="1.0.0" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,12 +23,8 @@
 
   <ItemGroup>
     <Reference Include="Windows.Foundation.UniversalApiContract">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.UniversalApiContract\10.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.UniversalApiContract\10.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
