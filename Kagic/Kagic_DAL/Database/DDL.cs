@@ -97,7 +97,7 @@ namespace Kagic_DAL.Database
         private static void fillTableSpells(SQLiteConnection myconnection)
         {
             SQLiteCommand createSpellCard = new SQLiteCommand("INSERT INTO SpellCards (Name, Description, Image, ManaCost, Effect, IsDamage, IsArea) " +
-                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 4, 1, 0)", myconnection);
+                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'\\Assets\\PRUEBAS\\CartaSeta.png\', 4, 4, 1, 0)", myconnection);
             createSpellCard.ExecuteNonQuery();
         }
         #endregion
