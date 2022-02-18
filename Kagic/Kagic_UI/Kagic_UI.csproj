@@ -121,8 +121,7 @@
     </Compile>
     <Compile Include="Models\clsPlayer.cs" />
     <Compile Include="Models\Utilities\clsIAPlayer.cs" />
-    <Compile Include="ViewModels\Utilities\clsVMBase.cs" />
-    <Compile Include="ViewModels\Utilities\DelegateCommand.cs" />
+    <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
     <Compile Include="ViewModels\VMPruebas.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
@@ -139,8 +138,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
+    <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
     <Content Include="Assets\Images\Numbers\1.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />

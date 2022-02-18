@@ -7,13 +7,6 @@
         <Setter Property="Width" Value="200"/>
     </Style>
 
-    <Style TargetType="Canvas" x:Key="cardImage">
-        <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
-    </Style>
-
     <Style TargetType="Image" x:Key="ImgCardImage">
         <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
         <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
@@ -23,13 +16,6 @@
         <Setter Property="MaxWidth" Value="200"/>
         <Setter Property="Canvas.ZIndex" Value="1"/>
         <Setter Property="Stretch" Value="Uniform"/>
-    </Style>
-
-    <Style TargetType="Canvas" x:Key="cardTemplate">
-        <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
     </Style>
 
     <Style TargetType="Image" x:Key="ImageCardTemplate">
@@ -44,14 +30,15 @@
     </Style>
 
     <Style TargetType="Image" x:Key="numberTemplate">
-        <Setter Property="Height" Value="50"/>
-        <Setter Property="Width" Value="50"/>
-        <Setter Property="Canvas.ZIndex" Value="2"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Canvas.ZIndex" Value="3"/>
     </Style>
 
     <Style TargetType="Image" x:Key="cardManaCost" BasedOn="{StaticResource numberTemplate}">
         <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
         <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+        <Setter Property="Margin" Value="0, 10, 0, 0"/>
     </Style>
 
     <!--
@@ -74,5 +61,42 @@
         <Setter Property="Margin" Value="0,0,0,10"/>
     </Style>
 
+    <Style TargetType="RelativePanel" x:Key="RpCard">
+        <Setter Property="MinHeight" Value="300"/>
+        <Setter Property="MinWidth" Value="200"/>
+    </Style>
+    
+    <!-- CARD STYLES: Small size -->
+    <Style TargetType="RelativePanel" x:Key="RpCardSmall">
+        <Setter Property="MinHeight" Value="230"/>
+        <Setter Property="MinWidth" Value="150"/>
+    </Style>
+    
+    <Style TargetType="Image" x:Key="ImgCardImageSmall" BasedOn="{StaticResource ImgCardImage}">
+        <Setter Property="MaxHeight" Value="250"/>
+        <Setter Property="MaxWidth" Value="150"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="ImgCardTemplateSmall" BasedOn="{StaticResource ImgCardImage}">
+        <Setter Property="MaxHeight" Value="250"/>
+        <Setter Property="MaxWidth" Value="150"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="ImgCardManaCostSmall" BasedOn="{StaticResource cardManaCost}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="ImgLifeSmall" BasedOn="{StaticResource life}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="ImgAttackSmall" BasedOn="{StaticResource ImageAttack}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+    </Style>
+    
+    
 
 </ResourceDictionary>
