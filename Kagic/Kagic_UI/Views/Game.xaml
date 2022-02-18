@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Kagic_UI.Views"
     xmlns:vm="using:Kagic_UI.ViewModels"
+    xmlns:numberConverter="using:Kagic_UI.ViewModels.Utilities"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -11,6 +12,9 @@
     <Page.DataContext>
         <vm:VMFight/>
     </Page.DataContext>
+    <Page.Resources>
+        <numberConverter:clsNumberConverter x:Key="numConv"/>
+    </Page.Resources>
 
     <Page.Background>
         <ImageBrush ImageSource="/Assets/Images/Background.png"/>
@@ -22,14 +26,14 @@
         <AppBarButton x:Name="btnBack" Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
         
         <!-- IA Cards -->
-        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaCards}" 
+        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand}" 
             VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Disabled"
             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" >
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Height="200" Width="150" VerticalAlignment="Bottom">
                         <Canvas>
-                            <Image VerticalAlignment="top" Source="/Assets/Images/BackImage.png" MaxHeight="250" MaxWidth="150" Canvas.Top="-100"
+                            <Image VerticalAlignment="top" Source="{Binding BACK_IMAGE}" MaxHeight="250" MaxWidth="150" Canvas.Top="-100"
                                 RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
                         </Canvas>
                     </RelativePanel>
@@ -91,14 +95,14 @@
         <!-- Player Cards -->
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand, UpdateSourceTrigger=PropertyChanged}"  BorderThickness="3" BorderBrush="White"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
-            
+
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Height="300" Width="200">
-                        <Canvas >
+                        <Canvas>
                             <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}" Canvas.Top="-70"/>
                             <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
-                            <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource ImageAttack}"/>
+                            <Image Source="{Binding }" Style="{StaticResource ImageAttack}"/>
                             <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
                             <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
                         </Canvas>
