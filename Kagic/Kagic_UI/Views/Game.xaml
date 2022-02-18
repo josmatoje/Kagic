@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Kagic_UI.Views"
     xmlns:vm="using:Kagic_UI.ViewModels"
-    xmlns:numberConverter="using:Kagic_UI.ViewModels.Utilities"
     xmlns:dts="using:Kagic_UI.Models.Utilities"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,12 +12,7 @@
     <Page.DataContext>
         <vm:VMPruebas/>
     </Page.DataContext>
-    
-    
     <Page.Resources>
-        
-        <numberConverter:clsNumberConverter x:Key="numConv"/>
-        
         <DataTemplate x:Key="dtCreature">
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
@@ -39,7 +33,6 @@
         </DataTemplate>
 
         <dts:MyDataTemplateSelector x:Key="CardsTemplates" Creature="{StaticResource dtCreature}" Spell="{StaticResource dtSpell}"/>
-        
     </Page.Resources>
 
     <!-- Background -->
@@ -53,14 +46,14 @@
         <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" VerticalAlignment="Center" Click="AppBarButton_Click" Background="White" CornerRadius="10"/>
 
         <!-- IA Cards -->
-        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand}" 
+        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaCards}" 
             VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Disabled"
             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" >
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Style="{StaticResource RpCardSmall}" VerticalAlignment="Bottom">
                         <Canvas>
-                            <Image VerticalAlignment="top" Source="{Binding BACK_IMAGE}" MaxHeight="250" MaxWidth="150" Canvas.Top="-100"
+                            <Image VerticalAlignment="top" Source="/Assets/Images/BackImage.png" MaxHeight="250" MaxWidth="150" Canvas.Top="-100"
                                 RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
                         </Canvas>
                     </RelativePanel>

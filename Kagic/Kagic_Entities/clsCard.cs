@@ -15,6 +15,10 @@ namespace Kagic_Entities
         int manacost;
         #endregion
 
+        #region constants
+        public readonly string BACK_IMAGE = "/Assets/Images/BackImage.png";
+        #endregion
+
         #region constructors
         //Parameterized constuctor
         public clsCard(int id, string name, string description, string image, int manacost)
@@ -60,8 +64,6 @@ namespace Kagic_Entities
         public string Description { get => description; set => description = value; }
         public string Image { get => image; set => image = value; }
         public int Manacost { get => manacost; set => manacost = value; }
-        public bool IsAvaible { get => isAvaible; set => isAvaible = value; }
-        public string BACK_IMAGE { get => "/Assets/Images/BackImage.png"; }
         #endregion
     }
 }
