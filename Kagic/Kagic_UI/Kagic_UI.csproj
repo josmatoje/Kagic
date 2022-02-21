@@ -122,7 +122,10 @@
     <Compile Include="Models\clsPlayer.cs" />
     <Compile Include="Models\Utilities\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\UtilitiesVM\cardConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsNumberConverter.cs" />
+    <Compile Include="ViewModels\UtilitiesVM\clsVMBase.cs" />
+    <Compile Include="ViewModels\UtilitiesVM\DelegateCommand.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
     <Compile Include="ViewModels\VMPruebas.cs" />
     <Compile Include="Views\MainPage.xaml.cs">

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Kagic_Entities
 {
-    public abstract class clsCard 
+    public abstract class clsCard
     {
         #region atributes
         int id;
@@ -13,10 +13,7 @@ namespace Kagic_Entities
         string description;
         string image;
         int manacost;
-        #endregion
-
-        #region constants
-        public readonly string BACK_IMAGE = "/Assets/Images/BackImage.png";
+        bool isAvaible;
         #endregion
 
         #region constructors
@@ -28,6 +25,7 @@ namespace Kagic_Entities
             this.description = description;
             this.image = image;
             this.manacost = manacost;
+            this.isAvaible = false;
         }
 
         //Default constructor
@@ -38,6 +36,7 @@ namespace Kagic_Entities
             this.description = " ";
             this.image = " ";
             this.manacost = 0;
+            this.isAvaible = false;
         }
         //Copy constructor
         public clsCard(clsCard card)
@@ -49,6 +48,7 @@ namespace Kagic_Entities
                 this.description = card.Description;
                 this.image = card.Image;
                 this.manacost = card.Manacost;
+                this.isAvaible = card.IsAvaible;
             }
             else
             {
@@ -59,11 +59,13 @@ namespace Kagic_Entities
 
         #region public properties
         [PrimaryKey, AutoIncrement]
-        public int Id { get => id;}
+        public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
         public string Image { get => image; set => image = value; }
         public int Manacost { get => manacost; set => manacost = value; }
+        public bool IsAvaible { get => isAvaible; set => isAvaible = value; }
+        public string BACK_IMAGE { get => "/Assets/Images/BackImage.png"; }
         #endregion
     }
 }

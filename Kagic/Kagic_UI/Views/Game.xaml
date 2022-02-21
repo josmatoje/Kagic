@@ -21,7 +21,7 @@
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="{Binding Attack, Converter=numConv}"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
+                <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
                 <Image Source="/Assets/Images/Attack.png"       Style="{StaticResource ImgAttackSmall}"/>
                 <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgLifeSmall}"/>
                 <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgCardManaCostSmall}"/>
@@ -110,7 +110,7 @@
         <RelativePanel Height="300" Width="200"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <Image Source="{Binding Card.Image}"            Style="{StaticResource ImgCardImage}"/>
-            <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImageCardTemplate}"/>
+            <Image Source="{Binding }"  Style="{StaticResource ImageCardTemplate}"/>
             <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImageAttack}"/>
             <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource life}"/>
             <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource cardManaCost}"/>
