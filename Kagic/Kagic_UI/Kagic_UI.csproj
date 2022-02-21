@@ -122,6 +122,7 @@
     <Compile Include="Models\clsPlayer.cs" />
     <Compile Include="Models\Utilities\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\UtilitiesVM\clsNumberConverter.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
     <Compile Include="ViewModels\VMPruebas.cs" />
     <Compile Include="Views\MainPage.xaml.cs">

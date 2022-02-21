@@ -9,7 +9,7 @@ namespace Kagic_Entities
         #region atributes
         int life;
         int actuallife;
-        int atack;
+        int attack;
         bool used;
         #endregion
 
@@ -28,14 +28,14 @@ namespace Kagic_Entities
         {
             this.life = 0;
             this.actuallife = 0;
-            this.atack = 0;
+            this.attack = 0;
         }
         #endregion
 
         #region public properties
         public int Life { get => life; set => life = value; }
         public int Actuallife { get => actuallife; set => actuallife = value; }
-        public int Atack { get => atack; set => atack = value; }
+        public int Attack { get => attack; set => attack = value; }
         public bool Used { get => used; set => used = value; }
 
         #endregion

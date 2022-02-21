@@ -5,7 +5,7 @@
     xmlns:local="using:Kagic_UI.Views"
     xmlns:vm="using:Kagic_UI.ViewModels"
     xmlns:dts="using:Kagic_UI.Models.Utilities"
-    xmlns:numberConverter="using:Kagic_UI.ViewModels.Utilities"
+    xmlns:numberConverter="using:Kagic_UI.ViewModels.UtilitiesVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -21,7 +21,7 @@
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
+                <Image Source="{Binding Attack, Converter=numConv}"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
                 <Image Source="/Assets/Images/Attack.png"       Style="{StaticResource ImgAttackSmall}"/>
                 <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgLifeSmall}"/>
                 <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgCardManaCostSmall}"/>
