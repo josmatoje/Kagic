@@ -1,0 +1,117 @@
+﻿<Page
+    x:Class="Kagic_UI.Views.Game"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kagic_UI.Views"
+    xmlns:vm="using:Kagic_UI.ViewModels"
+    xmlns:numberConverter="using:Kagic_UI.ViewModels.Utilities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:VMFight/>
+    </Page.DataContext>
+    <Page.Resources>
+        <numberConverter:clsNumberConverter x:Key="numConv"/>
+    </Page.Resources>
+
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/Images/Background.png"/>
+    </Page.Background>
+    
+    <RelativePanel MinHeight="1020">
+
+        <!-- Back button -->
+        <AppBarButton x:Name="btnBack" Icon="Back" Foreground="White" Click="AppBarButton_Click"/>
+        
+        <!-- IA Cards -->
+        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand}" 
+            VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" >
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <RelativePanel Height="200" Width="150" VerticalAlignment="Bottom">
+                        <Canvas>
+                            <Image VerticalAlignment="top" Source="{Binding BACK_IMAGE}" MaxHeight="250" MaxWidth="150" Canvas.Top="-100"
+                                RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                        </Canvas>
+                    </RelativePanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            
+        </GridView>
+
+        <!-- Battlefield -->
+        <RelativePanel x:Name="stpBattlefield" Margin="5" BorderThickness="3" Padding="5" BorderBrush="White"
+                       RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <!-- IA battlefield -->
+            <GridView x:Name="gdOpponentCreatures" MinHeight="250" MinWidth="400" Margin="0,0,0,20" BorderThickness="3" BorderBrush="Red"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True">
+
+            </GridView>
+
+            <!-- Player battlefield -->
+            <GridView x:Name="gdPlayerCreatures" MinHeight="250" MinWidth="400" BorderThickness="3" BorderBrush="Blue"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures">
+
+            </GridView>
+        </RelativePanel>
+
+        <!-- Scoreboards -->
+        <RelativePanel x:Name="stpIaScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
+                    RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
+            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="80" Foreground="Red"
+                     RelativePanel.AlignBottomWithPanel="True"/>
+            <Image x:Name="imgIaLife" Source="/Assets/Images/Life.png" Height="150" Canvas.ZIndex="1" RelativePanel.AlignTopWithPanel="True"/>
+            <Image x:Name="imgTensNumber" Source="{Binding Number}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+            <Image x:Name="imgUnitsNumber" Source="{Binding Number}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+            
+            
+            
+        </RelativePanel>
+
+        <RelativePanel x:Name="stpPlayerScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
+                    RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
+            <Image x:Name="imgPlayerLife" Source="/Assets/Images/Life.png" Height="150" RelativePanel.AlignTopWithPanel="True"/>
+            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20"
+                     RelativePanel.AlignBottomWithPanel="True"/>
+        </RelativePanel>
+
+        <!-- Card details -->
+        <RelativePanel Height="300" Width="200" BorderThickness="3" BorderBrush="White"
+            RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+            <Canvas>
+                <Image Source="{Binding SelectedCard.Image}" Style="{StaticResource ImgCardImage}"/>
+                <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
+                <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource ImageAttack}"/>
+                <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
+                <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
+            </Canvas>
+            <TextBlock Text="{Binding SelectedCard.Name}" FontSize="12" Margin="2" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+        </RelativePanel>
+        
+
+        <!-- Player Cards -->
+        <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand, UpdateSourceTrigger=PropertyChanged}"  BorderThickness="3" BorderBrush="White"
+            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <RelativePanel Height="300" Width="200">
+                        <Canvas>
+                            <Image Source="{Binding Image}" Style="{StaticResource ImgCardImage}" Canvas.Top="-70"/>
+                            <Image Source="/Assets/PRUEBAS/Marco Azul.png" Style="{StaticResource ImageCardTemplate}"/>
+                            <Image Source="{Binding }" Style="{StaticResource ImageAttack}"/>
+                            <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource life}"/>
+                            <Image Source="/Assets/Images/Numbers/1.png" Style="{StaticResource cardManaCost}"/>
+                        </Canvas>
+                        <TextBlock x:Name="handCardName" Text="{Binding Name}" FontSize="12" Margin="2" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <TextBlock x:Name="handCardDescription" Text="{Binding Description}" RelativePanel.Below="handCardName" Margin="10"/>
+                    </RelativePanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+    </RelativePanel>
+</Page>
