@@ -52,17 +52,31 @@ namespace Kagic_DAL.Database
         }
 
         private static void fillTableCreatures(SQLiteConnection myconnection)
-        {
+        {                                           // partes de clsCreature(string name, string description, string image, int manacost, int life, int attack)
             SQLiteCommand createCreatureCard = new SQLiteCommand("INSERT INTO CreatureCards (Name, Description, Image, ManaCost, Life, Attack) " +
-                                                                 "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 3, 3 )", myconnection);
+                                                                 "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 3, 3 ) "
+                                                                 + "(\'SHIFU\', \'EL GRAN SHIFU. Nerfeen al gato.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 7, 8, 10 ) "
+                                                                 + "(\'Un Loco Cualquiera\', \'Está total y absolutamente LOCO!\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 2, 1, 3 ) "
+                                                                 + "(\'Demoño Demoñiaco\', \'Que vienen los demonio\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 4, 2, 6 ) "
+                                                                 + "(\'Fernando Testeando\', \'Es capaz de destrozarte con tan solo una palabra.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 5, 7, 4 ) "
+                                                                 + "(\'Diseñadora gráfica\', \'Puede olvidar subir algo y destrozarlo todo.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 1, 1, 3 ) "
+                                                                 + "(\'Goku\', \'Es Goku\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 2, 5, 1 ) ", 
+                                                                 myconnection);
 
             createCreatureCard.ExecuteNonQuery();
         }
 
         private static void fillTableSpells(SQLiteConnection myconnection)
-        {
+        {                                           //partes de clsLifeModifyingSpell(string name, string description, string image, int manacost, int effect, bool isDamage, bool isArea)
             SQLiteCommand createSpellCard = new SQLiteCommand("INSERT INTO SpellCards (Name, Description, Image, ManaCost, Effect, IsDamage, IsArea) " +
-                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 4, 1, 0)", myconnection);
+                                                              "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 4, 1, 0) "
+                                                               + "(\'Seta del Amor\',\'Cura a todas las criaturas con el poder del amor\', \'/Assets/PRUEBAS/CartaSeta.png\', 2, 2, 0, 1) "
+                                                               + "(\'Bola de Fuegardo\',\'Pelota en llamas\', \'/Assets/PRUEBAS/CartaSeta.png\', 6, 6, 1, 0) "
+                                                               + "(\'Lluvia de meteoros\',\'Arrasa con lo que veas... y generoso no seas!\', \'/Assets/PRUEBAS/CartaSeta.png\', 5, 3, 1, 1) "
+                                                               + "(\'Canto de Jigglypuff\',\'AAAAHHHhhhzzzz...\', \'/Assets/PRUEBAS/CartaSeta.png\', 3, 1, 1, 1) "
+                                                               + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1) "
+                                                               + "(\'Codigo no comentado\',\'Destroza a un objetivo sin summaries\', \'/Assets/PRUEBAS/CartaSeta.png\', 7, 7, 1, 0) ", 
+                                                              myconnection);
             createSpellCard.ExecuteNonQuery();
         }
 

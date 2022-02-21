@@ -142,8 +142,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <Headboard>private bool passTurnCommand_CanExecute()</cabecera>
-        ///     <Description>When isPlayerTurn is false, valido is true</descripcion>
+        ///     <Headboard>private bool atackContraryPlayerCommand_CanExecute()</cabecera>
+        ///     <Description></descripcion>
         /// </summary>
         /// <returns></returns>
         private bool atackContraryPlayerCommand_CanExecute()
@@ -191,29 +191,25 @@ namespace Kagic_UI.ViewModels
         {
             Random random = new Random();
             List<clsCard> deck = new List<clsCard>();
-            int position, counter;
+            int position, counter, i=0;
 
-            //for(int i = 0; i < DECK_SIZE;)
-            //{
-            //    position = random.Next(cardsList.Count);
-            //    counter = 0;
-            //    //foreach(clsCard card in deck)
-            //    for(int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
-            //    {
-            //       if (deck[j].GetType() == cardsList[i].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
-            //        {
-            //            counter++;
-            //        }
-            //    }
-            //    if(counter < MAX_REPETED_CARDS_DECK)
-            //    {
-            //        deck.Add(cardsList[i]);
-            //        i++;
-            //    }  
-            //}
-            for (int i = 0; i < DECK_SIZE; i++)
+            while (i< DECK_SIZE)
             {
-                deck.Add(cardsList[0]);
+                position = random.Next(cardsList.Count);
+                counter = 0;
+                //foreach(clsCard card in deck) but exit if the condition is exceeded
+                for (int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
+                {
+                    if (deck[j].GetType() == cardsList[i].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
+                    {
+                        counter++;
+                    }
+                }
+                if (counter < MAX_REPETED_CARDS_DECK) //Solo inserta y aumenta la posicion de insercion del array si la carta no se ha repetido el maximo permitido
+                {
+                    deck.Add(cardsList[i]);
+                    i++;
+                }
             }
 
             return deck;
@@ -228,19 +224,18 @@ namespace Kagic_UI.ViewModels
             isPlayerTurn = !isPlayerTurn;
             if (isPlayerTurn)
             {
-                //realPlayer.setMana();
+                realPlayer.SetMana();
             }
             else
             {
-                //iaPlayer.setMana();
+                iaPlayer.SetMana();
             }
             realPlayer.SelectedCard = -1;
             realPlayer.SelectedCreature = -1;
             iaPlayer.SelectedCard = -1;
             iaPlayer.SelectedCreature = -1;
-            //realPlayer.setUsedCriatures();
-            //iaPlayer.setUsedCriatures();
-
+            realPlayer.SetUsedCreatures();
+            iaPlayer.SetUsedCreatures();
         }
 
         /// <summary>
@@ -255,12 +250,13 @@ namespace Kagic_UI.ViewModels
             {
                 //enviar a vista de error de victoria
                 finished = true;
-
+                //Aqui mensaje de derrota
             }
             else if (iaPlayer.Life <= 0)
             {
                 //enviar a vista de error de derrota
                 finished = true;
+
             }
             return finished;
         }
@@ -450,6 +446,7 @@ namespace Kagic_UI.ViewModels
             {
                 iaPlayer.Life -= damage;
             }
+            finishGame();
         }
         #endregion
 
