@@ -57,7 +57,7 @@ namespace Kagic_UI
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-            ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+            //ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
             // No repetir la inicialización de la aplicación si la ventana tiene contenido todavía,
             // solo asegurarse de que la ventana está activa.
             if (rootFrame == null)

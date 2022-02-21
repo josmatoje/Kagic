@@ -122,7 +122,6 @@
     <Compile Include="Models\clsPlayer.cs" />
     <Compile Include="Models\Utilities\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
-    <Compile Include="ViewModels\UtilitiesVM\cardConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsNumberConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsVMBase.cs" />
     <Compile Include="ViewModels\UtilitiesVM\DelegateCommand.cs" />
@@ -148,6 +147,7 @@
     <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
     <Content Include="Assets\Images\Numbers\1.png" />
+    <Content Include="Assets\Images\Numbers\3.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
     <Content Include="Assets\PRUEBAS\Marco Azul.png" />

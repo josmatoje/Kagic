@@ -13,7 +13,8 @@ namespace Kagic_DAL.Listados
         private static string path = ApplicationData.Current.LocalFolder.Path + $"\\{dbName}";
         private static readonly SQLiteConnection myConnection = new SQLiteConnection($"Data Source={path}; version=3;");
 
-        public static List<clsCard> getCardsDAL() {
+        public static List<clsCard> getCardsDAL()
+        {
             List<clsCard> cards = new List<clsCard>();
 
             getCreatureCards().ForEach(card => cards.Add(card));
@@ -53,7 +54,8 @@ namespace Kagic_DAL.Listados
             return cardList;
         }
 
-        private static List<clsCard> getSpellCards() {
+        private static List<clsCard> getSpellCards()
+        {
             List<clsCard> cardList = new List<clsCard>();
             clsCard card;
             SQLiteDataReader reader;
@@ -87,14 +89,13 @@ namespace Kagic_DAL.Listados
         {
             clsCreature constructedCreature = new clsCreature();
 
-            //constructedCreature.Id = (int)reader["Id"];
-            //constructedCreature.Name = (string)reader["Name"];
-            //constructedCreature.Description = (string)reader["Description"];
-            //constructedCreature.Image = (string)reader["Image"];
-            //constructedCreature.Manacost = (int)reader["ManaCost"];
-            //constructedCreature.Life = (int)reader["Life"];
-            //constructedCreature.Actuallife = (int)reader["ActualLife"];
-            //constructedCreature.Attack = (int)reader["Attack"];
+            constructedCreature.Id = Convert.ToInt32(reader["Id"]);
+            constructedCreature.Name = (string)reader["Name"];
+            constructedCreature.Description = (string)reader["Description"];
+            constructedCreature.Image = (string)reader["Image"];
+            constructedCreature.Manacost = Convert.ToInt32(reader["ManaCost"]);
+            constructedCreature.Life = Convert.ToInt32(reader["Life"]);
+            constructedCreature.Attack = Convert.ToInt32(reader["Attack"]);
 
             return constructedCreature;
         }
@@ -103,14 +104,14 @@ namespace Kagic_DAL.Listados
         {
             clsLifeModifyingSpell constructedSpell = new clsLifeModifyingSpell();
 
-            //constructedSpell.Id = (int)reader["Id"];
-            //constructedSpell.Name = (string)reader["Name"];
-            //constructedSpell.Description = (string)reader["Description"];
-            //constructedSpell.Image = (string)reader["Image"];
-            //constructedSpell.Manacost = (int)reader["ManaCost"];
-            //constructedSpell.Efect = (int)reader["Effect"];
-            //constructedSpell.IsDamage = (bool)reader["IsDamage"];
-            //constructedSpell.IsArea = (bool)reader["IsArea"];
+            constructedSpell.Id = Convert.ToInt32(reader["Id"]);
+            constructedSpell.Name = (string)reader["Name"];
+            constructedSpell.Description = (string)reader["Description"];
+            constructedSpell.Image = (string)reader["Image"];
+            constructedSpell.Manacost = Convert.ToInt32(reader["ManaCost"]);
+            constructedSpell.Effect = Convert.ToInt32(reader["Effect"]);
+            constructedSpell.IsDamage = Convert.ToInt32(reader["IsDamage"]) == 1; //Si es igual a 1 la comparación devuelve true (1 = true)
+            constructedSpell.IsArea = Convert.ToInt32(reader["IsArea"]) == 1;
 
             return constructedSpell;
         }
