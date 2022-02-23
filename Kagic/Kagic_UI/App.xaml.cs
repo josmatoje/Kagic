@@ -29,6 +29,9 @@ namespace Kagic_UI
     /// </summary>
     sealed partial class App : Application
     {
+
+        private readonly double minW = 1500, minH = 970;
+
         public static string DbConnectionString
         {
             get
@@ -58,6 +61,10 @@ namespace Kagic_UI
         {
             Frame rootFrame = Window.Current.Content as Frame;
             //ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+            //ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+            //ApplicationView.GetForCurrentView().TryResizeView(ApplicationViewMode.);
+            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Maximized;
+            //ApplicationView.GetForCurrentView().TryResizeView(new Size (1500, 970));
             // No repetir la inicialización de la aplicación si la ventana tiene contenido todavía,
             // solo asegurarse de que la ventana está activa.
             if (rootFrame == null)
@@ -86,7 +93,9 @@ namespace Kagic_UI
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Asegurarse de que la ventana actual está activa.
+                MaximizeWindowOnLoad();
                 Window.Current.Activate();
+                
             }
         }
 
@@ -114,27 +123,63 @@ namespace Kagic_UI
             deferral.Complete();
         }
 
-        public static Size GetCurrentDisplaySize()
+        //public static Size GetCurrentDisplaySize()
+        //{
+        //    var displayInformation = DisplayInformation.GetForCurrentView();
+        //    //displayInformation.
+        //    TypeInfo t = typeof(DisplayInformation).GetTypeInfo();
+        //    var props = t.DeclaredProperties.Where(x => x.Name.StartsWith("Screen") && x.Name.EndsWith("InRawPixels")).ToArray();
+        //    var w = props.Where(x => x.Name.Contains("Width")).First().GetValue(displayInformation);
+        //    var h = props.Where(x => x.Name.Contains("Height")).First().GetValue(displayInformation);
+        //    var size = new Size(System.Convert.ToDouble(w), System.Convert.ToDouble(h));
+        //    switch (displayInformation.CurrentOrientation)
+        //    {
+        //        case DisplayOrientations.Landscape:
+        //        case DisplayOrientations.LandscapeFlipped:
+        //            size = new Size(Math.Max(size.Width, size.Height), Math.Min(size.Width, size.Height));
+        //            break;
+        //        case DisplayOrientations.Portrait:
+        //        case DisplayOrientations.PortraitFlipped:
+        //            size = new Size(Math.Min(size.Width, size.Height), Math.Max(size.Width, size.Height));
+        //            break;
+        //    }
+        //    return size;
+        //}
+
+        protected override void OnWindowCreated(WindowCreatedEventArgs args)
         {
-            var displayInformation = DisplayInformation.GetForCurrentView();
-            //displayInformation.
-            TypeInfo t = typeof(DisplayInformation).GetTypeInfo();
-            var props = t.DeclaredProperties.Where(x => x.Name.StartsWith("Screen") && x.Name.EndsWith("InRawPixels")).ToArray();
-            var w = props.Where(x => x.Name.Contains("Width")).First().GetValue(displayInformation);
-            var h = props.Where(x => x.Name.Contains("Height")).First().GetValue(displayInformation);
-            var size = new Size(System.Convert.ToDouble(w), System.Convert.ToDouble(h));
-            switch (displayInformation.CurrentOrientation)
+            SetWindowMinSize(new Size(args.Window.Bounds.Width, args.Window.Bounds.Height));
+            args.Window.CoreWindow.SizeChanged += CoreWindow_SizeChanged;
+            base.OnWindowCreated(args);
+        }
+
+        private void CoreWindow_SizeChanged(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.WindowSizeChangedEventArgs args)
+        {
+            if (SetWindowMinSize(args.Size)) sender.ReleasePointerCapture();
+        }
+
+        private bool SetWindowMinSize(Size size)
+        {
+            if (size.Width < minW || size.Height < minH)
             {
-                case DisplayOrientations.Landscape:
-                case DisplayOrientations.LandscapeFlipped:
-                    size = new Size(Math.Max(size.Width, size.Height), Math.Min(size.Width, size.Height));
-                    break;
-                case DisplayOrientations.Portrait:
-                case DisplayOrientations.PortraitFlipped:
-                    size = new Size(Math.Min(size.Width, size.Height), Math.Max(size.Width, size.Height));
-                    break;
+                if (size.Width < minW) size.Width = minW;
+                if (size.Height < minH) size.Height = minH;
+                return ApplicationView.GetForCurrentView().TryResizeView(size);
             }
-            return size;
+            return false;
+        }
+
+        private void MaximizeWindowOnLoad()
+        {
+            var view = DisplayInformation.GetForCurrentView();
+            var resolution = new Size(view.ScreenWidthInRawPixels, view.ScreenHeightInRawPixels);
+            var scale = view.ResolutionScale == ResolutionScale.Invalid ? 1 : view.RawPixelsPerViewPixel;
+            var bounds = new Size(resolution.Width / scale, resolution.Height / scale);
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(bounds);
+            ApplicationView.PreferredLaunchViewSize = new Size(bounds.Width, bounds.Height);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryResizeView(bounds);
+
         }
     }
 }
