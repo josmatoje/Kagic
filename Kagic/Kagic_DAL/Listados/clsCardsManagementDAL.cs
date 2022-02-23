@@ -87,33 +87,25 @@ namespace Kagic_DAL.Listados
 
         private static clsCreature constructCreatureCard(SQLiteDataReader reader)
         {
-            clsCreature constructedCreature = new clsCreature();
-
-            constructedCreature.Id = Convert.ToInt32(reader["Id"]);
-            constructedCreature.Name = (string)reader["Name"];
-            constructedCreature.Description = (string)reader["Description"];
-            constructedCreature.Image = (string)reader["Image"];
-            constructedCreature.Manacost = Convert.ToInt32(reader["ManaCost"]);
-            constructedCreature.Life = Convert.ToInt32(reader["Life"]);
-            constructedCreature.Attack = Convert.ToInt32(reader["Attack"]);
-
-            return constructedCreature;
+            return new clsCreature( Convert.ToInt32(reader["Id"]),
+                                    (string)reader["Name"],
+                                    (string)reader["Description"],
+                                    (string)reader["Image"],
+                                    Convert.ToInt32(reader["ManaCost"]),
+                                    Convert.ToInt32(reader["Life"]),
+                                    Convert.ToInt32(reader["Attack"]));
         }
 
         private static clsCard constructSpellCard(SQLiteDataReader reader)
         {
-            clsLifeModifyingSpell constructedSpell = new clsLifeModifyingSpell();
-
-            constructedSpell.Id = Convert.ToInt32(reader["Id"]);
-            constructedSpell.Name = (string)reader["Name"];
-            constructedSpell.Description = (string)reader["Description"];
-            constructedSpell.Image = (string)reader["Image"];
-            constructedSpell.Manacost = Convert.ToInt32(reader["ManaCost"]);
-            constructedSpell.Effect = Convert.ToInt32(reader["Effect"]);
-            constructedSpell.IsDamage = Convert.ToInt32(reader["IsDamage"]) == 1; //Si es igual a 1 la comparación devuelve true (1 = true)
-            constructedSpell.IsArea = Convert.ToInt32(reader["IsArea"]) == 1;
-
-            return constructedSpell;
+            return new clsLifeModifyingSpell(Convert.ToInt32(reader["Id"]),
+                                            (string)reader["Name"],
+                                            (string)reader["Description"],
+                                            (string)reader["Image"],
+                                            Convert.ToInt32(reader["ManaCost"]),
+                                            Convert.ToInt32(reader["Effect"]),
+                                            Convert.ToInt32(reader["IsDamage"]) == 1, //Si es igual a 1 la comparación devuelve true (1 = true)
+                                            Convert.ToInt32(reader["IsArea"]) == 1);
         }
 
     }

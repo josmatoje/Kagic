@@ -22,9 +22,9 @@
                 <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="{Binding Attack, Converter={StaticResource numConv}}"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
-                <Image Source="/Assets/Images/Attack.png"       Style="{StaticResource ImgAttackSmall}"/>
+                <Image Source="/Assets/Images/Attack.png"       Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="2"/>
                 <Image Source="{Binding Life, Converter={StaticResource numConv}}"    Style="{StaticResource ImgLifeSmall}"/>
-                <Image Source="{Binding Attack, Converter={StaticResource numConv}}"    Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Source="{Binding ManaCost, Converter={StaticResource numConv}}"    Style="{StaticResource ImgCardManaCostSmall}"/>
             </RelativePanel>
         </DataTemplate>
 
@@ -32,7 +32,7 @@
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="{Binding ManaCost}"    Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Source="{Binding ManaCost, Converter={StaticResource numConv}}"    Style="{StaticResource ImgCardManaCostSmall}"/>
             </RelativePanel>
         </DataTemplate>
 
@@ -108,17 +108,15 @@
         <!-- Card details -->
         <RelativePanel Height="300" Width="200"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-            <Image Source="{Binding Card.Image}"            Style="{StaticResource ImgCardImage}"/>
-            <Image Source="/Assets/Images/Numbers/1.png"   Style="{StaticResource ImageCardTemplate}"/>
-            <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImageAttack}"/>
-            <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource life}"/>
-            <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource cardManaCost}"/>
+            <GridView x:Name="gdSelectedCard" ItemsSource="{Binding IaPlayer.Deck}"
+            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}">
+            </GridView>
         </RelativePanel>
 
 
         <!-- Player Cards -->
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand}"
-            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}">
+            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedItem="{Binding SelectedCard}">
         </GridView>
 
     </RelativePanel>

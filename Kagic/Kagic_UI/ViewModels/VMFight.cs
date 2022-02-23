@@ -25,7 +25,7 @@ namespace Kagic_UI.ViewModels
         #endregion
 
         #region constants
-        const int DECK_SIZE = 20;
+        const int DECK_SIZE = 10;
         const int MAX_REPETED_CARDS_DECK = 2;
 
         #endregion
@@ -197,7 +197,7 @@ namespace Kagic_UI.ViewModels
             {
                 position = random.Next(cardsList.Count);
                 counter = 0;
-                //foreach(clsCard card in deck) but exit if the condition is exceeded
+                //foreach (clsCard card in deck) but exit if the condition is exceeded
                 for (int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
                 {
                     if (deck[j].GetType() == cardsList[i].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
@@ -207,7 +207,7 @@ namespace Kagic_UI.ViewModels
                 }
                 if (counter < MAX_REPETED_CARDS_DECK) //Solo inserta y aumenta la posicion de insercion del array si la carta no se ha repetido el maximo permitido
                 {
-                    deck.Add(cardsList[i]);
+                    deck.Add(cardsList[position]);
                     i++;
                 }
             }

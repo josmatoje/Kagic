@@ -146,8 +146,16 @@
     <Content Include="Assets\Images\BackImage.png" />
     <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
+    <Content Include="Assets\Images\Numbers\0.png" />
     <Content Include="Assets\Images\Numbers\1.png" />
+    <Content Include="Assets\Images\Numbers\2.png" />
     <Content Include="Assets\Images\Numbers\3.png" />
+    <Content Include="Assets\Images\Numbers\4.png" />
+    <Content Include="Assets\Images\Numbers\5.png" />
+    <Content Include="Assets\Images\Numbers\6.png" />
+    <Content Include="Assets\Images\Numbers\7.png" />
+    <Content Include="Assets\Images\Numbers\8.png" />
+    <Content Include="Assets\Images\Numbers\9.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
     <Content Include="Assets\PRUEBAS\Marco Azul.png" />
