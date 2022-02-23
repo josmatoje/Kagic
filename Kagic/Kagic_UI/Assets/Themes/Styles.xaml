@@ -75,6 +75,8 @@
     <Style TargetType="Image" x:Key="ImgCardImageSmall" BasedOn="{StaticResource ImgCardImage}">
         <Setter Property="MaxHeight" Value="250"/>
         <Setter Property="MaxWidth" Value="150"/>
+        <Setter Property="RelativePanel.AlignTopWithPanel" Value="False"/>
+        <Setter Property="RelativePanel.AlignBottomWithPanel" Value="False"/>
     </Style>
 
     <Style TargetType="Image" x:Key="ImgCardTemplateSmall" BasedOn="{StaticResource ImgCardImage}">

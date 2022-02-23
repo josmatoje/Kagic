@@ -85,7 +85,7 @@ namespace Kagic_DAL.Database
         {                                           // partes de clsCreature(string name, string description, string image, int manacost, int life, int attack)
             SQLiteCommand createCreatureCard = new SQLiteCommand("INSERT INTO CreatureCards (Name, Description, Image, ManaCost, Life, Attack) " +
                                                                  "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 3, 3 ), "
-                                                                 + "(\'SHIFU\', \'EL GRAN SHIFU. Nerfeen al gato.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 7, 8, 10 ), "
+                                                                 + "(\'SHIFU\', \'EL GRAN SHIFU. Nerfeen al gato.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 7, 9, 9 ), "
                                                                  + "(\'Un Loco Cualquiera\', \'Está total y absolutamente LOCO!\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 2, 1, 3 ), "
                                                                  + "(\'Demoño Demoñiaco\', \'Que vienen los demonio\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 4, 2, 6 ), "
                                                                  + "(\'Fernando Testeando\', \'Es capaz de destrozarte con tan solo una palabra.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 5, 7, 4 ), "

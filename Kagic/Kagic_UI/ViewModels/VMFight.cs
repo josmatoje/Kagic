@@ -20,8 +20,9 @@ namespace Kagic_UI.ViewModels
         bool isPlayerTurn;
         DelegateCommand passTurnCommand;
         DelegateCommand attackContraryPlayerCommand;
-        DelegateCommand changeActualSelectedCardCommand;
         clsCard selectedCard;
+        clsCreature selectedCreature;
+        clsCard lastSelectedCard;
         #endregion
 
         #region constants
@@ -33,6 +34,7 @@ namespace Kagic_UI.ViewModels
         #region constructor
         public VMFight()
         {
+            passTurnCommand = new DelegateCommand(passTurnCommand_Executed, passTurnCommand_CanExecute);
             StartGame();
         }
         #endregion
@@ -43,20 +45,15 @@ namespace Kagic_UI.ViewModels
         public bool IsPlayerTurn
         {
             get => isPlayerTurn;
-            set
-            {
-                isPlayerTurn = value;
-                passTurnCommand.RaiseCanExecuteChanged();
-            }
+            set => isPlayerTurn = value;
         }
         public DelegateCommand PassTurnCommand
         {
             get
             {
-                passTurnCommand = new DelegateCommand(passTurnCommand_Executed, passTurnCommand_CanExecute);
+                
                 return passTurnCommand;
             }
-            set => passTurnCommand = value;
         }
         public DelegateCommand AttackContraryPlayerCommand
         {
@@ -65,19 +62,19 @@ namespace Kagic_UI.ViewModels
                 attackContraryPlayerCommand = new DelegateCommand(atackContraryPlayerCommand_Executed, atackContraryPlayerCommand_CanExecute);
                 return attackContraryPlayerCommand;
             }
-
-            set => attackContraryPlayerCommand = value;
-        }
-        public DelegateCommand ChangeActualSelectedCardCommand
-        {
-            get => changeActualSelectedCardCommand;
-            set => changeActualSelectedCardCommand = value;
         }
         public clsCard SelectedCard
         {
             get => selectedCard;
-            set => selectedCard = value;
+            set 
+            { 
+                selectedCard = value;
+                
+            }
         }
+
+        public clsCreature SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
+        public clsCard LastSelectedCard { get => lastSelectedCard; set => lastSelectedCard = value; }
         #endregion
 
         #region commands
@@ -97,14 +94,7 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool passTurnCommand_CanExecute()
         {
-            bool valido = true;
-
-            if (isPlayerTurn == false)
-                valido = false;
-            {
-
-            }
-            return valido;
+            return isPlayerTurn;
         }
 
         /// <summary>
@@ -177,6 +167,7 @@ namespace Kagic_UI.ViewModels
             iaPlayer = new clsIAPlayer(CardsDeck(cards));
             //random para ver quien empieza isPlayerTurn
             isPlayerTurn = (new Random()).Next(10) > 5;
+            changeTurn();
         }
 
         /// <summary>
@@ -225,10 +216,14 @@ namespace Kagic_UI.ViewModels
             if (isPlayerTurn)
             {
                 realPlayer.SetMana();
+                realPlayer.DrawCard();
+                NotifyPropertyChanged("realPlayer.Hand");
             }
             else
             {
                 iaPlayer.SetMana();
+                iaPlayer.DrawCard();
+                NotifyPropertyChanged("iaPlayer.Hand");
             }
             realPlayer.SelectedCard = -1;
             realPlayer.SelectedCreature = -1;
@@ -236,6 +231,7 @@ namespace Kagic_UI.ViewModels
             iaPlayer.SelectedCreature = -1;
             realPlayer.SetUsedCreatures();
             iaPlayer.SetUsedCreatures();
+            passTurnCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
