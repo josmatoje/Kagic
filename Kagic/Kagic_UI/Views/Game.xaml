@@ -24,7 +24,7 @@
                 <Image Source="{Binding Attack, Converter={StaticResource numConv}}"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
                 <Image Source="/Assets/Images/Attack.png"                               Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="2"/>
                 <Image Source="{Binding Life, Converter={StaticResource numConv}}"      Style="{StaticResource ImgLifeSmall}"/>
-                <Image Source="{Binding ManaCost, Converter={StaticResource numConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Source="{Binding Manacost, Converter={StaticResource numConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
             </RelativePanel>
         </DataTemplate>
 
@@ -32,7 +32,7 @@
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                                         Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"                          Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="{Binding ManaCost, Converter={StaticResource numConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Source="{Binding Manacost, Converter={StaticResource numConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
             </RelativePanel>
         </DataTemplate>
 
@@ -50,9 +50,9 @@
         <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" VerticalAlignment="Center" Click="AppBarButton_Click" Background="White" CornerRadius="10"/>
 
         <!-- IA Cards -->
-        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand}" 
+        <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand, UpdateSourceTrigger=PropertyChanged}" 
             VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" ItemTemplateSelector="{StaticResource CardsTemplates}">
+            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" SelectedIndex="{Binding IaPlayer.SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource CardsTemplates}">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Style="{StaticResource RpCardSmall}" VerticalAlignment="Bottom">
@@ -71,13 +71,12 @@
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
             <!-- IA battlefield -->
             <GridView x:Name="gdOpponentCreatures" ItemsSource="{Binding IaPlayer.PlaceCreatures}" ItemTemplateSelector="{StaticResource CardsTemplates}"  MinHeight="250" MinWidth="800" Margin="0,0,0,20" BorderThickness="3" Background="Red" CornerRadius="20"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplate="{StaticResource dtCreature}" SelectedItem="{Binding IaPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplate="{StaticResource dtCreature}" SelectedIndex="{Binding IaPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
 
             <!-- Player battlefield -->
             <GridView x:Name="gdPlayerCreatures" ItemsSource="{Binding RealPlayer.PlaceCreatures}" ItemTemplateSelector="{StaticResource CardsTemplates}" MinHeight="250" MinWidth="800" BorderThickness="3" Background="Blue" CornerRadius="20"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures" ItemTemplate="{StaticResource dtCreature}" SelectedItem="{Binding RealPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
+                      RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures" ItemTemplate="{StaticResource dtCreature}" SelectedIndex="{Binding RealPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
         </RelativePanel>
 
@@ -117,7 +116,7 @@
 
         <!-- Player Cards -->
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand}"
-            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedItem="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedIndex="{Binding RealPlayer.SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </GridView>
 
     </RelativePanel>

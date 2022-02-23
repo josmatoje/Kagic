@@ -69,7 +69,6 @@ namespace Kagic_DAL.Database
             {
                 fillTableSpells(myconnection);
             }
-
         }
 
         #region Data insertions

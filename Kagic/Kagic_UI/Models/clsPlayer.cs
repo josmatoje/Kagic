@@ -1,6 +1,7 @@
 ﻿using Kagic_Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,8 @@ namespace Kagic_UI.Models
         int totalMana;
         int usedMana;
         List<clsCard> deck;
-        List<clsCard> hand;
-        List<clsCreature> placeCreatures;
+        ObservableCollection<clsCard> hand;
+        ObservableCollection<clsCreature> placeCreatures;
         int selectedCard;
         int selectedCreature;
         #endregion
@@ -36,7 +37,7 @@ namespace Kagic_UI.Models
             this.usedMana = 0;
             this.deck = deck;
             InitialHand();
-            this.placeCreatures = new List<clsCreature>(MAX_PLACE_CREATURES);
+            this.placeCreatures = new ObservableCollection<clsCreature>();
             InitializePlaceCreatures();
             this.selectedCard = -1;
             this.selectedCreature = -1;
@@ -51,8 +52,8 @@ namespace Kagic_UI.Models
         public int TotalMana { get => totalMana; set => totalMana = value; }
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
-        public List<clsCard> Hand { get => hand; set => hand = value; }
-        public List<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
+        public ObservableCollection<clsCard> Hand { get => hand; set => hand = value; }
+        public ObservableCollection<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
         public int SelectedCard { get => selectedCard; set => selectedCard = value; }
         public int SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
 
@@ -88,6 +89,7 @@ namespace Kagic_UI.Models
         {
             if (hand[selectedCard] is clsCreature)
             {
+                //placeCreatures.RemoveAt(selectedCreature);
                 placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
                 hand.RemoveAt(selectedCard);
             }
@@ -140,7 +142,7 @@ namespace Kagic_UI.Models
         /// </summary>
         private void InitialHand()
         {
-            this.hand = new List<clsCard>();
+            this.hand = new ObservableCollection<clsCard>();
             for (int i = 0; i < 3; i++)
             {
                 this.hand.Add(deck[0]);

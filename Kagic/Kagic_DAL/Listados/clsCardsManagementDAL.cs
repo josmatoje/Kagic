@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SQLite;
 using Windows.Storage;
+using System.Collections.ObjectModel;
 
 namespace Kagic_DAL.Listados
 {
@@ -13,9 +14,9 @@ namespace Kagic_DAL.Listados
         private static string path = ApplicationData.Current.LocalFolder.Path + $"\\{dbName}";
         private static readonly SQLiteConnection myConnection = new SQLiteConnection($"Data Source={path}; version=3;");
 
-        public static List<clsCard> getCardsDAL()
+        public static ObservableCollection<clsCard> getCardsDAL()
         {
-            List<clsCard> cards = new List<clsCard>();
+            ObservableCollection<clsCard> cards = new ObservableCollection<clsCard>();
 
             getCreatureCards().ForEach(card => cards.Add(card));
             getSpellCards().ForEach(card => cards.Add(card));

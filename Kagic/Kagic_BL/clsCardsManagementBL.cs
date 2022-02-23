@@ -16,7 +16,7 @@ namespace Kagic_BL
         /// <b>Postconditions: </b> you get a list of all the cards in the database<br/>
         /// </summary>
         /// <returns>List<clsCard></returns>
-        public static List<clsCard> getCardsListBL()
+        public static ObservableCollection<clsCard> getCardsListBL()
         {
             return clsCardsManagementDAL.getCardsDAL();
         }

@@ -69,11 +69,31 @@ namespace Kagic_UI.ViewModels
             set 
             { 
                 selectedCard = value;
-                
+                lastSelectedCard = value;
             }
         }
 
-        public clsCreature SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
+        public clsCreature SelectedCreature
+        { 
+            get => selectedCreature;
+            set 
+            {
+                selectedCreature = value;
+                
+                if(selectedCreature != null && selectedCreature.Id == 0 && realPlayer.SelectedCard!=-1 && realPlayer.SelectedCreature != -1)
+                {
+                    realPlayer.PutCard();
+                    realPlayer.SelectedCard = -1;
+                    realPlayer.SelectedCreature = -1;
+                    selectedCard = null;
+                    selectedCreature = null;
+                    NotifyPropertyChanged("RealPlayer.Hand");
+                    NotifyPropertyChanged("RealPlayer.PlaceCreatures");
+                }
+
+                lastSelectedCard = value;
+            }
+        }
         public clsCard LastSelectedCard { get => lastSelectedCard; set => lastSelectedCard = value; }
         #endregion
 
@@ -166,8 +186,8 @@ namespace Kagic_UI.ViewModels
             realPlayer = new clsPlayer(CardsDeck(cards));
             iaPlayer = new clsIAPlayer(CardsDeck(cards));
             //random para ver quien empieza isPlayerTurn
-            isPlayerTurn = (new Random()).Next(10) > 5;
-            changeTurn();
+            isPlayerTurn = true;
+            realPlayer.DrawCard();           
         }
 
         /// <summary>
