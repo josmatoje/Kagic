@@ -23,7 +23,7 @@ namespace Kagic_UI.Models
 
         #region constant
         public const int MAX_MANA = 10;
-        public const int MAX_LIFE = 10;
+        public const int MAX_LIFE = 20;
         public const int MAX_HAND_CARDS = 7;
         public const int MAX_PLACE_CREATURES = 5;
         #endregion
@@ -56,6 +56,7 @@ namespace Kagic_UI.Models
         public ObservableCollection<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
         public int SelectedCard { get => selectedCard; set => selectedCard = value; }
         public int SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
+        public int ProgresBarLife{ get => life * (100 / MAX_LIFE);}
 
         #endregion
 
@@ -81,7 +82,7 @@ namespace Kagic_UI.Models
         }
         /// <summary>
         /// <b>Headboard: </b>private void PutCard()<br/>
-        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life decrease<br/>
+        /// <b>Description: </b>This method place a creature from the player hand to the batelfield<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
@@ -131,6 +132,7 @@ namespace Kagic_UI.Models
             foreach (clsCard card in hand)
                 card.IsAvaible = card.Manacost <= totalMana - usedMana;
         }
+
         #endregion
 
         #region private methods

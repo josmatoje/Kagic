@@ -51,7 +51,7 @@ namespace Kagic_UI.ViewModels
         {
             get
             {
-                
+
                 return passTurnCommand;
             }
         }
@@ -66,8 +66,8 @@ namespace Kagic_UI.ViewModels
         public clsCard SelectedCard
         {
             get => selectedCard;
-            set 
-            { 
+            set
+            {
                 selectedCard = value;
                 lastSelectedCard = value;
             }
@@ -457,10 +457,12 @@ namespace Kagic_UI.ViewModels
             if (isPlayerTurn == false)
             {
                 realPlayer.Life -= damage;
+                NotifyPropertyChanged("RealPlayer.ProgresBarLife");
             }
             else
             {
                 iaPlayer.Life -= damage;
+                NotifyPropertyChanged("IaPlayer.ProgresBarLife");
             }
             finishGame();
         }

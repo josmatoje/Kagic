@@ -15,16 +15,17 @@
     </Page.DataContext>
     <Page.Resources>
 
-        <numberConverter:clsNumberConverter x:Key="numConv"/>
+        <numberConverter:clsTensNumberConverter x:Key="tensNumConv"/>
+        <numberConverter:clsUnitNumberConverter x:Key="unitNumConv"/>
 
         <DataTemplate x:Key="dtCreature">
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                                         Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"                          Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="{Binding Attack, Converter={StaticResource numConv}}"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
+                <Image Source="{Binding Attack, Converter={StaticResource unitNumConv}}"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
                 <Image Source="/Assets/Images/Attack.png"                               Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="2"/>
-                <Image Source="{Binding Life, Converter={StaticResource numConv}}"      Style="{StaticResource ImgLifeSmall}"/>
-                <Image Source="{Binding Manacost, Converter={StaticResource numConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Source="{Binding Life, Converter={StaticResource unitNumConv}}"      Style="{StaticResource ImgLifeSmall}"/>
+                <Image Source="{Binding Manacost, Converter={StaticResource unitNumConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
             </RelativePanel>
         </DataTemplate>
 
@@ -32,7 +33,7 @@
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Source="{Binding Image}"                                         Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Source="/Assets/PRUEBAS/Marco Azul.png"                          Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="{Binding Manacost, Converter={StaticResource numConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Source="{Binding Manacost, Converter={StaticResource unitNumConv}}"  Style="{StaticResource ImgCardManaCostSmall}"/>
             </RelativePanel>
         </DataTemplate>
 
@@ -87,21 +88,21 @@
         <!-- IA life -->
         <RelativePanel x:Name="stpIaScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
                     RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
-            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="80" Foreground="Red"
+            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="{Binding IaPlayer.ProgresBarLife, UpdateSourceTrigger=PropertyChanged}" Foreground="Red"
                      RelativePanel.AlignBottomWithPanel="True"/>
             <Image x:Name="imgIaLife"           Source="/Assets/Images/Life.png"    Height="150"    Canvas.ZIndex="1" RelativePanel.AlignTopWithPanel="True"/>
-            <Image x:Name="imgIaTensNumber"     Source="{Binding IaPlayer.Life}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
-            <Image x:Name="imgIaUnitsNumber"    Source="{Binding IaPlayer.Life}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+            <Image x:Name="imgIaTensNumber"     Source="{Binding IaPlayer.Life, Converter={StaticResource tensNumConv}}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+            <Image x:Name="imgIaUnitsNumber"    Source="{Binding IaPlayer.Life, Converter={StaticResource unitNumConv}}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
 
         <!-- Player life -->
         <RelativePanel x:Name="stpPlayerScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
                     RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
-            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20"
+            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="{Binding RealPlayer.ProgresBarLife, UpdateSourceTrigger=PropertyChanged}" 
                      RelativePanel.AlignBottomWithPanel="True"/>
             <Image x:Name="imgPlayerLife"       Source="/Assets/Images/Life.png"    Height="150"    RelativePanel.AlignTopWithPanel="True"/>
-            <Image x:Name="imgTensNumber"       Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
-            <Image x:Name="imgUnitsNumber"      Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+            <Image x:Name="imgTensNumber"       Source="{Binding RealPlayer.Life, Converter={StaticResource tensNumConv}}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+            <Image x:Name="imgUnitsNumber"      Source="{Binding RealPlayer.Life, Converter={StaticResource unitNumConv}}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
         <!--  -->
 
