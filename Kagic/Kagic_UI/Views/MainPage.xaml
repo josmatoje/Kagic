@@ -12,7 +12,7 @@
     </Page.Background>
 
     <RelativePanel>
-        <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click"
+        <Button x:Name="btnPlay" Content="Vamòh a jugah!" Click="btnPlay_Click" Height="100" Width="500" FontSize="50" Foreground="Wheat"
                 RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
     </RelativePanel>
 </Page>
