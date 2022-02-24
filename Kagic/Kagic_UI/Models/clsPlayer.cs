@@ -82,17 +82,17 @@ namespace Kagic_UI.Models
         }
         /// <summary>
         /// <b>Headboard: </b>private void PutCard()<br/>
-        /// <b>Description: </b>This method place a creature from the player hand to the batelfield<br/>
+        /// <b>Description: </b>This method place a creature from the player hand to the batelfield if the mana is enough and update the usedMana<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
         public void PutCard()
         {
-            if (hand[selectedCard] is clsCreature)
+            if (hand[selectedCard] is clsCreature && hand[selectedCard].Manacost<=totalMana-usedMana)
             {
-                //placeCreatures.RemoveAt(selectedCreature);
                 placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
                 hand.RemoveAt(selectedCard);
+                usedMana += hand[selectedCard].Manacost;
             }
 
         }

@@ -79,22 +79,13 @@ namespace Kagic_UI.ViewModels
             set 
             {
                 selectedCreature = value;
-                
-                if(selectedCreature != null && selectedCreature.Id == 0 && realPlayer.SelectedCard!=-1 && realPlayer.SelectedCreature != -1)
-                {
-                    realPlayer.PutCard();
-                    realPlayer.SelectedCard = -1;
-                    realPlayer.SelectedCreature = -1;
-                    selectedCard = null;
-                    selectedCreature = null;
-                    NotifyPropertyChanged("RealPlayer.Hand");
-                    NotifyPropertyChanged("RealPlayer.PlaceCreatures");
-                }
-
+                TryPutCreature();
+                TryAttackCreature();
                 lastSelectedCard = value;
             }
         }
-        public clsCard LastSelectedCard { get => lastSelectedCard; set => lastSelectedCard = value; }
+
+        public clsCard LastSelectedCard { get => lastSelectedCard; }
         #endregion
 
         #region commands
@@ -186,6 +177,7 @@ namespace Kagic_UI.ViewModels
             realPlayer = new clsPlayer(CardsDeck(cards));
             iaPlayer = new clsIAPlayer(CardsDeck(cards));
             //random para ver quien empieza isPlayerTurn
+            //isPlayerTurn = (new Random()).Next(10) > 5;
             isPlayerTurn = true;
             realPlayer.DrawCard();           
         }
@@ -238,19 +230,35 @@ namespace Kagic_UI.ViewModels
                 realPlayer.SetMana();
                 realPlayer.DrawCard();
                 NotifyPropertyChanged("realPlayer.Hand");
+                realPlayer.SetUsedCreatures();
             }
             else
             {
                 iaPlayer.SetMana();
                 iaPlayer.DrawCard();
                 NotifyPropertyChanged("iaPlayer.Hand");
+                iaPlayer.SetUsedCreatures();
+
             }
+            UpdateSelectedCardsForNewTurn();
+            if (!isPlayerTurn)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// <b>Headboard: </b>private void UpdateSelectedCardsForNewTurn()<br/>
+        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life decrease<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Hand updated<br/>
+        /// </summary>
+        private void UpdateSelectedCardsForNewTurn()
+        {
             realPlayer.SelectedCard = -1;
             realPlayer.SelectedCreature = -1;
             iaPlayer.SelectedCard = -1;
             iaPlayer.SelectedCreature = -1;
-            realPlayer.SetUsedCreatures();
-            iaPlayer.SetUsedCreatures();
             passTurnCommand.RaiseCanExecuteChanged();
         }
 
@@ -452,6 +460,10 @@ namespace Kagic_UI.ViewModels
             return noEnemies;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="damage"></param>
         private void attackContraryPlayer(int damage)
         {
             if (isPlayerTurn == false)
@@ -465,6 +477,35 @@ namespace Kagic_UI.ViewModels
                 NotifyPropertyChanged("IaPlayer.ProgresBarLife");
             }
             finishGame();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void TryPutCreature()
+        {
+            if (lastSelectedCard == selectedCard) //No ess asi
+            {
+                //Metodo para usar tanto la ia como el usuario (Controlar que no desaparezcan cartas)
+                if (selectedCreature != null && selectedCreature.Id == 0 && realPlayer.SelectedCard != -1 && realPlayer.SelectedCreature != -1)
+                {
+                    realPlayer.PutCard();
+                    realPlayer.SelectedCard = -1;
+                    realPlayer.SelectedCreature = -1;
+                    selectedCard = null;
+                    selectedCreature = null;
+                    NotifyPropertyChanged("RealPlayer.Hand");
+                    NotifyPropertyChanged("RealPlayer.PlaceCreatures");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void TryAttackCreature()
+        {
+            //
         }
         #endregion
 
