@@ -1,6 +1,7 @@
 ﻿using Kagic_Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,13 +86,13 @@ namespace Kagic_UI.Models.Utilities
         /// <b>Postconditions: </b> <br/>
         /// </summary>
         /// <returns>int indicating de position of the target</returns>
-        public int PickEnemyCreature(List<clsCreature> enemyCreatures)
+        public int PickEnemyCreature(ObservableCollection<clsCreature> enemyCreatures)
         {
             int atackPlace = -1; //Posición a la que va a atacar
-            for (int i = 0; i < enemyCreatures.Count; i++)
+            for (int i = 0; i < enemyCreatures.Count && atackPlace == -1; i++)
             {
                 //TODO Ataca de izquierda a derecha, mejorar valorando las criaturas que no han atacado los ataques de tus propias criaturas y las vidas de las criaturas enemigas
-                if (enemyCreatures[i] != null)
+                if (enemyCreatures[i] != new clsCreature())
                 {
                     atackPlace = i;
                 }

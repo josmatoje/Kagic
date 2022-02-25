@@ -296,6 +296,8 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void iaTurn()
         {
+            int enemyCreatureIndex;
+
             //while (IaPlayer.UsedMana < IaPlayer.TotalMana)
             //{
             if (iaPlayer.SelectHandCard())
@@ -311,8 +313,19 @@ namespace Kagic_UI.ViewModels
             }
 
             //ataque
-            //TryAttackCreature(iaPlayer, realPlayer);
-
+            if (iaPlayer.PickOwnCreature())
+            {
+                selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
+                lastSelectedCard = selectedCreature;
+                enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
+                if(enemyCreatureIndex != -1)
+                {
+                  selectedCreature = realPlayer.PlaceCreatures[enemyCreatureIndex];
+                  realPlayer.SelectedCreature = enemyCreatureIndex;
+                  TryAttackCreature(iaPlayer, realPlayer);
+                }               
+            }
+            
             changeTurn();
         }
 
@@ -366,8 +379,8 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void creaturebattle()
         {
-            realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife - iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
-            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife - realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
+            realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife -=  iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
+            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife -=  realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
             if (realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
