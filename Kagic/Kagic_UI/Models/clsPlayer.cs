@@ -11,14 +11,14 @@ namespace Kagic_UI.Models
     public class clsPlayer
     {
         #region atributes
-        int life;
-        int totalMana;
-        int usedMana;
-        List<clsCard> deck;
-        ObservableCollection<clsCard> hand;
-        ObservableCollection<clsCreature> placeCreatures;
-        int selectedCard;
-        int selectedCreature;
+        protected int life;
+        protected int totalMana;
+        protected int usedMana;
+        protected List<clsCard> deck;
+        protected ObservableCollection<clsCard> hand;
+        protected ObservableCollection<clsCreature> placeCreatures;
+        protected int selectedCard;
+        protected int selectedCreature;
         #endregion
 
         #region constant

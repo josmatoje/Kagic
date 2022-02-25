@@ -253,16 +253,20 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void iaTurn()
         {
-            if (iaPlayer.SelectHandCard())
-            {
-                selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
-                lastSelectedCard = selectedCard;
-            }
-            if (iaPlayer.PickOwnCreature())
+            //while (IaPlayer.UsedMana < IaPlayer.TotalMana)
+            //{
+                if (iaPlayer.SelectHandCard())
+                {
+                    selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
+                    lastSelectedCard = selectedCard;
+                }
+            //}
+            if (iaPlayer.PickPlace())
             {
                 selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
                 TryPutCreature(iaPlayer);
             }
+            
 
             //ataque
             //TryAttackCreature(iaPlayer, realPlayer);

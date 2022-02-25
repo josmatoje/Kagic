@@ -23,38 +23,55 @@ namespace Kagic_UI.Models.Utilities
         /// <returns>bool: true if a card has been selected</returns>
         public bool SelectHandCard()
         {
-            for (int i = 0; i < Hand.Count && SelectedCard == -1; i++)
+            for (int i = 0; i < Hand.Count && selectedCard == -1; i++)
             {
                 if (Hand[i] is clsCreature)
                 //if (Hand[i].Manacost < TotalMana - UsedMana)
-                 SelectedCard = i;
+                 selectedCard = i;
             }
-            return SelectedCard != -1; //Devuelve true si alguna carta ha sido seleccionadad
+            return selectedCard != -1; //Devuelve true si alguna carta ha sido seleccionadad
         }
 
-        //TODO cambiar summary
         /// <summary>
-        /// <b>Headboard: </b>public int PickOwnCreature()<br/>
-        /// <b>Description: </b>This method select the target of the own creature<br/>
-        /// <b>Preconditions: </b>selected card must be different of null<br/>
+        /// <b>Headboard: </b>public int PickPlace()<br/>
+        /// <b>Description: </b>This method select where to place a selected card on the battlefield<br/>
+        /// <b>Preconditions: </b> None<br/>
         /// <b>Postconditions: </b> <br/>
         /// </summary>
         /// <returns>int indicating de position of the target</returns>
+        public bool PickPlace()
+        {
+            bool picked = false;
+            for (int i = 0; i < placeCreatures.Count && !picked; i++)
+            {
+                if (placeCreatures[i].Id == 0)
+                {
+                    selectedCreature = i;
+                    picked = true;
+                }
+            }
+
+            return picked;
+        }
+
+        /// <summary>
+        /// <b>Headboard: </b>public int PickOwnCreature()<br/>
+        /// <b>Description: </b>This method select a Creature of your own batelfield<br/>
+        /// <b>Preconditions: </b> None<br/>
+        /// <b>Postconditions: </b> <br/>
+        /// </summary>
+        /// <returns>boolean indicating if the method has picked </returns>
         public bool PickOwnCreature()
         {
             bool picked = false;
-            for (int i = 0; i < PlaceCreatures.Count && !picked; i++)
+            selectedCreature = -1;
+            for (int i = 0; i < placeCreatures.Count && !picked; i++)
             {
-                if(SelectedCard != -1 && PlaceCreatures[i].Id == 0)
+                if (!placeCreatures[i].Used) //PlaceCreatures[i].Id != 0 && <-- Id==0 implica que es una criatura por defecto y que used es true
                 {
-                    SelectedCreature = i;
+                    selectedCreature = i;
                     picked = true;
                 }
-                //if (!PlaceCreatures[i].Used)
-                //{
-                //    SelectedCard = i;
-                //    picked = true;
-                //}
             }
 
             return picked;
