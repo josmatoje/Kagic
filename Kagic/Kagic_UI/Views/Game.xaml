@@ -107,7 +107,7 @@
         <!--Cambiar por user control con bindeos y tal-->
 
         <!-- Card details -->
-        <RelativePanel Height="300" Width="200"
+        <RelativePanel Height="300" Width="200" x:Name="laCartaSeleccionada"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <GridView x:Name="gdSelectedCard" ItemsSource="{Binding LastSelectedCard}"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}">
@@ -120,5 +120,12 @@
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedIndex="{Binding RealPlayer.SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </GridView>
 
+        <RelativePanel RelativePanel.AlignLeftWith="laCartaSeleccionada" RelativePanel.Below="laCartaSeleccionada" Margin="0,100">
+            <TextBlock x:Name="textoMana" Text="Mana:" FontSize="30" Margin="5" Foreground="White"/>
+            <TextBlock x:Name="manaUsadoTemporal" Text="{Binding RealPlayer.UsedMana}" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="textoMana"/>
+            <TextBlock x:Name="barraMana" Text="/" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="manaUsadoTemporal"/>
+            <TextBlock x:Name="manaTotalTemporal" Text="{Binding RealPlayer.TotalMana}" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="barraMana"/>
+        </RelativePanel>
+        
     </RelativePanel>
 </Page>
