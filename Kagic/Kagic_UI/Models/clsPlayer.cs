@@ -131,7 +131,6 @@ namespace Kagic_UI.Models
             foreach (clsCard card in hand)
                 card.IsAvaible = card.Manacost <= totalMana - usedMana;
         }
-
         #endregion
 
         #region private methods
@@ -150,7 +149,6 @@ namespace Kagic_UI.Models
                 this.deck.RemoveAt(0);
             }
         }
-
 
         /// <summary>
         /// <b>Headboard: </b>private void InitializePlaceCreatures()<br/>

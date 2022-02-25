@@ -53,7 +53,7 @@
         <!-- IA Cards -->
         <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand, UpdateSourceTrigger=PropertyChanged}" 
             VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" SelectedIndex="{Binding IaPlayer.SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource CardsTemplates}">
+            RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None" SelectedIndex="{Binding IaPlayer.SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel Style="{StaticResource RpCardSmall}" VerticalAlignment="Bottom">
@@ -72,7 +72,7 @@
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
             <!-- IA battlefield -->
             <GridView x:Name="gdOpponentCreatures" ItemsSource="{Binding IaPlayer.PlaceCreatures}" ItemTemplateSelector="{StaticResource CardsTemplates}"  MinHeight="250" MinWidth="800" Margin="0,0,0,20" BorderThickness="3" Background="Red" CornerRadius="20"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplate="{StaticResource dtCreature}" SelectedIndex="{Binding IaPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"                                           ItemTemplate="{StaticResource dtCreature}" SelectedIndex="{Binding IaPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
 
             <!-- Player battlefield -->

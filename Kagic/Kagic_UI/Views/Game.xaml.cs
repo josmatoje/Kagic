@@ -31,5 +31,6 @@ namespace Kagic_UI.Views
         {
             Frame.GoBack();
         }
+
     }
 }

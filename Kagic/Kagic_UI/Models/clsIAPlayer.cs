@@ -37,7 +37,7 @@ namespace Kagic_UI.Models.Utilities
         /// <b>Headboard: </b>public int PickPlace()<br/>
         /// <b>Description: </b>This method select where to place a selected card on the battlefield<br/>
         /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> <br/>
+        /// <b>Postconditions: </b> Selected creature has change if the return is true<br/>
         /// </summary>
         /// <returns>int indicating de position of the target</returns>
         public bool PickPlace()
@@ -51,7 +51,6 @@ namespace Kagic_UI.Models.Utilities
                     picked = true;
                 }
             }
-
             return picked;
         }
 
@@ -59,7 +58,7 @@ namespace Kagic_UI.Models.Utilities
         /// <b>Headboard: </b>public int PickOwnCreature()<br/>
         /// <b>Description: </b>This method select a Creature of your own batelfield<br/>
         /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> <br/>
+        /// <b>Postconditions: </b> The picked creature exist on the battelfield<br/>
         /// </summary>
         /// <returns>boolean indicating if the method has picked </returns>
         public bool PickOwnCreature()
@@ -78,7 +77,6 @@ namespace Kagic_UI.Models.Utilities
             return picked;
         }
 
-        //TODO cambiar summary
         /// <summary>
         /// <b>Headboard: </b>public int PickEnemyCreature(List<clsCreature> enemyCreatures)<br/>
         /// <b>Description: </b>This method select the target of the enemy creature <br/>

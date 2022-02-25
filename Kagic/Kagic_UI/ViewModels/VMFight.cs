@@ -332,23 +332,22 @@ namespace Kagic_UI.ViewModels
         /// <summary>
         /// <b>Headboard: </b>private void TryPutCreature()<br/>
         /// <b>Description: </b>Check if is posible to put the selected card on the batelfield and, if it is, do it<br/>
-        /// <b>Preconditions: </b>None<br/>
+        /// <b>Preconditions: </b> It muss be called after change de selectedCreature but before change the lastSelectedCard<br/>
         /// <b>Postconditions: </b> None<br/>
         /// </summary>
         private void TryPutCreature(clsPlayer player)
         {
-            if (lastSelectedCard == selectedCard) //Si la ultima carta seleccionada es una carta de tu mano que has seleccionado justo antes
+            if (lastSelectedCard == selectedCard && //Si la ultima carta seleccionada es una carta de tu mano que has seleccionado justo antes
+                selectedCreature != null && selectedCreature.Id == 0 && 
+                player.SelectedCard != -1 && player.SelectedCreature != -1 &&
+                player.PlaceCreatures[player.SelectedCreature].Id == 0)
             {
-                //Metodo para usar tanto la ia como el usuario (Controlar que no desaparezcan cartas)
-                if (selectedCreature != null && selectedCreature.Id == 0 && player.SelectedCard != -1 && player.SelectedCreature != -1)
-                {
-                    player.PutCard();
-                    //NotifyPropertyChanged("RealPlayer.UsedMana");
-                    player.SelectedCard = -1;
-                    player.SelectedCreature = -1;
-                    selectedCard = null;
-                    selectedCreature = null;  
-                }
+                player.PutCard();
+                //NotifyPropertyChanged("RealPlayer.UsedMana");
+                player.SelectedCard = -1;
+                player.SelectedCreature = -1;
+                selectedCard = null;
+                selectedCreature = null;
             }
         }
         #endregion
@@ -360,16 +359,17 @@ namespace Kagic_UI.ViewModels
         /// <summary>
         /// <b>Headboard: </b>private void TryPutCreature()<br/>
         /// <b>Description: </b>Check if is posible to put the selected card on the batelfield and, if it is, do it<br/>
-        /// <b>Preconditions: </b>ofensor.SelectedCreature != <br/>
+        /// <b>Preconditions: </b> It muss be called after change de selectedCreature but before change the lastSelectedCard<br/>
         /// <b>Postconditions: </b> None<br/>
         /// </summary>
-        private void TryAttackCreature(clsPlayer ofensor, clsPlayer defensor)
+        private void TryAttackCreature(clsPlayer attacker, clsPlayer defensor)
         {
-
-            if (defensor.SelectedCreature != -1 && lastSelectedCard is clsCreature && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
+            if (lastSelectedCard != null && selectedCreature != null &&
+                attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1 && 
+                lastSelectedCard.Id != 0 && selectedCreature.Id != 0 && 
+                lastSelectedCard == attacker.PlaceCreatures[attacker.SelectedCreature] && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
             {
                 creaturebattle();
-                
             }
         }
 
@@ -387,18 +387,16 @@ namespace Kagic_UI.ViewModels
                 realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //realPlayer.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
-                NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
                 iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
-                NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("SelectedCreature");
+            NotifyPropertyChanged("RealPlayer.PlaceCreatures");
+            NotifyPropertyChanged("IaPlayer.PlaceCreatures");
         }
 
         #endregion
