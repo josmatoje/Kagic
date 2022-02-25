@@ -26,7 +26,7 @@ namespace Kagic_UI.ViewModels
         #endregion
 
         #region constants
-        const int DECK_SIZE = 10;
+        const int DECK_SIZE = 20;
         const int MAX_REPETED_CARDS_DECK = 2;
 
         #endregion
@@ -51,7 +51,6 @@ namespace Kagic_UI.ViewModels
         {
             get
             {
-
                 return passTurnCommand;
             }
         }
@@ -79,8 +78,8 @@ namespace Kagic_UI.ViewModels
             set 
             {
                 selectedCreature = value;
-                TryPutCreature();
-                TryAttackCreature();
+                TryPutCreature(realPlayer);
+                TryAttackCreature(realPlayer,iaPlayer);
                 lastSelectedCard = value;
             }
         }
@@ -201,9 +200,9 @@ namespace Kagic_UI.ViewModels
                 position = random.Next(cardsList.Count);
                 counter = 0;
                 //foreach (clsCard card in deck) but exit if the condition is exceeded
-                for (int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
+                for (int j = 0; j < deck.Count && counter <= MAX_REPETED_CARDS_DECK; j++)
                 {
-                    if (deck[j].GetType() == cardsList[i].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
+                    if (deck[j].GetType() == cardsList[position].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
                     {
                         counter++;
                     }
@@ -213,6 +212,9 @@ namespace Kagic_UI.ViewModels
                     deck.Add(cardsList[position]);
                     i++;
                 }
+                //Mazo de cartas 
+                //deck.Add(cardsList.ElementAt(5));
+
             }
 
             return deck;
@@ -231,6 +233,7 @@ namespace Kagic_UI.ViewModels
                 realPlayer.DrawCard();
                 NotifyPropertyChanged("realPlayer.Hand");
                 realPlayer.SetUsedCreatures();
+                UpdateSelectedCardsForNewTurn();
             }
             else
             {
@@ -238,14 +241,35 @@ namespace Kagic_UI.ViewModels
                 iaPlayer.DrawCard();
                 NotifyPropertyChanged("iaPlayer.Hand");
                 iaPlayer.SetUsedCreatures();
-
+                UpdateSelectedCardsForNewTurn();
+                //metodo accion ia
+                iaTurn();
             }
-            UpdateSelectedCardsForNewTurn();
-            if (!isPlayerTurn)
-            {
-
-            }
+            passTurnCommand.RaiseCanExecuteChanged();            
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void iaTurn()
+        {
+            if (iaPlayer.SelectHandCard())
+            {
+                selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
+                lastSelectedCard = selectedCard;
+            }
+            if (iaPlayer.PickOwnCreature())
+            {
+                selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
+                TryPutCreature(iaPlayer);
+            }
+
+            //ataque
+            //TryAttackCreature(iaPlayer, realPlayer);
+
+            changeTurn();
+        }
+        
 
         /// <summary>
         /// <b>Headboard: </b>private void UpdateSelectedCardsForNewTurn()<br/>
@@ -258,8 +282,7 @@ namespace Kagic_UI.ViewModels
             realPlayer.SelectedCard = -1;
             realPlayer.SelectedCreature = -1;
             iaPlayer.SelectedCard = -1;
-            iaPlayer.SelectedCreature = -1;
-            passTurnCommand.RaiseCanExecuteChanged();
+            iaPlayer.SelectedCreature = -1;   
         }
 
         /// <summary>
@@ -294,13 +317,13 @@ namespace Kagic_UI.ViewModels
             if (isPlayerTurn)
             {
                 actionForPlayerTurn(realPlayer);
+                NotifyPropertyChanged("RealPlayer.Hand");
             }
             else
             {
                 actionForPlayerTurn(iaPlayer);
+                NotifyPropertyChanged("IaPlayer.Hand");
             }
-            NotifyPropertyChanged("RealPlayer.Hand");
-            NotifyPropertyChanged("IaPlayer.Hand");
         }
 
         /// <summary>
@@ -310,7 +333,7 @@ namespace Kagic_UI.ViewModels
         /// <param name="player"></param>
         private void actionForPlayerTurn(clsPlayer player)
         {
-            if (player.SelectedCard.GetType() == typeof(clsCreature))
+            if (player.SelectedCreature != -1)
             {
                 creaturebattle();
             }
@@ -334,26 +357,27 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void creaturebattle()
         {
+            
             realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife - iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
+            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife - realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
             if (realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife <= 0)
             {
-                //Forma de setear a null para mantener espacios
-                realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = null;
+                //Forma de setear a una criatura por defecto para mantener espacios
+                realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //realPlayer.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
                 NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
             NotifyPropertyChanged("RealPlayer.PlaceCreatures");
-            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife - realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
             if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife <= 0)
             {
-                //Forma de setear a null para mantener espacios
-                iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = null;
+                //Forma de setear a una criatura por defecto para mantener espacios
+                iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
                 NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("IaPlayer.SelectedCreature");
+            NotifyPropertyChanged("SelectedCreature");
         }
 
         /// <summary>
@@ -365,14 +389,13 @@ namespace Kagic_UI.ViewModels
             if (isPlayerTurn)
             {
                 attackAction(realPlayer, iaPlayer);
+                NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
             else
             {
                 attackAction(iaPlayer, realPlayer);
-
+                NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("IaPlayer.PlaceCreatures");
-            NotifyPropertyChanged("RealPlayer.PlaceCreatures");
         }
 
         /// <summary>
@@ -400,7 +423,6 @@ namespace Kagic_UI.ViewModels
             {
                 healthAction(realPlayer);
                 NotifyPropertyChanged("RealPlayer.Life");
-
             }
             else
             {
@@ -437,31 +459,29 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>private bool noEnemiesFront()<br/>
+        /// <b>Description: </b>Return if the other player battelfield has creatures on it<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b> None<br/>
         /// </summary>
         /// <returns></returns>
         private bool noEnemiesFront()
         {
             bool noEnemies = true;
-            clsPlayer player = realPlayer;
+            clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
 
-            if (isPlayerTurn == false)
+            for (int i = 0; i < player.PlaceCreatures.Count && noEnemies; i++)
             {
-                player = iaPlayer;
-            }
-
-            foreach (clsCreature auxCreature in player.PlaceCreatures)
-            {
-                if (auxCreature.Id != -1)
-                {
-                    noEnemies = false;
-                }
+                    noEnemies = player.PlaceCreatures[i].Id == -1;
             }
             return noEnemies;
         }
 
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>private void attackContraryPlayer(int damage)<br/>
+        /// <b>Description: </b>Modifies the player life and check if the match is finished<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b> None<br/>
         /// </summary>
         /// <param name="damage"></param>
         private void attackContraryPlayer(int damage)
@@ -480,32 +500,42 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>private void TryPutCreature()<br/>
+        /// <b>Description: </b>Check if is posible to put the selected card on the batelfield and, if it is, do it<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b> None<br/>
         /// </summary>
-        private void TryPutCreature()
+        private void TryPutCreature(clsPlayer player)
         {
-            if (lastSelectedCard == selectedCard) //No ess asi
+            if (lastSelectedCard == selectedCard) //Si la ultima carta seleccionada es una carta de tu mano que has seleccionado justo antes
             {
                 //Metodo para usar tanto la ia como el usuario (Controlar que no desaparezcan cartas)
-                if (selectedCreature != null && selectedCreature.Id == 0 && realPlayer.SelectedCard != -1 && realPlayer.SelectedCreature != -1)
+                if (selectedCreature != null && selectedCreature.Id == 0 && player.SelectedCard != -1 && player.SelectedCreature != -1)
                 {
-                    realPlayer.PutCard();
-                    realPlayer.SelectedCard = -1;
-                    realPlayer.SelectedCreature = -1;
+                    player.PutCard();
+                    //NotifyPropertyChanged("RealPlayer.UsedMana");
+                    player.SelectedCard = -1;
+                    player.SelectedCreature = -1;
                     selectedCard = null;
-                    selectedCreature = null;
-                    NotifyPropertyChanged("RealPlayer.Hand");
-                    NotifyPropertyChanged("RealPlayer.PlaceCreatures");
+                    selectedCreature = null;  
                 }
             }
         }
 
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>private void TryPutCreature()<br/>
+        /// <b>Description: </b>Check if is posible to put the selected card on the batelfield and, if it is, do it<br/>
+        /// <b>Preconditions: </b>ofensor.SelectedCreature != <br/>
+        /// <b>Postconditions: </b> None<br/>
         /// </summary>
-        private void TryAttackCreature()
+        private void TryAttackCreature(clsPlayer ofensor, clsPlayer defensor)
         {
-            //
+
+            if (defensor.SelectedCreature != -1 && lastSelectedCard is clsCreature && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
+            {
+                creaturebattle();
+                
+            }
         }
         #endregion
 

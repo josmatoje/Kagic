@@ -88,7 +88,7 @@ namespace Kagic_UI.Models
         /// </summary>
         public void PutCard()
         {
-            if (hand[selectedCard] is clsCreature && hand[selectedCard].Manacost<=totalMana-usedMana)
+            if (hand[selectedCard] is clsCreature) //&& hand[selectedCard].Manacost<=totalMana-usedMana)
             {
                 placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
                 usedMana += hand[selectedCard].Manacost;

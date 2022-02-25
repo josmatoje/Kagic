@@ -122,9 +122,9 @@
 
         <RelativePanel RelativePanel.AlignLeftWith="laCartaSeleccionada" RelativePanel.Below="laCartaSeleccionada" Margin="0,100">
             <TextBlock x:Name="textoMana" Text="Mana:" FontSize="30" Margin="5" Foreground="White"/>
-            <TextBlock x:Name="manaUsadoTemporal" Text="{Binding RealPlayer.UsedMana}" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="textoMana"/>
+            <TextBlock x:Name="manaUsadoTemporal" Text="{Binding RealPlayer.UsedMana, UpdateSourceTrigger=PropertyChanged}" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="textoMana"/>
             <TextBlock x:Name="barraMana" Text="/" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="manaUsadoTemporal"/>
-            <TextBlock x:Name="manaTotalTemporal" Text="{Binding RealPlayer.TotalMana}" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="barraMana"/>
+            <TextBlock x:Name="manaTotalTemporal" Text="{Binding RealPlayer.TotalMana,UpdateSourceTrigger=PropertyChanged}" FontSize="30" Margin="5" Foreground="White" RelativePanel.RightOf="barraMana"/>
         </RelativePanel>
         
     </RelativePanel>

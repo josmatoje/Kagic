@@ -10,7 +10,6 @@ namespace Kagic_UI.Models.Utilities
     public class clsIAPlayer : clsPlayer
     {
         #region constructor
-
         public clsIAPlayer(List<clsCard> deck) : base(deck) { }
         #endregion
 
@@ -24,32 +23,38 @@ namespace Kagic_UI.Models.Utilities
         /// <returns>bool: true if a card has been selected</returns>
         public bool SelectHandCard()
         {
-            for (int i = 0; i < Hand.Count || SelectedCard == -1; i++)
+            for (int i = 0; i < Hand.Count && SelectedCard == -1; i++)
             {
-                if (Hand[i].Manacost < TotalMana - UsedMana)
-                    SelectedCard = i;
+                if (Hand[i] is clsCreature)
+                //if (Hand[i].Manacost < TotalMana - UsedMana)
+                 SelectedCard = i;
             }
             return SelectedCard != -1; //Devuelve true si alguna carta ha sido seleccionadad
         }
 
         //TODO cambiar summary
         /// <summary>
-        /// <b>Headboard: </b>public int PickCreature()<br/>
-        /// <b>Description: </b>This method select the target of the enemy creature<br/>
+        /// <b>Headboard: </b>public int PickOwnCreature()<br/>
+        /// <b>Description: </b>This method select the target of the own creature<br/>
         /// <b>Preconditions: </b>selected card must be different of null<br/>
         /// <b>Postconditions: </b> <br/>
         /// </summary>
         /// <returns>int indicating de position of the target</returns>
-        public bool PickCreature()
+        public bool PickOwnCreature()
         {
             bool picked = false;
-            for (int i = 0; i < PlaceCreatures.Count || !picked; i++)
+            for (int i = 0; i < PlaceCreatures.Count && !picked; i++)
             {
-                if (!PlaceCreatures[i].Used)
+                if(SelectedCard != -1 && PlaceCreatures[i].Id == 0)
                 {
-                    SelectedCard = i;
+                    SelectedCreature = i;
                     picked = true;
                 }
+                //if (!PlaceCreatures[i].Used)
+                //{
+                //    SelectedCard = i;
+                //    picked = true;
+                //}
             }
 
             return picked;

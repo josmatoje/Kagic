@@ -120,7 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\clsPlayer.cs" />
-    <Compile Include="Models\Utilities\clsIAPlayer.cs" />
+    <Compile Include="Models\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsTensNumberConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsUnitNumberConverter.cs" />
