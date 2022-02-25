@@ -94,7 +94,6 @@ namespace Kagic_UI.Models
                 usedMana += hand[selectedCard].Manacost;
                 hand.RemoveAt(selectedCard);
             }
-
         }
 
         /// <summary>
