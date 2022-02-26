@@ -254,8 +254,8 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// <b>Headboard: </b>private void UpdateSelectedCardsForNewTurn()<br/>
-        /// <b>Description: </b>This method add a card to the hand each turn, if deck is empty, life decrease<br/>
+        /// <b>Headboard: </b>private void UpdateSelectedCardsForNewAction()<br/>
+        /// <b>Description: </b>Update the selected cards from the viewmodel and the index from the players<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
@@ -323,11 +323,8 @@ namespace Kagic_UI.ViewModels
                 player.PlaceCreatures[player.SelectedCreature].Id == 0)
             {
                 player.PutCard();
-                //NotifyPropertyChanged("RealPlayer.UsedMana");
-                player.SelectedCard = -1;
-                player.SelectedCreature = -1;
-                selectedCard = null;
-                selectedCreature = null;
+                //Una vez colocada la carta se modifican a -1 las criaturas seleccionadas
+                UpdateSelectedCardsForNewAction();
             }
         }
         #endregion
@@ -350,6 +347,8 @@ namespace Kagic_UI.ViewModels
                 lastSelectedCard == attacker.PlaceCreatures[attacker.SelectedCreature] && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
             {
                 creaturebattle();
+                //Una vez realizado el ataque se modifican a -1 las criaturas seleccionadas
+                UpdateSelectedCardsForNewAction();
             }
         }
 
@@ -377,9 +376,6 @@ namespace Kagic_UI.ViewModels
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
                 NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
-            //Una vez realizado el ataque se modifican a -1 las criaturas seleccionadas
-            realPlayer.SelectedCreature = -1;
-            iaPlayer.SelectedCreature = -1;
             NotifyPropertyChanged(nameof(RealPlayer.PlaceCreatures));
             NotifyPropertyChanged(nameof(IaPlayer.PlaceCreatures));
 
