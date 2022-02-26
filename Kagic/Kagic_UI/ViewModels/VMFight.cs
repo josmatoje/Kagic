@@ -5,6 +5,7 @@ using Kagic_UI.Models.Utilities;
 using Kagic_UI.ViewModels.UtilitiesVM;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Kagic_UI.ViewModels
         DelegateCommand attackContraryPlayerCommand;
         clsCard selectedCard;
         clsCreature selectedCreature;
-        clsCard lastSelectedCard;
+        ObservableCollection <clsCard> lastSelectedCard;
         #endregion
 
         #region constants
@@ -53,7 +54,7 @@ namespace Kagic_UI.ViewModels
             set
             {
                 selectedCard = value;
-                lastSelectedCard = value;
+                SetLastSelectedCard(value);
             }
         }
 
@@ -65,11 +66,11 @@ namespace Kagic_UI.ViewModels
                 selectedCreature = value;
                 TryPutCreature(realPlayer);
                 TryAttackCreature(realPlayer,iaPlayer);
-                lastSelectedCard = value;
+                SetLastSelectedCard(value);
             }
         }
 
-        public clsCard LastSelectedCard { get => lastSelectedCard; }
+        public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard; }
 
         #region commands getters
         public DelegateCommand PassTurnCommand
@@ -267,7 +268,7 @@ namespace Kagic_UI.ViewModels
             iaPlayer.SelectedCreature = -1;
             selectedCard = new clsCreature();
             selectedCreature = new clsCreature();
-            lastSelectedCard = new clsCreature();
+            lastSelectedCard = new ObservableCollection<clsCard>();
         }
 
         /// <summary>
@@ -287,7 +288,7 @@ namespace Kagic_UI.ViewModels
                 if (iaPlayer.SelectHandCard()) 
                 {
                     selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
-                    lastSelectedCard = selectedCard;
+                    SetLastSelectedCard(selectedCard);
                     if (iaPlayer.PickPlace())
                     {
                         selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
@@ -308,7 +309,7 @@ namespace Kagic_UI.ViewModels
             while (iaPlayer.PickOwnCreature()) //Mientras seleccione criaturas que puedan atacar
             {
                 selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
-                lastSelectedCard = selectedCreature;
+                SetLastSelectedCard(selectedCreature);
                 enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
                 if(enemyCreatureIndex != -1)
                 {
@@ -330,15 +331,23 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void TryPutCreature(clsPlayer player)
         {
-            if (lastSelectedCard == selectedCard && //Si la ultima carta seleccionada es una carta de tu mano que has seleccionado justo antes
+            if (lastSelectedCard != null && lastSelectedCard.Contains(selectedCard) && //Si la ultima carta seleccionada es una carta de tu mano que has seleccionado justo antes
                 selectedCreature != null && selectedCreature.Id == 0 && 
                 player.SelectedCard != -1 && player.SelectedCreature != -1 &&
                 player.PlaceCreatures[player.SelectedCreature].Id == 0)
             {
                 player.PutCard();
                 //Una vez colocada la carta se modifican a -1 las criaturas seleccionadas
+                NotifyPropertyChanged(nameof(RealPlayer));
                 UpdateSelectedCardsForNewAction();
             }
+        }
+
+        private void SetLastSelectedCard(clsCard card)
+        {
+            lastSelectedCard = new ObservableCollection<clsCard>();
+            lastSelectedCard.Add(card);
+            NotifyPropertyChanged(nameof(LastSelectedCard));
         }
         #endregion
 
@@ -356,8 +365,8 @@ namespace Kagic_UI.ViewModels
         {
             if (lastSelectedCard != null && selectedCreature != null &&
                 attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1 && 
-                lastSelectedCard.Id != 0 && selectedCreature.Id != 0 && 
-                lastSelectedCard == attacker.PlaceCreatures[attacker.SelectedCreature] && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
+                lastSelectedCard[0].Id != 0 && selectedCreature.Id != 0 && 
+                lastSelectedCard.Contains(attacker.PlaceCreatures[attacker.SelectedCreature]) && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
             {
                 Creaturebattle();
                 //Una vez realizado el ataque se modifican a -1 las criaturas seleccionadas
@@ -381,7 +390,6 @@ namespace Kagic_UI.ViewModels
                 realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //realPlayer.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
-                NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
             if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].ActualLife <= 0)
             {
@@ -389,7 +397,6 @@ namespace Kagic_UI.ViewModels
                 iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
-                NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
             NotifyPropertyChanged(nameof(RealPlayer.PlaceCreatures));
             NotifyPropertyChanged(nameof(IaPlayer.PlaceCreatures));
