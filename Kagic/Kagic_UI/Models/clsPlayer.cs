@@ -33,7 +33,7 @@ namespace Kagic_UI.Models
         public clsPlayer(List<clsCard> deck)
         {
             this.life = MAX_LIFE;
-            this.totalMana = 1;
+            this.totalMana = 10; //Modificado para pruebas CAMBIAR A 1!
             this.usedMana = 0;
             this.deck = deck;
             InitialHand();
@@ -88,7 +88,7 @@ namespace Kagic_UI.Models
         /// </summary>
         public void PutCard()
         {
-            if (hand[selectedCard] is clsCreature) //&& hand[selectedCard].Manacost<=totalMana-usedMana)
+            if (hand[selectedCard] is clsCreature && hand[selectedCard].Manacost<=totalMana-usedMana)
             {
                 placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
                 usedMana += hand[selectedCard].Manacost;

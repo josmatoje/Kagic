@@ -99,7 +99,7 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void passTurnCommand_Executed()
         {
-            changeTurn();
+            ChangeTurn();
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Kagic_UI.ViewModels
                 damage = player.PlaceCreatures[player.SelectedCreature].Attack;
             }
 
-            attackContraryPlayer(damage);
+            AttackContraryPlayer(damage);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Kagic_UI.ViewModels
         private bool atackContraryPlayerCommand_CanExecute()
         {
             clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
-            return !(player.SelectedCard == -1 && noEnemiesFront());
+            return !(player.SelectedCard == -1 && NoEnemiesFront());
         }
         #endregion
 
@@ -168,7 +168,7 @@ namespace Kagic_UI.ViewModels
         ///     <Description>Method to validate that anyone's life is 0 or lower </descripcion>
         /// </summary>
         /// <returns></returns>
-        private bool finishGame()
+        private bool FinishGame()
         {
             bool finished = false;
             if (realPlayer.Life <= 0)
@@ -229,7 +229,7 @@ namespace Kagic_UI.ViewModels
         ///     <Headboard>private void changeTurn()</cabecera>
         ///     <Description>it is done when a turn finishes. Set mana used and  reset selected cards</descripcion>
         /// </summary>
-        private void changeTurn()
+        private void ChangeTurn()
         {
             isPlayerTurn = !isPlayerTurn;
             if (isPlayerTurn)
@@ -248,7 +248,7 @@ namespace Kagic_UI.ViewModels
                 NotifyPropertyChanged(nameof(IaPlayer));
                 UpdateSelectedCardsForNewAction();
                 //metodo accion ia
-                iaTurn();
+                IaTurn();
             }
             passTurnCommand.RaiseCanExecuteChanged();
         }
@@ -268,45 +268,58 @@ namespace Kagic_UI.ViewModels
             selectedCard = new clsCreature();
             selectedCreature = new clsCreature();
             lastSelectedCard = new clsCreature();
-
         }
 
         /// <summary>
-        /// 
+        /// <b>Headboard: </b>private void iaTurn()<br/>
+        /// <b>Description: </b>akes<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
-        private void iaTurn()
+        private void IaTurn()
         {
             int enemyCreatureIndex;
+            bool placeCreature=true;
 
-            //while (IaPlayer.UsedMana < IaPlayer.TotalMana)
-            //{
-            if (iaPlayer.SelectHandCard())
+            //place creatures
+            while (placeCreature)
             {
-                selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
-                lastSelectedCard = selectedCard;
-            }
-            //}
-            if (iaPlayer.PickPlace())
-            {
-                selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
-                TryPutCreature(iaPlayer);
+                if (iaPlayer.SelectHandCard()) 
+                {
+                    selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
+                    lastSelectedCard = selectedCard;
+                    if (iaPlayer.PickPlace())
+                    {
+                        selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
+                        TryPutCreature(iaPlayer);
+                    }
+                    else
+                    {
+                        placeCreature = false;
+                    }
+                }
+                else
+                {
+                    placeCreature = false;
+                }
             }
 
-            //ataque
-            if (iaPlayer.PickOwnCreature())
+            //attack enemies
+            while (iaPlayer.PickOwnCreature()) //Mientras seleccione criaturas que puedan atacar
             {
                 selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
                 lastSelectedCard = selectedCreature;
                 enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
                 if(enemyCreatureIndex != -1)
                 {
-                  selectedCreature = realPlayer.PlaceCreatures[enemyCreatureIndex];
-                  realPlayer.SelectedCreature = enemyCreatureIndex;
-                  TryAttackCreature(iaPlayer, realPlayer);
+                    selectedCreature = realPlayer.PlaceCreatures[enemyCreatureIndex];
+                    realPlayer.SelectedCreature = enemyCreatureIndex;
+                    //TryAttackCreature(iaPlayer, realPlayer);
+                    Creaturebattle();
                 }               
             }
             
-            changeTurn();
+            ChangeTurn();
         }
 
         /// <summary>
@@ -346,7 +359,7 @@ namespace Kagic_UI.ViewModels
                 lastSelectedCard.Id != 0 && selectedCreature.Id != 0 && 
                 lastSelectedCard == attacker.PlaceCreatures[attacker.SelectedCreature] && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
             {
-                creaturebattle();
+                Creaturebattle();
                 //Una vez realizado el ataque se modifican a -1 las criaturas seleccionadas
                 UpdateSelectedCardsForNewAction();
             }
@@ -356,10 +369,12 @@ namespace Kagic_UI.ViewModels
         /// <b>Headboard: </b> private void creaturebattle()<br/>
         /// <b>Description: </b> Method for update the criatures'life depends of criatures'atack
         /// </summary>
-        private void creaturebattle()
+        private void Creaturebattle()
         {
             realPlayer.PlaceCreatures[realPlayer.SelectedCreature].ActualLife -=  iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
+            realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used = true;
             iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].ActualLife -=  realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
+            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Used = true;
             if (realPlayer.PlaceCreatures[realPlayer.SelectedCreature].ActualLife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
@@ -490,7 +505,7 @@ namespace Kagic_UI.ViewModels
         /// <b>Postconditions: </b> None<br/>
         /// </summary>
         /// <returns></returns>
-        private bool noEnemiesFront()
+        private bool NoEnemiesFront()
         {
             bool noEnemies = true;
             clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
@@ -509,7 +524,7 @@ namespace Kagic_UI.ViewModels
         /// <b>Postconditions: </b> None<br/>
         /// </summary>
         /// <param name="damage"></param>
-        private void attackContraryPlayer(int damage)
+        private void AttackContraryPlayer(int damage)
         {
             if (!isPlayerTurn)
             {
@@ -521,7 +536,7 @@ namespace Kagic_UI.ViewModels
                 iaPlayer.Life -= damage;
                 NotifyPropertyChanged("IaPlayer.ProgresBarLife");
             }
-            finishGame();
+            FinishGame();
         }
         #endregion
 

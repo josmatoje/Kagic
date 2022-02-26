@@ -26,8 +26,8 @@ namespace Kagic_UI.Models.Utilities
         {
             for (int i = 0; i < Hand.Count && selectedCard == -1; i++)
             {
-                if (Hand[i] is clsCreature)
-                //if (Hand[i].Manacost < TotalMana - UsedMana)
+                if (Hand[i] is clsCreature && //For testing creatures DELETE
+                    Hand[i].Manacost < TotalMana - UsedMana)
                  selectedCard = i;
             }
             return selectedCard != -1; //Devuelve true si alguna carta ha sido seleccionadad
