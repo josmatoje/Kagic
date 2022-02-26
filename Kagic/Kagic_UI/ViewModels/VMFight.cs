@@ -119,28 +119,15 @@ namespace Kagic_UI.ViewModels
         private void atackContraryPlayerCommand_Executed()
         {
             int damage = 0;
+            clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
 
-            if (isPlayerTurn == false)
+            if (player.SelectedCard != -1)
             {
-                if (realPlayer.SelectedCard != -1)
-                {
-                    damage = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCard]).Effect;
-                }
-                else
-                {
-                    damage = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
-                }
+                damage = ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).Effect;
             }
             else
             {
-                if (iaPlayer.SelectedCard != -1)
-                {
-                    damage = ((clsLifeModifyingSpell)iaPlayer.Hand[iaPlayer.SelectedCard]).Effect;
-                }
-                else
-                {
-                    damage = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
-                }
+                damage = player.PlaceCreatures[player.SelectedCreature].Attack;
             }
 
             attackContraryPlayer(damage);
@@ -153,19 +140,8 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool atackContraryPlayerCommand_CanExecute()
         {
-            bool valido = true;
-            clsPlayer player = realPlayer;
-
-            if (isPlayerTurn == false)
-            {
-                player = iaPlayer;
-            }
-
-            if (player.SelectedCard == -1 && noEnemiesFront())
-            {
-                valido = false;
-            }
-            return valido;
+            clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
+            return !(player.SelectedCard == -1 && noEnemiesFront());
         }
         #endregion
 
@@ -260,17 +236,17 @@ namespace Kagic_UI.ViewModels
             {
                 realPlayer.SetMana();
                 realPlayer.DrawCard();
-                NotifyPropertyChanged("realPlayer.Hand");
                 realPlayer.SetUsedCreatures();
-                UpdateSelectedCardsForNewTurn();
+                NotifyPropertyChanged(nameof(RealPlayer));
+                UpdateSelectedCardsForNewAction();
             }
             else
             {
                 iaPlayer.SetMana();
                 iaPlayer.DrawCard();
-                NotifyPropertyChanged("iaPlayer.Hand");
                 iaPlayer.SetUsedCreatures();
-                UpdateSelectedCardsForNewTurn();
+                NotifyPropertyChanged(nameof(IaPlayer));
+                UpdateSelectedCardsForNewAction();
                 //metodo accion ia
                 iaTurn();
             }
@@ -283,12 +259,16 @@ namespace Kagic_UI.ViewModels
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
-        private void UpdateSelectedCardsForNewTurn()
+        private void UpdateSelectedCardsForNewAction()
         {
             realPlayer.SelectedCard = -1;
             realPlayer.SelectedCreature = -1;
             iaPlayer.SelectedCard = -1;
             iaPlayer.SelectedCreature = -1;
+            selectedCard = new clsCreature();
+            selectedCreature = new clsCreature();
+            lastSelectedCard = new clsCreature();
+
         }
 
         /// <summary>
@@ -379,24 +359,30 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void creaturebattle()
         {
-            realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife -=  iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
-            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife -=  realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
-            if (realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Actuallife <= 0)
+            realPlayer.PlaceCreatures[realPlayer.SelectedCreature].ActualLife -=  iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack;
+            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].ActualLife -=  realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
+            if (realPlayer.PlaceCreatures[realPlayer.SelectedCreature].ActualLife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
                 realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //realPlayer.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
+                NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
-            if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Actuallife <= 0)
+            if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].ActualLife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
                 iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = new clsCreature();
                 //Forma de eliminar de la lista
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
+                NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
-            NotifyPropertyChanged("RealPlayer.PlaceCreatures");
-            NotifyPropertyChanged("IaPlayer.PlaceCreatures");
+            //Una vez realizado el ataque se modifican a -1 las criaturas seleccionadas
+            realPlayer.SelectedCreature = -1;
+            iaPlayer.SelectedCreature = -1;
+            NotifyPropertyChanged(nameof(RealPlayer.PlaceCreatures));
+            NotifyPropertyChanged(nameof(IaPlayer.PlaceCreatures));
+
         }
 
         #endregion
@@ -447,8 +433,8 @@ namespace Kagic_UI.ViewModels
         /// <param name="defensor"></param>
         private void attackAction(clsPlayer ofense, clsPlayer defensor)
         {
-            defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife = defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife - ((clsLifeModifyingSpell)ofense.Hand[ofense.SelectedCard]).Effect;
-            if (defensor.PlaceCreatures[defensor.SelectedCreature].Actuallife <= 0)
+            defensor.PlaceCreatures[defensor.SelectedCreature].ActualLife = defensor.PlaceCreatures[defensor.SelectedCreature].ActualLife - ((clsLifeModifyingSpell)ofense.Hand[ofense.SelectedCard]).Effect;
+            if (defensor.PlaceCreatures[defensor.SelectedCreature].ActualLife <= 0)
             {
                 defensor.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
             }
@@ -483,10 +469,10 @@ namespace Kagic_UI.ViewModels
         {
             if (player.PlaceCreatures[player.SelectedCreature] != null)
             {
-                player.PlaceCreatures[player.SelectedCreature].Actuallife = player.PlaceCreatures[player.SelectedCreature].Actuallife + ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).Effect;
-                if (player.PlaceCreatures[player.SelectedCreature].Actuallife > player.PlaceCreatures[player.SelectedCreature].Life)
+                player.PlaceCreatures[player.SelectedCreature].ActualLife = player.PlaceCreatures[player.SelectedCreature].ActualLife + ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).Effect;
+                if (player.PlaceCreatures[player.SelectedCreature].ActualLife > player.PlaceCreatures[player.SelectedCreature].Life)
                 {
-                    player.PlaceCreatures[player.SelectedCreature].Actuallife = player.PlaceCreatures[player.SelectedCreature].Life;
+                    player.PlaceCreatures[player.SelectedCreature].ActualLife = player.PlaceCreatures[player.SelectedCreature].Life;
                 }
             }
             else
@@ -529,7 +515,7 @@ namespace Kagic_UI.ViewModels
         /// <param name="damage"></param>
         private void attackContraryPlayer(int damage)
         {
-            if (isPlayerTurn == false)
+            if (!isPlayerTurn)
             {
                 realPlayer.Life -= damage;
                 NotifyPropertyChanged("RealPlayer.ProgresBarLife");

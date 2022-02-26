@@ -12,10 +12,7 @@ namespace Kagic_UI.ViewModels.UtilitiesVM
         private const string URL_IMAGE_NUMBER = "/Assets/Images/Numbers/*.png";
         public static String ConvertTensNumberToURLString(int value)
         {
-            if(value >= 10)
-            {
-                value /= 10;
-            }
+            value /= 10;
             String url = URL_IMAGE_NUMBER.Replace("*", value.ToString());
             return url;
         }
