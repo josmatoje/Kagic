@@ -21,13 +21,22 @@ namespace Kagic_Entities
             this.isDamage = isDamage;
             this.isArea = isArea;
         }
-
         ////Default constructor
         public clsLifeModifyingSpell() : base()
         {
             this.effect = 0;
             this.isDamage = true;
             this.isArea = true;
+        }
+        ////Copy constructor
+        public clsLifeModifyingSpell(clsLifeModifyingSpell spell) : base(spell)
+        {
+            if (spell != null)
+            {
+                this.effect = spell.Effect;
+                this.isDamage = spell.IsDamage;
+                this.isArea = spell.IsArea;
+            }
         }
         #endregion
 

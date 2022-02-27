@@ -22,7 +22,6 @@ namespace Kagic_Entities
             this.attack = attack;
             this.used = true;
         }
-
         //Default constructor
         public clsCreature() : base()
         {
@@ -30,6 +29,17 @@ namespace Kagic_Entities
             this.actualLife = 0;
             this.attack = 0;
             this.used = true;
+        }
+        //Copyconstructor
+        public clsCreature(clsCreature creature) : base(creature)
+        {
+            if (creature!= null)
+            {
+                this.life = creature.Life;
+                this.actualLife = creature.ActualLife;
+                this.attack = creature.Attack;
+                this.used = creature.Used;
+            }
         }
         #endregion
 

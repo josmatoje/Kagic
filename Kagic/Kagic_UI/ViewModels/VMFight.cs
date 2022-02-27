@@ -215,11 +215,18 @@ namespace Kagic_UI.ViewModels
                 }
                 if (counter < MAX_REPETED_CARDS_DECK) //Solo inserta y aumenta la posicion de insercion del array si la carta no se ha repetido el maximo permitido
                 {
-                    deck.Add(cardsList[position]);
+                    if(cardsList[position] is clsCreature)
+                    {
+                        deck.Add(new clsCreature (cardsList[position] as clsCreature));
+                    }
+                    else
+                    {
+                        deck.Add(new clsLifeModifyingSpell(cardsList[position] as clsLifeModifyingSpell));
+                    }
                     i++;
                 }
                 //Mazo de cartas 
-                //deck.Add(cardsList.ElementAt(5));
+                //deck.Add(new clsCreature (cardsList.ElementAt(5) as clsCreature));
 
             }
 
@@ -249,7 +256,7 @@ namespace Kagic_UI.ViewModels
                 NotifyPropertyChanged(nameof(IaPlayer));
                 UpdateSelectedCardsForNewAction();
                 //metodo accion ia
-                IaTurn();
+                IaTurn(); //LLAMA A CHANGETURN!!!!! OTRA OPCIÓN MEJOR????
             }
             passTurnCommand.RaiseCanExecuteChanged();
         }
@@ -364,8 +371,9 @@ namespace Kagic_UI.ViewModels
         private void TryAttackCreature(clsPlayer attacker, clsPlayer defensor)
         {
             if (lastSelectedCard != null && selectedCreature != null &&
-                attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1 && 
                 lastSelectedCard[0].Id != 0 && selectedCreature.Id != 0 && 
+                attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1 && 
+                attacker.PlaceCreatures[attacker.SelectedCreature].Used &&
                 lastSelectedCard.Contains(attacker.PlaceCreatures[attacker.SelectedCreature]) && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
             {
                 Creaturebattle();
