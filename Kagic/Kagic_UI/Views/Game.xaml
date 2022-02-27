@@ -11,36 +11,61 @@
 
     <Page.DataContext>
         <vm:VMPruebas/>
-    </Page.DataContext>
+    </Page.DataContext>    
+
     <Page.Resources>
+        <!-- Templates -->
         <DataTemplate x:Key="dtCreature">
             <RelativePanel Style="{StaticResource RpCardSmall}">
-                <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="3"/>
-                <Image Source="/Assets/Images/Attack.png"       Style="{StaticResource ImgAttackSmall}"/>
-                <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgLifeSmall}"/>
-                <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Name="image"     Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="frame"     Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="numAttack" Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgAttackSmall}" Canvas.ZIndex="4"/>
+                <Image Name="attack"    Source="/Assets/Images/Attack.png"       Style="{StaticResource ImgAttackSmall}"/>
+                <Image Name="numLife"   Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgLifeSmall}" Canvas.ZIndex="4"/>
+                <Image Name="Life"      Source="/Assets/Images/Life.png"         Style="{StaticResource ImgLifeSmall}"/>
+                <Image Name="numMana"   Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
+                <Image Name="mana"      Source="/Assets/Images/Mana.png"        Style="{StaticResource ImgCardManaCostSmallManaImg}"/>
+                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4"  Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,104" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock Name="description" Text="{Binding Description}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True" Margin="0,130,0,0" MaxWidth="125" MaxHeight="300" MaxLines="3" TextWrapping="Wrap"/>
             </RelativePanel>
         </DataTemplate>
 
-        <DataTemplate x:Key="dtSpell">
+        <DataTemplate x:Key="dtHealingSpell">
             <RelativePanel Style="{StaticResource RpCardSmall}">
-                <Image Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="/Assets/PRUEBAS/Marco Azul.png"  Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgCardManaCostSmall}"/>
+                <Image Name="image"     Source="{Binding Image}"                 Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="frame"     Source="/Assets/Images/FrameSpell.png"  Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="numEffect" Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgLifeSmall}" Canvas.ZIndex="4"/>
+                <Image Name="cure"      Source="/Assets/Images/Cure.png"         Style="{StaticResource ImgLifeSmall}"/>
+                <Image Name="numMana"   Source="/Assets/Images/Numbers/1.png"    Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
+                <Image Name="mana"      Source="/Assets/Images/Mana.png"        Style="{StaticResource ImgCardManaCostSmallManaImg}"/>
+                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4"  Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,104" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock Name="description" Text="{Binding Description}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True" Margin="0,130,0,0" MaxWidth="125" MaxHeight="300" MaxLines="3" TextWrapping="Wrap"/>
             </RelativePanel>
         </DataTemplate>
 
-        <dts:MyDataTemplateSelector x:Key="CardsTemplates" Creature="{StaticResource dtCreature}" Spell="{StaticResource dtSpell}"/>
+        <DataTemplate x:Key="dtDamageSpell">
+            <RelativePanel Style="{StaticResource RpCardSmall}">
+                <Image Name="image"     Source="{Binding Image}"                Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="frame"     Source="/Assets/Images/FrameSpell.png"  Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="numEffect" Source="/Assets/Images/Numbers/1.png"   Style="{StaticResource ImgLifeSmall}" Canvas.ZIndex="4"/>
+                <Image Name="damage"    Source="/Assets/Images/Damage.png"      Style="{StaticResource ImgLifeSmall}"/>
+                <Image Name="numMana"   Source="/Assets/Images/Numbers/1.png"   Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
+                <Image Name="mana"      Source="/Assets/Images/Mana.png"        Style="{StaticResource ImgCardManaCostSmallManaImg}"/>
+                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,104" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock Name="description" Text="{Binding Description}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True" Margin="0,130,0,0" MaxWidth="125" MaxHeight="300" MaxLines="3" TextWrapping="Wrap"/>
+            </RelativePanel>
+        </DataTemplate>
+
+        <dts:MyDataTemplateSelector x:Key="CardsTemplates" Creature="{StaticResource dtCreature}" DamageSpell="{StaticResource dtDamageSpell}" HealingSpell="{StaticResource dtHealingSpell}"/>
     </Page.Resources>
 
     <!-- Background -->
     <Page.Background>
         <ImageBrush ImageSource="/Assets/Images/Background.png"/>
     </Page.Background>
-    
+
     <RelativePanel>
+        
 
         <!-- Back button -->
         <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" VerticalAlignment="Center" Click="AppBarButton_Click" Background="White" CornerRadius="10"/>
@@ -83,7 +108,7 @@
                 RelativePanel.AlignVerticalCenterWith="rpBattlefield" RelativePanel.AlignLeftWithPanel="True"/>
 
         <!-- IA life -->
-        <RelativePanel x:Name="stpIaScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
+        <RelativePanel x:Name="stpIaLife" Style="{StaticResource normalLife}"
                     RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
             <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="80" Foreground="Red"
                      RelativePanel.AlignBottomWithPanel="True"/>
@@ -93,12 +118,12 @@
         </RelativePanel>
 
         <!-- Player life -->
-        <RelativePanel x:Name="stpPlayerScoreboard" MinHeight="250" MinWidth="150" Padding="20" Background="White" CornerRadius="20" Margin="5"
+        <RelativePanel x:Name="stpPlayerLife" Style="{StaticResource normalLife}"
                     RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
             <Image x:Name="imgPlayerLife"   Source="/Assets/Images/Life.png"    Height="150" RelativePanel.AlignTopWithPanel="True"/>
             <Image x:Name="imgTensNumber"   Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
             <Image x:Name="imgUnitsNumber"  Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
-            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20"
+            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20" Foreground="DodgerBlue"
                      RelativePanel.AlignBottomWithPanel="True"/>
         </RelativePanel>
 
@@ -119,4 +144,5 @@
         </GridView>
 
     </RelativePanel>
+
 </Page>

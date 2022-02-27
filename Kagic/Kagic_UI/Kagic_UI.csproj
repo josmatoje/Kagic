@@ -141,6 +141,10 @@
     <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
+    <Content Include="Assets\Images\Damage.png" />
+    <Content Include="Assets\Images\FrameSpell.png" />
+    <Content Include="Assets\Images\Cure.png" />
+    <Content Include="Assets\Images\Mana.png" />
     <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
     <Content Include="Assets\Images\Numbers\1.png" />

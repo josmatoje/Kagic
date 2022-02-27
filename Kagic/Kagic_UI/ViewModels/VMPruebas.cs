@@ -30,7 +30,7 @@ namespace Kagic_UI.ViewModels
                 new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
                 new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
                 new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, false, false),
                 new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
                 new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
                 new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false)
