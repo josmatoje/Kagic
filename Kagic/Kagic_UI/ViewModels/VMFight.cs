@@ -6,9 +6,6 @@ using Kagic_UI.ViewModels.UtilitiesVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kagic_UI.ViewModels
 {
@@ -24,6 +21,7 @@ namespace Kagic_UI.ViewModels
         clsCard selectedCard;
         clsCreature selectedCreature;
         ObservableCollection <clsCard> lastSelectedCard;
+        bool cartaDetallesVisibility;
         #endregion
 
         #region constants
@@ -36,6 +34,7 @@ namespace Kagic_UI.ViewModels
         public VMFight()
         {
             passTurnCommand = new DelegateCommand(passTurnCommand_Executed, passTurnCommand_CanExecute);
+            lastSelectedCard = new ObservableCollection<clsCard>();
             StartGame();
         }
         #endregion
@@ -54,7 +53,10 @@ namespace Kagic_UI.ViewModels
             set
             {
                 selectedCard = value;
-                SetLastSelectedCard(value);
+                if (value != new clsCreature())
+                {
+                    SetLastSelectedCard(value);
+                }
             }
         }
 
@@ -67,10 +69,13 @@ namespace Kagic_UI.ViewModels
                 TryPutCreature(realPlayer);
                 TryAttackCreature(realPlayer,iaPlayer);
                 SetLastSelectedCard(value);
+                UpdateSelectedCardsForNewAction();
             }
         }
 
-        public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard; }
+        public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard;}
+
+        public bool CartaDetallesVisibility { get => cartaDetallesVisibility; set => cartaDetallesVisibility = value;}
 
         #region commands getters
         public DelegateCommand PassTurnCommand
@@ -89,8 +94,8 @@ namespace Kagic_UI.ViewModels
             }
         }
         #endregion
-        
-        
+
+
         #endregion
 
         #region commands executed and canexecuted
@@ -161,6 +166,7 @@ namespace Kagic_UI.ViewModels
             //random para ver quien empieza isPlayerTurn
             //isPlayerTurn = (new Random()).Next(10) > 5;
             isPlayerTurn = true;
+            cartaDetallesVisibility = true;
             realPlayer.DrawCard();           
         }
 
@@ -300,11 +306,7 @@ namespace Kagic_UI.ViewModels
                     {
                         selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
                         TryPutCreature(iaPlayer);
-                    }
-                    else
-                    {
-                        placeCreature = false;
-                    }
+                    } 
                 }
                 else
                 {
@@ -346,15 +348,22 @@ namespace Kagic_UI.ViewModels
                 player.PutCard();
                 //Una vez colocada la carta se modifican a -1 las criaturas seleccionadas
                 NotifyPropertyChanged(nameof(RealPlayer));
-                UpdateSelectedCardsForNewAction();
             }
         }
 
         private void SetLastSelectedCard(clsCard card)
         {
-            lastSelectedCard = new ObservableCollection<clsCard>();
+            if (card == new clsCreature())
+            {
+                cartaDetallesVisibility = false;
+            }
+            else
+            {
+                cartaDetallesVisibility = true;
+            }
+            lastSelectedCard.Clear();
             lastSelectedCard.Add(card);
-            NotifyPropertyChanged(nameof(LastSelectedCard));
+            NotifyPropertyChanged(nameof(LastSelectedCard));             
         }
         #endregion
 
@@ -370,8 +379,8 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void TryAttackCreature(clsPlayer attacker, clsPlayer defensor)
         {
-            if (lastSelectedCard != null && selectedCreature != null &&
-                lastSelectedCard[0].Id != 0 && selectedCreature.Id != 0 && 
+            if (selectedCreature != null 
+               && selectedCreature.Id != 0 && 
                 attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1 && 
                 attacker.PlaceCreatures[attacker.SelectedCreature].Used &&
                 lastSelectedCard.Contains(attacker.PlaceCreatures[attacker.SelectedCreature]) && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])

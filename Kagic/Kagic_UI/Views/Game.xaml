@@ -111,7 +111,7 @@
         <RelativePanel Height="300" Width="200" x:Name="laCartaSeleccionada"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <GridView x:Name="gdSelectedCard"  ItemsSource="{Binding LastSelectedCard, UpdateSourceTrigger=PropertyChanged}"
-            RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}">
+            RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" Visibility="{Binding CartaDetallesVisibility, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
         </RelativePanel>
 
