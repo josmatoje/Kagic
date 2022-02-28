@@ -83,14 +83,14 @@ namespace Kagic_UI.Models.Utilities
         /// <b>Preconditions: </b>selected card must be different of null<br/>
         /// <b>Postconditions: </b> <br/>
         /// </summary>
-        /// <returns>int indicating de position of the target</returns>
+        /// <returns>int indicating de position of the target or -1 if ther is none enemy creatures</returns>
         public int PickEnemyCreature(ObservableCollection<clsCreature> enemyCreatures)
         {
             int atackPlace = -1; //Posición a la que va a atacar
             for (int i = 0; i < enemyCreatures.Count && atackPlace == -1; i++)
             {
                 //TODO Ataca de izquierda a derecha, mejorar valorando las criaturas que no han atacado los ataques de tus propias criaturas y las vidas de las criaturas enemigas
-                if (enemyCreatures[i].Id != 0)
+                if (enemyCreatures[i] != null && enemyCreatures[i].Id != 0)
                 {
                     atackPlace = i;
                 }

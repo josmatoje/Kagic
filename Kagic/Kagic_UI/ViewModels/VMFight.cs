@@ -302,7 +302,7 @@ namespace Kagic_UI.ViewModels
         private void IaTurn()
         {
             int enemyCreatureIndex;
-            bool placeCreature=true;
+            bool placeCreature=true, atackCreatures=true;
 
             //place creatures
             while (placeCreature)
@@ -328,7 +328,8 @@ namespace Kagic_UI.ViewModels
             }
 
             //attack enemies
-            while (iaPlayer.PickOwnCreature() && NoEnemiesFront()) //Mientras seleccione criaturas que puedan atacar
+            atackCreatures = !NoEnemiesFront();
+            while (iaPlayer.PickOwnCreature() && atackCreatures) //While select creatures that can attack ande there is enemies infront
             {
                 selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
                 SetLastSelectedCard(selectedCreature);
@@ -339,6 +340,10 @@ namespace Kagic_UI.ViewModels
                     realPlayer.SelectedCreature = enemyCreatureIndex;
                     //TryAttackCreature(iaPlayer, realPlayer);
                     Creaturebattle();
+                }
+                else
+                {
+                    atackCreatures=false;
                 }
             }
             ChangeTurn();
@@ -560,7 +565,7 @@ namespace Kagic_UI.ViewModels
 
             for (int i = 0; i < player.PlaceCreatures.Count && noEnemies; i++)
             {
-                    noEnemies = player.PlaceCreatures[i].Id == -1;
+                    noEnemies = player.PlaceCreatures[i].Id == 0;
             }
             return noEnemies;
         }
