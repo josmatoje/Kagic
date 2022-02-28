@@ -53,7 +53,7 @@ namespace Kagic_UI.ViewModels
             set
             {
                 selectedCard = value;
-                if (value != new clsCreature())
+                if (value != new clsCreature() && value != null)
                 {
                     SetLastSelectedCard(value);
                 }
@@ -66,8 +66,11 @@ namespace Kagic_UI.ViewModels
             set 
             {
                 selectedCreature = value;
-                TryPutCreature(realPlayer);
-                TryAttackCreature(realPlayer,iaPlayer);
+                if (IsPlayerTurn) //Si sucede en el turno de la IA se controlará de otra forma
+                {
+                    TryPutCreature(realPlayer);
+                    TryAttackCreature(realPlayer,iaPlayer);
+                }
                 SetLastSelectedCard(value);
                 UpdateSelectedCardsForNewAction();
             }
@@ -262,7 +265,7 @@ namespace Kagic_UI.ViewModels
                 NotifyPropertyChanged(nameof(IaPlayer));
                 UpdateSelectedCardsForNewAction();
                 //metodo accion ia
-                IaTurn(); //LLAMA A CHANGETURN!!!!! OTRA OPCIÓN MEJOR????
+                IaTurn();
             }
             passTurnCommand.RaiseCanExecuteChanged();
         }
@@ -306,7 +309,11 @@ namespace Kagic_UI.ViewModels
                     {
                         selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
                         TryPutCreature(iaPlayer);
-                    } 
+                    }
+                    else
+                    {
+                        placeCreature = false;
+                    }
                 }
                 else
                 {
@@ -326,9 +333,9 @@ namespace Kagic_UI.ViewModels
                     realPlayer.SelectedCreature = enemyCreatureIndex;
                     //TryAttackCreature(iaPlayer, realPlayer);
                     Creaturebattle();
-                }               
+                }
             }
-            
+            UpdateSelectedCardsForNewAction();
             ChangeTurn();
         }
 
@@ -348,22 +355,25 @@ namespace Kagic_UI.ViewModels
                 player.PutCard();
                 //Una vez colocada la carta se modifican a -1 las criaturas seleccionadas
                 NotifyPropertyChanged(nameof(RealPlayer));
+                UpdateSelectedCardsForNewAction();
             }
         }
 
         private void SetLastSelectedCard(clsCard card)
         {
-            if (card == new clsCreature())
-            {
-                cartaDetallesVisibility = false;
-            }
-            else
-            {
-                cartaDetallesVisibility = true;
-            }
+            cartaDetallesVisibility =(card != null && card.Id != 0); //Id==0 -> new clsCreature();
+            NotifyPropertyChanged(nameof(CartaDetallesVisibility));
+            //if (card == new clsCreature())
+            //{
+            //    cartaDetallesVisibility = false;
+            //}
+            //else
+            //{
+            //    cartaDetallesVisibility = true;
+            //}
             lastSelectedCard.Clear();
             lastSelectedCard.Add(card);
-            NotifyPropertyChanged(nameof(LastSelectedCard));             
+            NotifyPropertyChanged(nameof(LastSelectedCard));
         }
         #endregion
 
@@ -379,8 +389,8 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void TryAttackCreature(clsPlayer attacker, clsPlayer defensor)
         {
-            if (selectedCreature != null 
-               && selectedCreature.Id != 0 && 
+            if (lastSelectedCard!=null && selectedCreature != null && 
+                selectedCreature.Id != 0 && 
                 attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1 && 
                 attacker.PlaceCreatures[attacker.SelectedCreature].Used &&
                 lastSelectedCard.Contains(attacker.PlaceCreatures[attacker.SelectedCreature]) && selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreature])
