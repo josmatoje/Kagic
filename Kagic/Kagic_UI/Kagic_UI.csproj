@@ -145,6 +145,11 @@
     <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
+    <Content Include="Assets\Images\Mana Bar.png" />
+    <Content Include="Assets\Images\Damage.png" />
+    <Content Include="Assets\Images\SpellFrame.png" />
+    <Content Include="Assets\Images\Cure.png" />
+    <Content Include="Assets\Images\Mana.png" />
     <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
     <Content Include="Assets\Images\Numbers\0.png" />
@@ -159,7 +164,7 @@
     <Content Include="Assets\Images\Numbers\9.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
-    <Content Include="Assets\PRUEBAS\Marco Azul.png" />
+    <Content Include="Assets\Images\CreatureFrame.png" />
     <Content Include="Assets\PRUEBAS\solar_kitten.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

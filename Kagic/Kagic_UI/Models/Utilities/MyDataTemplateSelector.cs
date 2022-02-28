@@ -12,19 +12,30 @@ namespace Kagic_UI.Models.Utilities
     public class MyDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate Creature { get; set; }
-        public DataTemplate Spell { get; set; }
+        public DataTemplate DamageSpell { get; set; }
+        public DataTemplate HealingSpell { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
+            DataTemplate dataTemplate = null;
             clsCard card = (clsCard)item;
             if (card is clsCreature)
             {
-                return Creature;
+                dataTemplate = Creature;
             }
             else
             {
-                return Spell;
+                if(((clsLifeModifyingSpell)card).IsDamage)
+                {
+                    dataTemplate = DamageSpell;
+                }
+                else
+                {
+                    dataTemplate = HealingSpell;
+                }
             }
+
+            return dataTemplate;
         }
     }
 }

@@ -89,6 +89,12 @@
         <Setter Property="Width" Value="30"/>
     </Style>
 
+    <Style TargetType="Image" x:Key="ImgCardManaCostSmallManaImg" BasedOn="{StaticResource ImgCardManaCostSmall}">
+        <Setter Property="Height"   Value="30"/>
+        <Setter Property="Width"    Value="30"/>
+        <Setter Property="Margin" Value="3,9,0,0"/>
+    </Style>
+
     <Style TargetType="Image" x:Key="ImgLifeSmall" BasedOn="{StaticResource life}">
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="30"/>
@@ -99,6 +105,27 @@
         <Setter Property="Width" Value="30"/>
     </Style>
     
+    <!-- LIFE -->
+    <Style TargetType="RelativePanel" x:Key="baseLife">
+        <Setter Property="Background"   Value="White"/>
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="Margin"       Value="5"/>
+    </Style>
     
+    <Style TargetType="RelativePanel" x:Key="normalLife" BasedOn="{StaticResource baseLife}">
+        <Setter Property="Padding"      Value="20"/>
+        <Setter Property="MinWidth"     Value="150"/>
+        <Setter Property="MinHeight"    Value="250"/>
+    </Style>
+
+    <Style TargetType="RelativePanel" x:Key="smallLife" BasedOn="{StaticResource baseLife}">
+        <Setter Property="Background" Value="Red"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="ManaText">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="MediumPurple"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
 
 </ResourceDictionary>
