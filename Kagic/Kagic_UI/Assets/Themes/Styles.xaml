@@ -120,4 +120,10 @@
         <Setter Property="Background" Value="Red"/>
     </Style>
 
+    <Style TargetType="TextBlock" x:Key="ManaText">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="MediumPurple"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
 </ResourceDictionary>

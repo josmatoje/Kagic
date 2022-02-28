@@ -11,7 +11,7 @@
 
     <Page.DataContext>
         <vm:VMPruebas/>
-    </Page.DataContext>    
+    </Page.DataContext>
 
     <Page.Resources>
         <!-- Templates -->
@@ -65,7 +65,7 @@
     </Page.Background>
 
     <RelativePanel>
-        
+
 
         <!-- Back button -->
         <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" VerticalAlignment="Center" Click="AppBarButton_Click" Background="White" CornerRadius="10"/>
@@ -87,30 +87,37 @@
 
         </GridView>
 
+
         <!-- Battlefield -->
+        <!--
         <RelativePanel x:Name="rpBattlefield" Margin="0,30,0,0" BorderThickness="3" Padding="5" Background="White" CornerRadius="20"
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
-            <!-- IA battlefield -->
+    -->
+        <!-- IA battlefield -->
+        <!--
             <GridView x:Name="gdOpponentCreatures" ItemsSource="{Binding IaCreatures}" MinHeight="250" MinWidth="800" Margin="0,0,0,20" BorderThickness="3" Background="Red" CornerRadius="20"
                       RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplate="{StaticResource dtCreature}">
 
             </GridView>
+    -->
 
-            <!-- Player battlefield -->
+        <!-- Player battlefield -->
+        <!--
             <GridView x:Name="gdPlayerCreatures" ItemsSource="{Binding PlayerCreatures}" MinHeight="250" MinWidth="800" BorderThickness="3" Background="Blue" CornerRadius="20"
                       RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures" ItemTemplate="{StaticResource dtCreature}">
 
             </GridView>
         </RelativePanel>
+    -->
 
         <!-- Next turn button -->
-        <Button x:Name="btnNextTurn" Content="Next Turn" Margin="10" Background="White" CornerRadius="10"
-                RelativePanel.AlignVerticalCenterWith="rpBattlefield" RelativePanel.AlignLeftWithPanel="True"/>
+        <!--<Button x:Name="btnNextTurn" Content="Next Turn" Margin="10" Background="White" CornerRadius="10"
+                RelativePanel.AlignVerticalCenterWith="rpBattlefield" RelativePanel.AlignLeftWithPanel="True"/>-->
 
         <!-- IA life -->
         <RelativePanel x:Name="stpIaLife" Style="{StaticResource normalLife}"
                     RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
-            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="80" Foreground="Red"
+            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="80" Foreground="Red" Background="LightGray"
                      RelativePanel.AlignBottomWithPanel="True"/>
             <Image x:Name="imgIaLife"           Source="/Assets/Images/Life.png"    Height="150"    Canvas.ZIndex="1" RelativePanel.AlignTopWithPanel="True"/>
             <Image x:Name="imgIaTensNumber"     Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
@@ -123,7 +130,7 @@
             <Image x:Name="imgPlayerLife"   Source="/Assets/Images/Life.png"    Height="150" RelativePanel.AlignTopWithPanel="True"/>
             <Image x:Name="imgTensNumber"   Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
             <Image x:Name="imgUnitsNumber"  Source="{Binding Number}"           Height="80"     Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
-            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20" Foreground="DodgerBlue"
+            <ProgressBar x:Name="pgbPlayerLife" Height="20" Width="150" Value="20" Foreground="DodgerBlue" Background="LightGray"
                      RelativePanel.AlignBottomWithPanel="True"/>
         </RelativePanel>
 
@@ -142,6 +149,27 @@
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding PlayerCards}"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}">
         </GridView>
+
+        <!-- -->
+        <RelativePanel RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Above="gdPlayerCards" MinWidth="920">
+            <RelativePanel x:Name="rpActualMana" RelativePanel.AlignVerticalCenterWith="rpPlayerMana" RelativePanel.AlignLeftWithPanel="True" Margin="5" Canvas.ZIndex="3">
+                <Image Source="/Assets/Images/Mana.png" Width="70" Height="70" Canvas.ZIndex="3" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                <StackPanel Orientation="Horizontal" Canvas.ZIndex="4" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                    <Image x:Name="imgTensNumberMana"   Source="{Binding Number}"           Height="25"/>
+                    <Image x:Name="imgUnitsNumberMana"  Source="{Binding Number}"           Height="25"/>
+                </StackPanel>
+            </RelativePanel>
+
+            <StackPanel Orientation="Horizontal" RelativePanel.RightOf="rpActualMana" RelativePanel.Below="rpPlayerMana" Canvas.ZIndex="4">
+                <TextBlock Text="Máximo:"   Style="{StaticResource ManaText}"/>
+                <TextBlock Text="10"        Style="{StaticResource ManaText}" Margin="5,0"/>
+            </StackPanel>
+            
+            <RelativePanel x:Name="rpPlayerMana"  CornerRadius="5" Background="White" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                <ProgressBar Foreground="DarkViolet" CornerRadius="15" Value="80" Background="LightGray" Height="26" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                <Image Source="/Assets/Images/ManaBar.png" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Canvas.ZIndex="2"/>
+            </RelativePanel>
+        </RelativePanel>
 
     </RelativePanel>
 

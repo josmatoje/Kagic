@@ -148,6 +148,7 @@
     <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
     <Content Include="Assets\Images\Numbers\1.png" />
+    <Content Include="Assets\Images\ManaBar.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
     <Content Include="Assets\PRUEBAS\Marco Azul.png" />
