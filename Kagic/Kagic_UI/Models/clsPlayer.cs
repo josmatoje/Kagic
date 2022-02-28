@@ -118,7 +118,10 @@ namespace Kagic_UI.Models
         public void SetUsedCreatures()
         {
             foreach (clsCreature creature in placeCreatures)
-                creature.Used = false;
+            {
+                if(creature != null && creature.Id != 0)
+                    creature.Used = false;
+            }
         }
         /// <summary>
         /// <b>Headboard: </b>public void SetAvaibleCards()<br/>

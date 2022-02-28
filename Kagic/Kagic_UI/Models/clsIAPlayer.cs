@@ -90,7 +90,7 @@ namespace Kagic_UI.Models.Utilities
             for (int i = 0; i < enemyCreatures.Count && atackPlace == -1; i++)
             {
                 //TODO Ataca de izquierda a derecha, mejorar valorando las criaturas que no han atacado los ataques de tus propias criaturas y las vidas de las criaturas enemigas
-                if (enemyCreatures[i] != new clsCreature())
+                if (enemyCreatures[i].Id != 0)
                 {
                     atackPlace = i;
                 }
