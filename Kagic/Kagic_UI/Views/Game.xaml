@@ -94,8 +94,7 @@
                     <VisualState.Setters>
                         <Setter Target="gdOpponentCards.ItemTemplate" Value="{StaticResource dtOpponentCardsSmallScreen}"/>
                         <Setter Target="gdOpponentCards.Height" Value="55"/>
-                        <Setter Target="rpBattlefield.Margin" Value="0"/>
-                        
+
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -105,8 +104,7 @@
                     <VisualState.Setters>
                         <Setter Target="gdOpponentCards.ItemTemplate" Value="{StaticResource dtOpponentCards}"/>
                         <Setter Target="gdOpponentCards.Height" Value="150"/>
-                        <Setter Target="rpBattlefield.Margin" Value="0,30,0,0"/>
-                        
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -121,7 +119,7 @@
             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" IsItemClickEnabled="False" SelectionMode="None"/>
 
         <!-- Battlefield -->
-        <RelativePanel x:Name="rpBattlefield" Margin="0,0,0,0" BorderThickness="3" Padding="5" Background="White" CornerRadius="20"
+        <RelativePanel x:Name="rpBattlefield" Margin="0" BorderThickness="3" Padding="5" Background="White" CornerRadius="20"
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
     
             <!-- IA battlefield -->
