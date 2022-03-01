@@ -146,7 +146,7 @@
         <RelativePanel Height="300" Width="200" x:Name="laCartaSeleccionada"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <GridView x:Name="gdSelectedCard"  ItemsSource="{Binding LastSelectedCard, UpdateSourceTrigger=PropertyChanged}"
-            RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" Visibility="{Binding CartaDetallesVisibility, UpdateSourceTrigger=PropertyChanged}">
+            RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" Visibility="{Binding CardDetailsVisibility, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
         </RelativePanel>
 
@@ -157,23 +157,23 @@
             ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedIndex="{Binding RealPlayer.SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </GridView>
 
-        <!--Mana -->
+        <!--ManaBar-->
         <RelativePanel RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Above="gdPlayerCards" MinWidth="920">
             <RelativePanel x:Name="rpActualMana" RelativePanel.AlignVerticalCenterWith="rpPlayerMana" RelativePanel.AlignLeftWithPanel="True" Margin="5" Canvas.ZIndex="3">
                 <Image Source="/Assets/Images/Mana.png" Width="70" Height="70" Canvas.ZIndex="3" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                 <StackPanel Orientation="Horizontal" Canvas.ZIndex="4" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Image x:Name="imgTensNumberMana"   Source="{Binding Number}"           Height="25"/>
-                    <Image x:Name="imgUnitsNumberMana"  Source="{Binding Number}"           Height="25"/>
+                    <Image x:Name="imgTensNumberUsedMana"   Source="{Binding RealPlayer.UsedMana, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource tensNumConv}}"           Height="25"/>
+                    <Image x:Name="imgUnitsNumberUsedMana"  Source="{Binding RealPlayer.UsedMana, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource unitNumConv}}"           Height="25"/>
                 </StackPanel>
             </RelativePanel>
 
             <StackPanel Orientation="Horizontal" RelativePanel.RightOf="rpActualMana" RelativePanel.Below="rpPlayerMana" Canvas.ZIndex="4">
-                <TextBlock Text="Máximo:"   Style="{StaticResource ManaText}"/>
-                <TextBlock Text="10"        Style="{StaticResource ManaText}" Margin="5,0"/>
+                <TextBlock Text="Máximo:"                           Style="{StaticResource ManaText}"/>
+                <TextBlock Text="{Binding RealPlayer.TotalMana}"    Style="{StaticResource ManaText}" Margin="5,0"/>
             </StackPanel>
             
             <RelativePanel x:Name="rpPlayerMana"  CornerRadius="5" Background="White" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-                <ProgressBar Foreground="DarkViolet" CornerRadius="15" Value="80" Background="LightGray" Height="26" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                <ProgressBar Foreground="DarkViolet" CornerRadius="15" Value="{Binding RealPlayer.ProgresBarMana}" Background="LightGray" Height="26" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                 <Image Source="/Assets/Images/ManaBar.png" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Canvas.ZIndex="2"/>
             </RelativePanel>
         </RelativePanel>

@@ -21,7 +21,7 @@ namespace Kagic_UI.ViewModels
         clsCard selectedCard;
         clsCreature selectedCreature;
         ObservableCollection <clsCard> lastSelectedCard;
-        bool cartaDetallesVisibility;
+        bool cardDetailsVisibility;
         #endregion
 
         #region constants
@@ -54,7 +54,7 @@ namespace Kagic_UI.ViewModels
             {
                 //UpdateSelectedCardsForNewAction();
                 selectedCard = value;
-                if (value != null && value.Id != 0)
+                if (value != null && value.Id > 0)
                 {
                     SetLastSelectedCard(value);
                     NotifyPropertyChanged(nameof(LastSelectedCard));
@@ -68,18 +68,33 @@ namespace Kagic_UI.ViewModels
             set 
             {
                 selectedCreature = value;
-                if (IsPlayerTurn) //Si sucede en el turno de la IA se controlará de otra forma
+                //if (IsPlayerTurn) //Si sucede en el turno de la IA se controlará de otra forma --- ¡¡El seter siempre sucede en el turno del jugador!!
+                if(value is clsCreature)
                 {
                     TryPutCreature(realPlayer);
                     TryAttackCreature(realPlayer,iaPlayer);
                 }
-                SetLastSelectedCard(value);
+                else //Only could be clsSpellType
+                {
+                    TrysendSpell(RealPlayer);
+                }
+                
+                if(value != null && value.Id > 0 && value.ActualLife > 0) //Value se ve modificado por los metodos anteriores, 
+                {
+                    SetLastSelectedCard(value);
+                }
+                else
+                {
+                    selectedCreature = new clsCreature();
+                    SetLastSelectedCard(new clsCreature());
+                }
+                    
             }
         }
 
         public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard;}
 
-        public bool CartaDetallesVisibility { get => cartaDetallesVisibility; set => cartaDetallesVisibility = value;}
+        public bool CardDetailsVisibility { get => cardDetailsVisibility; set => cardDetailsVisibility = value;}
 
         #region commands getters
         public DelegateCommand PassTurnCommand
@@ -170,7 +185,7 @@ namespace Kagic_UI.ViewModels
             //random para ver quien empieza isPlayerTurn
             //isPlayerTurn = (new Random()).Next(10) > 5;
             isPlayerTurn = true;
-            cartaDetallesVisibility = true;
+            cardDetailsVisibility = true;
             realPlayer.DrawCard();           
         }
 
@@ -268,7 +283,6 @@ namespace Kagic_UI.ViewModels
                 //metodo accion ia
                 IaTurn();
             }
-            NotifyPropertyChanged(nameof(LastSelectedCard));
             NotifyPropertyChanged(nameof(RealPlayer)); 
             NotifyPropertyChanged(nameof(IaPlayer));
 
@@ -289,11 +303,10 @@ namespace Kagic_UI.ViewModels
             iaPlayer.SelectedCard = -1;
             iaPlayer.SelectedCreature = -1;
             selectedCard = new clsCreature();
-            selectedCreature = new clsCreature();
-            lastSelectedCard.Clear();
             NotifyPropertyChanged(nameof(SelectedCard));
+            selectedCreature = new clsCreature();
             NotifyPropertyChanged(nameof(SelectedCreature));
-            NotifyPropertyChanged(nameof(LastSelectedCard));
+            SetLastSelectedCard(selectedCard);
         }
 
         /// <summary>
@@ -372,18 +385,17 @@ namespace Kagic_UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>private void SetLastSelectedCard(clsCard card)<br/>
+        /// <b>Description: </b>Change the las selectedCard and the cardDetailsVisibility<br/>
+        /// <b>Preconditions: </b> None<br/>
+        /// <b>Postconditions: </b> None<br/>
+        /// </summary>
+        /// <param name="card"></param>
         private void SetLastSelectedCard(clsCard card)
         {
-            cartaDetallesVisibility =(card != null && card.Id != 0); //Id==0 -> new clsCreature();
-            NotifyPropertyChanged(nameof(CartaDetallesVisibility));
-            //if (card == new clsCreature())
-            //{
-            //    cartaDetallesVisibility = false;
-            //}
-            //else
-            //{
-            //    cartaDetallesVisibility = true;
-            //}
+            cardDetailsVisibility =(card != null && card.Id > 0); //Id==0 -> new clsCreature();
+            NotifyPropertyChanged(nameof(CardDetailsVisibility));
             lastSelectedCard.Clear();
             lastSelectedCard.Add(card);
             NotifyPropertyChanged(nameof(LastSelectedCard));
@@ -403,7 +415,7 @@ namespace Kagic_UI.ViewModels
         private void TryAttackCreature(clsPlayer attacker, clsPlayer defensor)
         {
             if (lastSelectedCard != null && selectedCreature != null && 
-                selectedCreature.Id != 0)
+                selectedCreature.Id > 0)
             {
                 if(attacker.SelectedCreature != -1 && defensor.SelectedCreature != -1)
                 {
@@ -457,20 +469,24 @@ namespace Kagic_UI.ViewModels
         #region spells
         /// <summary>
         ///     <Headboard>private void trysendSpell(clsPlayer player)</cabecera>
-        ///     <Description>In progress pero pa lanzar hechizos</descripcion>
+        ///     <Description>Try to send a spell</descripcion>
         /// </summary>
         /// <param name="player"></param>
-        private void trysendSpell(clsPlayer player)
+        private void TrysendSpell(clsPlayer player)
         {
-            if (((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsDamage)
+            if (player.Hand[player.SelectedCard].IsAvaible)//Que la carta se pueda jugar
             {
-                sendAttackSpell();
+                if (((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsDamage)
+                {
+                    SendAttackSpell();
+                }
+                else
+                {
+                    SendHealthSpell();
+                }
+                player.Hand.RemoveAt(player.SelectedCard);
             }
-            else
-            {
-                sendHealthSpell();
-            }
-            player.Hand.RemoveAt(player.SelectedCard);
+            
 
         }
 
@@ -478,16 +494,16 @@ namespace Kagic_UI.ViewModels
         /// <b>Headboard: </b> private void sendAttackSpell()<br/>
         /// <b>Description: </b> Method for make spell attack action
         /// </summary>
-        private void sendAttackSpell()
+        private void SendAttackSpell()
         {
             if (isPlayerTurn)
             {
-                attackAction(realPlayer, iaPlayer);
+                AttackAction(realPlayer, iaPlayer);
                 NotifyPropertyChanged("IaPlayer.PlaceCreatures");
             }
             else
             {
-                attackAction(iaPlayer, realPlayer);
+                AttackAction(iaPlayer, realPlayer);
                 NotifyPropertyChanged("RealPlayer.PlaceCreatures");
             }
         }
@@ -498,7 +514,7 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         /// <param name="ofense"></param>
         /// <param name="defensor"></param>
-        private void attackAction(clsPlayer ofense, clsPlayer defensor)
+        private void AttackAction(clsPlayer ofense, clsPlayer defensor)
         {
             defensor.PlaceCreatures[defensor.SelectedCreature].ActualLife = defensor.PlaceCreatures[defensor.SelectedCreature].ActualLife - ((clsLifeModifyingSpell)ofense.Hand[ofense.SelectedCard]).Effect;
             if (defensor.PlaceCreatures[defensor.SelectedCreature].ActualLife <= 0)
@@ -511,16 +527,16 @@ namespace Kagic_UI.ViewModels
         /// <b>Headboard: </b> private void sendHealthSpell()<br/>
         /// <b>Description: </b> Method for make spell health action
         /// </summary>
-        private void sendHealthSpell()
+        private void SendHealthSpell()
         {
             if (isPlayerTurn)
             {
-                healthAction(realPlayer);
+                HealthAction(realPlayer);
                 NotifyPropertyChanged("RealPlayer.Life");
             }
             else
             {
-                healthAction(iaPlayer);
+                HealthAction(iaPlayer);
                 NotifyPropertyChanged("IaPlayer.Life");
             }
 
@@ -532,7 +548,7 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         /// 
         /// <param name="player"></param>
-        private void healthAction(clsPlayer player)
+        private void HealthAction(clsPlayer player)
         {
             if (player.PlaceCreatures[player.SelectedCreature] != null)
             {

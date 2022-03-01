@@ -56,7 +56,8 @@ namespace Kagic_UI.Models
         public ObservableCollection<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
         public int SelectedCard { get => selectedCard; set => selectedCard = value; }
         public int SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
-        public int ProgresBarLife{ get => life * (100 / MAX_LIFE);}
+        public int ProgresBarLife { get => life * (100 / MAX_LIFE); }
+        public int ProgresBarMana { get => usedMana * (100 / MAX_MANA); }
 
         #endregion
 
