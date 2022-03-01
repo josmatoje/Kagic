@@ -52,12 +52,12 @@ namespace Kagic_UI.ViewModels
             get => selectedCard;
             set
             {
+                //UpdateSelectedCardsForNewAction();
                 selectedCard = value;
-                if (value != new clsCreature() && value != null)
+                if (value != null && value.Id != 0)
                 {
                     SetLastSelectedCard(value);
                     NotifyPropertyChanged(nameof(LastSelectedCard));
-
                 }
             }
         }
@@ -291,6 +291,9 @@ namespace Kagic_UI.ViewModels
             selectedCard = new clsCreature();
             selectedCreature = new clsCreature();
             lastSelectedCard.Clear();
+            NotifyPropertyChanged(nameof(SelectedCard));
+            NotifyPropertyChanged(nameof(SelectedCreature));
+            NotifyPropertyChanged(nameof(LastSelectedCard));
         }
 
         /// <summary>
