@@ -63,11 +63,12 @@
         
         <DataTemplate x:Key="dtEmpty">
             <RelativePanel>
-                <Image Name="frame" Source="/Assets/Images/CreatureFrame.png" Style="{StaticResource ImgCardImageSmall}" Opacity="0.2"/>
+                <Image Name="frame" Source="/Assets/Images/CardPosition.png" Style="{StaticResource ImgCardImageSmall}" Opacity="0.2"/>
             </RelativePanel>
         </DataTemplate>
 
-        <dts:MyDataTemplateSelector x:Key="CardsTemplates" Creature="{StaticResource dtCreature}" DamageSpell="{StaticResource dtDamageSpell}" HealingSpell="{StaticResource dtHealingSpell}"  Empty="{StaticResource dtEmpty}"/>
+        <dts:MyDataTemplateSelector x:Key="CardsTemplates" Creature="{StaticResource dtCreature}" DamageSpell="{StaticResource dtDamageSpell}" HealingSpell="{StaticResource dtHealingSpell}"/>
+        <dts:BattlefieldDataTemplateSelector x:Key="BattlefieldCardsTemplates" Creature="{StaticResource dtCreature}" Empty="{StaticResource dtEmpty}"/>
     </Page.Resources>
 
     <!-- Background -->
@@ -104,13 +105,13 @@
         <RelativePanel x:Name="rpBattlefield" Margin="0,30,0,0" BorderThickness="3" Padding="5" Background="White" CornerRadius="20"
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
             <!-- IA battlefield -->
-            <GridView x:Name="gdOpponentCreatures" ItemsSource="{Binding IaPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource CardsTemplates}"  MinHeight="250" MinWidth="800" Margin="0,0,0,20" BorderThickness="3" Background="Red" CornerRadius="20"
+            <GridView x:Name="gdOpponentCreatures" ItemsSource="{Binding IaPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource BattlefieldCardsTemplates}"  MinHeight="250" MinWidth="800" Margin="0,0,0,20" BorderThickness="3" Background="Red" CornerRadius="20"
                       RelativePanel.AlignHorizontalCenterWithPanel="True"                                           SelectedIndex="{Binding IaPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
     
 
             <!-- Player battlefield -->
-            <GridView x:Name="gdPlayerCreatures" ItemsSource="{Binding RealPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource CardsTemplates}" MinHeight="250" MinWidth="800" BorderThickness="3" Background="Blue" CornerRadius="20"
+            <GridView x:Name="gdPlayerCreatures" ItemsSource="{Binding RealPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource BattlefieldCardsTemplates}" MinHeight="250" MinWidth="800" BorderThickness="3" Background="Blue" CornerRadius="20"
                       RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures" SelectedIndex="{Binding RealPlayer.SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </GridView>
         </RelativePanel>

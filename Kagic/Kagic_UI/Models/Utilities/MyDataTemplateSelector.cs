@@ -14,22 +14,14 @@ namespace Kagic_UI.Models.Utilities
         public DataTemplate Creature { get; set; }
         public DataTemplate DamageSpell { get; set; }
         public DataTemplate HealingSpell { get; set; }
-        public DataTemplate Empty { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
             DataTemplate dataTemplate = null;
             clsCard card = (clsCard)item;
             if (card is clsCreature)
-            {
-                if(card==null || card.Id == 0)
-                {
-                    dataTemplate = Empty;
-                }
-                else
-                {
-                    dataTemplate = Creature;
-                }
+            {               
+                    dataTemplate = Creature;                
             }
             else
             {
