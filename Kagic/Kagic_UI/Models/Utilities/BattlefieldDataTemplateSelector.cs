@@ -16,10 +16,7 @@ namespace Kagic_UI.Models.Utilities
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
-            DataTemplate dataTemplate = null;
-            clsCard card = (clsCard)item;
-            dataTemplate = (card == null || card.Id == 0) ? Empty : Creature;
-            return dataTemplate;
+            return (item == null || ((clsCard)item).Id == 0) ? Empty : Creature;
         }
     }
 }

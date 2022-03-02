@@ -17,25 +17,7 @@ namespace Kagic_UI.Models.Utilities
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
-            DataTemplate dataTemplate = null;
-            clsCard card = (clsCard)item;
-            if (card is clsCreature)
-            {               
-                    dataTemplate = Creature;                
-            }
-            else
-            {
-                if(((clsLifeModifyingSpell)card).IsDamage)
-                {
-                    dataTemplate = DamageSpell;
-                }
-                else
-                {
-                    dataTemplate = HealingSpell;
-                }
-            }
-
-            return dataTemplate;
+            return item is clsCreature ? Creature : ((clsLifeModifyingSpell)item).IsDamage ? DamageSpell : HealingSpell;
         }
     }
 }

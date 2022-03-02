@@ -122,7 +122,7 @@
                 RelativePanel.AlignVerticalCenterWith="rpBattlefield" RelativePanel.AlignLeftWithPanel="True" Command="{Binding PassTurnCommand}"/>
         <!--Cambiar por user control con bindeos y tal-->
         <!-- IA life -->
-        <RelativePanel x:Name="stpIaLife" Style="{StaticResource normalLife}"
+        <RelativePanel x:Name="stpIaLife" Style="{StaticResource normalLife}" 
                     RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
             <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="{Binding IaPlayer.ProgresBarLife, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" Background="LightGray"
                      RelativePanel.AlignBottomWithPanel="True"/>

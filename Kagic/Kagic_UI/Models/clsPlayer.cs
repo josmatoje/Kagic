@@ -39,6 +39,7 @@ namespace Kagic_UI.Models
             InitialHand();
             this.placeCreatures = new ObservableCollection<clsCreature>();
             InitializePlaceCreatures();
+            //SetAvaibleCards();
             this.selectedCard = -1;
             this.selectedCreature = -1;
         }
@@ -112,7 +113,9 @@ namespace Kagic_UI.Models
         public void SetMana()
         {
             if (totalMana < MAX_MANA)
+            {
                 totalMana++;
+            }
             usedMana = 0;
         }
 
