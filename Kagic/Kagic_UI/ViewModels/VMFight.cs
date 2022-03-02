@@ -178,7 +178,7 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool atackContraryPlayerCommand_CanExecute()
         {
-            return  (realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage) || (realPlayer.SelectedCreature != -1 && !realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used && NoEnemiesFront());
+            return  (realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible) || (realPlayer.SelectedCreature != -1  && !realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used && NoEnemiesFront());
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool healthPlayerCommand_CanExecute()
         {
-            return realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && !((clsLifeModifyingSpell)selectedCard).IsDamage;
+            return realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && !((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible;
         }
         #endregion
 
@@ -359,28 +359,44 @@ namespace Kagic_UI.ViewModels
         private void IaTurn()
         {
             int enemyCreatureIndex;
-            bool placeCreature=true, atackCreatures=true;
+            bool usingCards=true, atackCreatures;
 
             //place creatures
-            while (placeCreature)
+            while (usingCards)
             {
                 if (iaPlayer.SelectHandCard()) 
                 {
                     selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
                     SetLastSelectedCard(selectedCard);
-                    if (iaPlayer.PickPlace())
+                    if (selectedCard is clsCreature)
                     {
-                        selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
-                        TryPutCreature(iaPlayer);
+                        if (iaPlayer.PickPlace())
+                        {
+                            selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
+                            TryPutCreature(iaPlayer);
+                        }
+                        else
+                        {
+                            usingCards = false;
+                        }
                     }
                     else
                     {
-                        placeCreature = false;
-                    }
+                        if (NoEnemiesFront())
+                        {
+                            AttackContraryPlayer(((clsLifeModifyingSpell)selectedCard).Effect);
+                        }
+                        else
+                        {
+                            realPlayer.SelectedCreature = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
+                            AttackAction(iaPlayer, realPlayer);                           
+                        }
+                        iaPlayer.PutCard();
+                    }                  
                 }
                 else
                 {
-                    placeCreature = false;
+                    usingCards = false;
                 }
             }
 
