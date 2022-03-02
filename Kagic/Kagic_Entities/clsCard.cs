@@ -26,7 +26,7 @@ namespace Kagic_Entities
             this.description = description;
             this.image = image;
             this.manacost = manacost;
-            this.isAvaible = false;
+            this.isAvaible = true;
         }
 
         //Default constructor
@@ -37,7 +37,7 @@ namespace Kagic_Entities
             this.description = " ";
             this.image = " ";
             this.manacost = 0;
-            this.isAvaible = false;
+            this.isAvaible = true;
         }
         //Copy constructor
         public clsCard(clsCard card)

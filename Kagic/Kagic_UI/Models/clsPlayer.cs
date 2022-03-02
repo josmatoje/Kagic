@@ -80,20 +80,26 @@ namespace Kagic_UI.Models
                     hand.Add(deck[0]);
                 deck.RemoveAt(0);
             }
+            SetAvaibleCards();
         }
+
         /// <summary>
         /// <b>Headboard: </b>private void PutCard()<br/>
-        /// <b>Description: </b>This method place a creature from the player hand to the batelfield if the mana is enough and update the usedMana<br/>
+        /// <b>Description: </b>This method use a card and update the usedMana. Also place a creature from the player hand to the batelfield if selected card is a creature.<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
         public void PutCard()
         {
-            if (hand[selectedCard] is clsCreature && hand[selectedCard].Manacost<=totalMana-usedMana)
+            if (hand[selectedCard].IsAvaible)
             {
-                placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
+                if (hand[selectedCard] is clsCreature)
+                {
+                    placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
+                }
                 usedMana += hand[selectedCard].Manacost;
                 hand.RemoveAt(selectedCard);
+                SetAvaibleCards();
             }
         }
 

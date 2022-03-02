@@ -130,7 +130,13 @@
             <Image x:Name="imgIaTensNumber"     Source="{Binding IaPlayer.Life, Converter={StaticResource tensNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
             <Image x:Name="imgIaUnitsNumber"    Source="{Binding IaPlayer.Life, Converter={StaticResource unitNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
+        
+        <!--Boton para atacar al contrario-->
+        <Button x:Name="buttonAttackContrary" RelativePanel.Below="stpIaLife" RelativePanel.AlignRightWithPanel="True" Margin="40,10" Background="LightGray" Command="{Binding AttackContraryPlayerCommand}">Atacar contrario</Button>
 
+        <!--Boton para curarte-->
+        <Button x:Name="buttonHealthyou" RelativePanel.Above="stpPlayerLife" RelativePanel.AlignLeftWithPanel="True" Margin="40,10" Background="LightGray" Command="{Binding HealthPlayerCommand}">Curar</Button>
+        
         <!-- Player life -->
         <RelativePanel x:Name="stpPlayerLife" Style="{StaticResource normalLife}"
                     RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
@@ -140,6 +146,7 @@
             <Image x:Name="imgTensNumber"   Source="{Binding RealPlayer.Life, Converter={StaticResource tensNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
             <Image x:Name="imgUnitsNumber"  Source="{Binding RealPlayer.Life, Converter={StaticResource unitNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
+       
         <!--Cambiar por user control con bindeos y tal-->
 
         <!-- Card details -->

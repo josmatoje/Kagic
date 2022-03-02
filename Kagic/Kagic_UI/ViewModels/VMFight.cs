@@ -18,6 +18,7 @@ namespace Kagic_UI.ViewModels
         bool isPlayerTurn;
         DelegateCommand passTurnCommand;
         DelegateCommand attackContraryPlayerCommand;
+        DelegateCommand healthPlayerCommand;
         clsCard selectedCard;
         clsCreature selectedCreature;
         ObservableCollection <clsCard> lastSelectedCard;
@@ -59,6 +60,9 @@ namespace Kagic_UI.ViewModels
                     SetLastSelectedCard(value);
                     NotifyPropertyChanged(nameof(LastSelectedCard));
                 }
+                attackContraryPlayerCommand.RaiseCanExecuteChanged();
+                healthPlayerCommand.RaiseCanExecuteChanged();
+
             }
         }
 
@@ -74,10 +78,10 @@ namespace Kagic_UI.ViewModels
                     TryPutCreature(realPlayer);
                     TryAttackCreature(realPlayer,iaPlayer);
                 }
-                else //Only could be clsSpellType
-                {
-                    TrysendSpell(RealPlayer);
-                }
+                //else //Only could be clsSpellType
+                //{
+                //    TrysendSpell(RealPlayer);
+                //}
                 
                 if(value != null && value.Id > 0 && value.ActualLife > 0) //Value se ve modificado por los metodos anteriores, 
                 {
@@ -88,7 +92,7 @@ namespace Kagic_UI.ViewModels
                     selectedCreature = new clsCreature();
                     SetLastSelectedCard(new clsCreature());
                 }
-                    
+                attackContraryPlayerCommand.RaiseCanExecuteChanged(); 
             }
         }
 
@@ -110,6 +114,15 @@ namespace Kagic_UI.ViewModels
             {
                 attackContraryPlayerCommand = new DelegateCommand(atackContraryPlayerCommand_Executed, atackContraryPlayerCommand_CanExecute);
                 return attackContraryPlayerCommand;
+            }
+        }
+
+        public DelegateCommand HealthPlayerCommand 
+        {
+            get
+            {
+                healthPlayerCommand = new DelegateCommand(healthPlayerCommand_Executed, healthPlayerCommand_CanExecute);
+               return healthPlayerCommand;
             }
         }
         #endregion
@@ -144,18 +157,18 @@ namespace Kagic_UI.ViewModels
         private void atackContraryPlayerCommand_Executed()
         {
             int damage = 0;
-            clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
 
-            if (player.SelectedCard != -1)
+            if (realPlayer.SelectedCard != -1)
             {
-                damage = ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).Effect;
+                damage = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCard]).Effect;
             }
             else
             {
-                damage = player.PlaceCreatures[player.SelectedCreature].Attack;
+                damage = realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
             }
 
             AttackContraryPlayer(damage);
+            realPlayer.PutCard();
         }
 
         /// <summary>
@@ -165,8 +178,36 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool atackContraryPlayerCommand_CanExecute()
         {
-            clsPlayer player = isPlayerTurn ? realPlayer : iaPlayer;
-            return !(player.SelectedCard == -1 && NoEnemiesFront());
+            return  (realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage) || (realPlayer.SelectedCreature != -1 && !realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used && NoEnemiesFront());
+        }
+
+        /// <summary>
+        ///     <Headboard>private void passTurnCommand_Executed()</cabecera>
+        ///     <Description>Calls changeTurn's method </descripcion> 
+        /// </summary>
+        private void healthPlayerCommand_Executed()
+        {
+            int health = 0;
+           
+            health = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCard]).Effect;
+
+            realPlayer.Life += health;
+            if (realPlayer.Life > clsPlayer.MAX_LIFE)
+            {
+                realPlayer.Life = clsPlayer.MAX_LIFE;
+            }
+            realPlayer.PutCard();
+            NotifyPropertyChanged(nameof(RealPlayer));
+        }
+
+        /// <summary>
+        ///     <Headboard>private bool atackContraryPlayerCommand_CanExecute()</cabecera>
+        ///     <Description></descripcion>
+        /// </summary>
+        /// <returns></returns>
+        private bool healthPlayerCommand_CanExecute()
+        {
+            return realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && !((clsLifeModifyingSpell)selectedCard).IsDamage;
         }
         #endregion
 
@@ -459,9 +500,6 @@ namespace Kagic_UI.ViewModels
                 //Forma de eliminar de la lista
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
             }
-            NotifyPropertyChanged(nameof(RealPlayer.PlaceCreatures));
-            NotifyPropertyChanged(nameof(IaPlayer.PlaceCreatures));
-
         }
 
         #endregion
@@ -601,12 +639,12 @@ namespace Kagic_UI.ViewModels
             if (!isPlayerTurn)
             {
                 realPlayer.Life -= damage;
-                NotifyPropertyChanged("RealPlayer.ProgresBarLife");
+                NotifyPropertyChanged(nameof(RealPlayer));
             }
             else
             {
                 iaPlayer.Life -= damage;
-                NotifyPropertyChanged("IaPlayer.ProgresBarLife");
+                NotifyPropertyChanged(nameof(IaPlayer));
             }
             FinishGame();
         }
