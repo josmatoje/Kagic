@@ -26,11 +26,10 @@ namespace Kagic_UI.Models.Utilities
         {
             for (int i = 0; i < Hand.Count && selectedCard == -1; i++)
             {
-                if (//Hand[i] is clsCreature && //For testing creatures DELETE
-                    hand[i].IsAvaible)
+                if (Hand[i].IsAvaible)
                     selectedCard = i;
             }
-            return selectedCard != -1; //Devuelve true si alguna carta ha sido seleccionadad
+            return selectedCard != -1; //Devuelve true si alguna carta ha sido seleccionada
         }
 
         /// <summary>
