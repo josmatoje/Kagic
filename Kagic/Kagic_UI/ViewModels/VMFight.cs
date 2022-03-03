@@ -35,7 +35,6 @@ namespace Kagic_UI.ViewModels
         public VMFight()
         {
             passTurnCommand = new DelegateCommand(passTurnCommand_Executed, passTurnCommand_CanExecute);
-            lastSelectedCard = new ObservableCollection<clsCard>();
             StartGame();
         }
         #endregion
@@ -157,9 +156,10 @@ namespace Kagic_UI.ViewModels
         {
             int damage = 0;
 
-            if (realPlayer.SelectedCard != -1)
+            if (realPlayer.SelectedCard > -1)
             {
                 damage = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCard]).Effect;
+                realPlayer.PutCard();
             }
             else
             {
@@ -167,7 +167,6 @@ namespace Kagic_UI.ViewModels
             }
 
             AttackContraryPlayer(damage);
-            realPlayer.PutCard();
         }
 
         /// <summary>
@@ -177,7 +176,7 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool atackContraryPlayerCommand_CanExecute()
         {
-            return  (realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible) || (realPlayer.SelectedCreature != -1  && !realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used && NoEnemiesFront());
+            return (realPlayer.SelectedCard != -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible) || (realPlayer.SelectedCreature != -1 && !realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used && NoEnemiesFront());
         }
 
         /// <summary>
@@ -222,10 +221,11 @@ namespace Kagic_UI.ViewModels
             List<clsCard> cards = new List<clsCard>(clsCardsManagementBL.getCardsListBL());
             realPlayer = new clsPlayer(CardsDeck(cards));
             iaPlayer = new clsIAPlayer(CardsDeck(cards));
+            lastSelectedCard = new ObservableCollection<clsCard>();
+            SetLastSelectedCard(new clsCreature());
             //random para ver quien empieza isPlayerTurn
             //isPlayerTurn = (new Random()).Next(10) > 5;
             isPlayerTurn = true;
-            cardDetailsVisibility = true;
             realPlayer.DrawCard();           
         }
 
@@ -358,12 +358,12 @@ namespace Kagic_UI.ViewModels
         private void IaTurn()
         {
             int enemyCreatureIndex;
-            bool usingCards=true, atackCreatures;
+            bool usingCards = true, targetSelected, atackCreatures=true;
 
             //place creatures
             while (usingCards)
             {
-                if (iaPlayer.SelectHandCard()) 
+                if (iaPlayer.SelectHandCard())
                 {
                     selectedCard = iaPlayer.Hand[iaPlayer.SelectedCard];
                     SetLastSelectedCard(selectedCard);
@@ -381,17 +381,36 @@ namespace Kagic_UI.ViewModels
                     }
                     else
                     {
-                        if (NoEnemiesFront())
+                        if((selectedCard as clsLifeModifyingSpell).IsDamage)
                         {
-                            AttackContraryPlayer(((clsLifeModifyingSpell)selectedCard).Effect);
+                            if (NoEnemiesFront())
+                            {
+                                AttackContraryPlayer(((clsLifeModifyingSpell)selectedCard).Effect);
+                                iaPlayer.PutCard();
+                            }
+                            else
+                            {
+                                realPlayer.SelectedCreature = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
+                                SelectedCreature = realPlayer.PlaceCreatures[realPlayer.SelectedCreature];
+                                TrySendSpell(iaPlayer);
+                            }
                         }
-                        else
+                        else //Healing
                         {
-                            realPlayer.SelectedCreature = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
-                            AttackAction(iaPlayer, realPlayer);                           
+                            targetSelected = false;
+                            for(int i = 0; i < iaPlayer.PlaceCreatures.Count && !targetSelected; i++)
+                            {
+                                if(iaPlayer.PlaceCreatures[i].ActualLife < iaPlayer.PlaceCreatures[i].Life)
+                                {
+                                    selectedCreature = iaPlayer.PlaceCreatures[i];
+                                    iaPlayer.SelectedCreature = i;
+                                    TrySendSpell(IaPlayer);
+                                    targetSelected = true;
+                                }
+                            }
+                            usingCards = targetSelected;
                         }
-                        iaPlayer.PutCard();
-                    }                  
+                    }
                 }
                 else
                 {
@@ -528,14 +547,16 @@ namespace Kagic_UI.ViewModels
         /// <param name="player"></param>
         private void TrySendSpell(clsPlayer player)
         {
-            if (lastSelectedCard[0] is clsLifeModifyingSpell && player.Hand[player.SelectedCard].IsAvaible &&
+            if (lastSelectedCard[0] is clsLifeModifyingSpell && 
                 selectedCreature != null && lastSelectedCard != null &&
                 selectedCreature.Id > 0 && lastSelectedCard[0].Id > 0 &&
-                player.SelectedCard > -1 && player.SelectedCreature > -1)
+                player.SelectedCard > -1 && (realPlayer.SelectedCreature > -1 || iaPlayer.SelectedCreature > -1) &&
+                player.Hand[player.SelectedCard].IsAvaible)
             {
-                SendSpell();
+                SendSpell(player);
                 player.PutCard();
                 //player.Hand.RemoveAt(player.SelectedCard);
+                NotifyPropertyChanged(nameof(RealPlayer));
                 UpdateSelectedCardsForNewAction();
             }
         }
@@ -544,26 +565,27 @@ namespace Kagic_UI.ViewModels
         /// <b>Headboard: </b> private void SendSpell()<br/>
         /// <b>Description: </b> This method do an action in all the creatures if it is a area spell and on the selected if it is a none area spell
         /// </summary>
-        private void SendSpell()
+        private void SendSpell(clsPlayer player)
         {
-            clsPlayer player = realPlayer.PlaceCreatures[realPlayer.SelectedCreature] == selectedCreature ? realPlayer : iaPlayer;
+            clsPlayer targetPlayer = realPlayer.SelectedCreature > -1 && realPlayer.PlaceCreatures[realPlayer.SelectedCreature] == selectedCreature ? realPlayer : iaPlayer;
 
             if (((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsArea) //Valorar si es de area o no
             {
-                for (int i = 0; i < player.PlaceCreatures.Count; i++)
+                for (int i = 0; i < targetPlayer.PlaceCreatures.Count; i++)
                 {
-                    player.SelectedCreature = i;
-                    if (player.PlaceCreatures[i].Id > 0)
+                    targetPlayer.SelectedCreature = i;
+                    if (targetPlayer.PlaceCreatures[i].Id > 0)
                     {
-                        AttackOrHealthSpell(player);
+                        AttackOrHealthSpell(targetPlayer, ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsDamage);
                     }
                 }
             }
             else
             {
-                AttackOrHealthSpell(player);
+                AttackOrHealthSpell(targetPlayer, ((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsDamage);
             }
             NotifyPropertyChanged(nameof(RealPlayer.PlaceCreatures));
+            NotifyPropertyChanged(nameof(IaPlayer.PlaceCreatures));
 
         }
 
@@ -572,9 +594,9 @@ namespace Kagic_UI.ViewModels
         /// <b>Description: </b> Select between a attack and a health action in function of the damage property of the selected card
         /// </summary>
         /// <param name="player"></param>
-        private void AttackOrHealthSpell (clsPlayer player)
+        private void AttackOrHealthSpell (clsPlayer player, bool isDamage)
         {
-            if (((clsLifeModifyingSpell)player.Hand[player.SelectedCard]).IsDamage)
+            if (isDamage)
             {
                 AttackAction(player);
             }
@@ -595,7 +617,7 @@ namespace Kagic_UI.ViewModels
             player.PlaceCreatures[player.SelectedCreature].ActualLife -= ((clsLifeModifyingSpell)lastSelectedCard[0]).Effect;
             if (player.PlaceCreatures[player.SelectedCreature].ActualLife <= 0)
             {
-                player.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
+                player.PlaceCreatures.RemoveAt(player.SelectedCreature);
             }
         }
 
