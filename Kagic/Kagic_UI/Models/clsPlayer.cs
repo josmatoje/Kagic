@@ -92,7 +92,7 @@ namespace Kagic_UI.Models
         /// </summary>
         public void PutCard()
         {
-            if (hand[selectedCard].IsAvaible)
+            if (selectedCard > -1 && hand[selectedCard].IsAvaible)
             {
                 if (hand[selectedCard] is clsCreature)
                 {
