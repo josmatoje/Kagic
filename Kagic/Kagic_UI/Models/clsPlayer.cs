@@ -14,7 +14,7 @@ namespace Kagic_UI.Models
         #region atributes
         protected int life;
         protected int totalMana;
-        protected int usedMana;
+        protected int remainingMana;
         protected List<clsCard> deck;
         protected ObservableCollection<clsCard> hand;
         protected ObservableCollection<clsCreatureNotified> placeCreatures;
@@ -35,7 +35,7 @@ namespace Kagic_UI.Models
         {
             this.life = MAX_LIFE;
             this.totalMana = 10; //Modificado para pruebas CAMBIAR A 1!
-            this.usedMana = 0;
+            this.remainingMana = totalMana;
             this.deck = deck;
             InitialHand();
             this.placeCreatures = new ObservableCollection<clsCreatureNotified>();
@@ -68,7 +68,7 @@ namespace Kagic_UI.Models
                 NotifyPropertyChanged("TotalMana");
             }
         }
-        public int UsedMana { get => usedMana; set => usedMana = value; }
+        public int RemainingMana { get => remainingMana; set => remainingMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public ObservableCollection<clsCard> Hand { get => hand; set => hand = value; }
         public ObservableCollection<clsCreatureNotified> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
@@ -91,7 +91,7 @@ namespace Kagic_UI.Models
             }
         }
         public int ProgresBarLife { get => life * (100 / MAX_LIFE); }
-        public int ProgresBarMana { get => usedMana * (100 / MAX_MANA); }
+        public int ProgresBarMana { get => remainingMana * (100 / MAX_MANA); }
 
         #endregion
 
@@ -131,7 +131,7 @@ namespace Kagic_UI.Models
                 {
                     placeCreatures[selectedCreature] =  hand[selectedCard] as clsCreatureNotified;
                 }
-                usedMana += hand[selectedCard].Manacost;
+                remainingMana -= hand[selectedCard].Manacost;
                 hand.RemoveAt(selectedCard);
                 SetAvaibleCards();
             }
@@ -149,7 +149,7 @@ namespace Kagic_UI.Models
             {
                 totalMana++;
             }
-            usedMana = 0;
+            remainingMana = totalMana;
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Kagic_UI.Models
         public void SetAvaibleCards()
         {
             foreach (clsCard card in hand)
-                card.IsAvaible = card.Manacost <= totalMana - usedMana;
+                card.IsAvaible = card.Manacost <= remainingMana;
         }
         #endregion
 

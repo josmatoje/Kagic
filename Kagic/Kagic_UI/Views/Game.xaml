@@ -171,8 +171,8 @@
             <RelativePanel x:Name="rpActualMana" RelativePanel.AlignVerticalCenterWith="rpPlayerMana" RelativePanel.AlignLeftWithPanel="True" Margin="5" Canvas.ZIndex="3">
                 <Image Source="/Assets/Images/Mana.png" Width="70" Height="70" Canvas.ZIndex="3" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                 <StackPanel Orientation="Horizontal" Canvas.ZIndex="4" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
-                    <Image x:Name="imgTensNumberUsedMana"   Source="{Binding RealPlayer.UsedMana, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource tensNumConv}}"           Height="25"/>
-                    <Image x:Name="imgUnitsNumberUsedMana"  Source="{Binding RealPlayer.UsedMana, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource unitNumConv}}"           Height="25"/>
+                    <Image x:Name="imgTensNumberUsedMana"   Source="{Binding RealPlayer.RemainingMana, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource tensNumConv}}"           Height="25"/>
+                    <Image x:Name="imgUnitsNumberUsedMana"  Source="{Binding RealPlayer.RemainingMana, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource unitNumConv}}"           Height="25"/>
                 </StackPanel>
             </RelativePanel>
 
