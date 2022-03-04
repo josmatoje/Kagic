@@ -24,13 +24,13 @@ namespace Kagic_UI.Models.Utilities
         /// <returns>bool: true if a card has been selected</returns>
         public bool SelectHandCard()
         {
-            selectedCard = -1;
-            for (int i = 0; i < Hand.Count && selectedCard == -1; i++)
+            selectedCardIndex = -1;
+            for (int i = 0; i < Hand.Count && selectedCardIndex == -1; i++)
             {
                 if (Hand[i].IsAvaible)
-                    selectedCard = i;
+                    selectedCardIndex = i;
             }
-            return selectedCard != -1; //Devuelve true si alguna carta ha sido seleccionada
+            return selectedCardIndex > -1; //Devuelve true si alguna carta ha sido seleccionada
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Kagic_UI.Models.Utilities
             {
                 if (placeCreatures[i].Id == 0)
                 {
-                    selectedCreature = i;
+                    selectedCreatureIndex = i;
                     picked = true;
                 }
             }
@@ -64,12 +64,12 @@ namespace Kagic_UI.Models.Utilities
         public bool PickOwnCreature()
         {
             bool picked = false;
-            selectedCreature = -1;
+            selectedCreatureIndex = -1;
             for (int i = 0; i < placeCreatures.Count && !picked; i++)
             {
                 if (!placeCreatures[i].Used) //PlaceCreatures[i].Id != 0 && <-- Id==0 implica que es una criatura por defecto y que used es true
                 {
-                    selectedCreature = i;
+                    selectedCreatureIndex = i;
                     picked = true;
                 }
             }

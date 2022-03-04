@@ -18,8 +18,8 @@ namespace Kagic_UI.Models
         protected List<clsCard> deck;
         protected ObservableCollection<clsCard> hand;
         protected ObservableCollection<clsCreatureNotified> placeCreatures;
-        protected int selectedCard;
-        protected int selectedCreature;
+        protected int selectedCardIndex;
+        protected int selectedCreatureIndex;
         #endregion
 
         #region constant
@@ -41,8 +41,8 @@ namespace Kagic_UI.Models
             this.placeCreatures = new ObservableCollection<clsCreatureNotified>();
             InitializePlaceCreatures();
             //SetAvaibleCards();
-            this.selectedCard = -1;
-            this.selectedCreature = -1;
+            this.selectedCardIndex = -1;
+            this.selectedCreatureIndex = -1;
         }
 
         //Default constructor
@@ -56,7 +56,7 @@ namespace Kagic_UI.Models
             set 
             { 
                 life = value;
-                NotifyPropertyChanged("Life");
+                NotifyPropertyChanged(nameof(Life));
             }
         }
         public int TotalMana 
@@ -65,29 +65,29 @@ namespace Kagic_UI.Models
             set 
             {
                 totalMana = value;
-                NotifyPropertyChanged("TotalMana");
+                NotifyPropertyChanged(nameof(TotalMana));
             }
         }
         public int RemainingMana { get => remainingMana; set => remainingMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public ObservableCollection<clsCard> Hand { get => hand; set => hand = value; }
         public ObservableCollection<clsCreatureNotified> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
-        public int SelectedCard 
+        public int SelectedCardIndex
         { 
-            get => selectedCard;
+            get => selectedCardIndex;
             set
             {
-                selectedCard = value;
-                NotifyPropertyChanged("SelectedCard");
+                selectedCardIndex = value;
+                NotifyPropertyChanged(nameof(SelectedCardIndex));
             }
         }
-        public int SelectedCreature 
+        public int SelectedCreatureIndex
         { 
-            get => selectedCreature; 
+            get => selectedCreatureIndex; 
             set 
-            { 
-                selectedCreature = value;
-                NotifyPropertyChanged("SelectedCreature");
+            {
+                selectedCreatureIndex = value;
+                NotifyPropertyChanged(nameof(SelectedCreatureIndex));
             }
         }
         public int ProgresBarLife { get => life * (100 / MAX_LIFE); }
@@ -125,16 +125,16 @@ namespace Kagic_UI.Models
         /// </summary>
         public void PutCard()
         {
-            if (selectedCard > -1 && hand[selectedCard].IsAvaible)
+            if (selectedCardIndex > -1 && hand[selectedCardIndex].IsAvaible)
             {
-                if (hand[selectedCard] is clsCreatureNotified)
+                if (hand[selectedCardIndex] is clsCreatureNotified)
                 {
-                    placeCreatures[selectedCreature] =  hand[selectedCard] as clsCreatureNotified;
+                    placeCreatures[selectedCreatureIndex] =  hand[selectedCardIndex] as clsCreatureNotified;
                 }
-                remainingMana -= hand[selectedCard].Manacost;
+                remainingMana -= hand[selectedCardIndex].Manacost;
                 NotifyPropertyChanged(nameof(RemainingMana));
                 NotifyPropertyChanged(nameof(ProgresBarMana));
-                hand.RemoveAt(selectedCard);
+                hand.RemoveAt(selectedCardIndex);
                 SetAvaibleCards();
             }
         }
