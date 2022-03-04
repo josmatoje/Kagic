@@ -45,15 +45,7 @@ namespace Kagic_Entities
 
         #region public properties
         public int Life { get => life; set => life = value; }
-        public int ActualLife 
-        { 
-            get => actualLife;
-            set
-            {
-                actualLife = value;
-                NotifyPropertyChanged("ActualLife");
-            }
-        }
+        public int ActualLife { get => actualLife; set => actualLife = value; }
         public int Attack { get => attack; set => attack = value; }
         public bool Used { get => used; set => used = value; }
 

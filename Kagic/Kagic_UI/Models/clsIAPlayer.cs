@@ -24,6 +24,7 @@ namespace Kagic_UI.Models.Utilities
         /// <returns>bool: true if a card has been selected</returns>
         public bool SelectHandCard()
         {
+            selectedCard = -1;
             for (int i = 0; i < Hand.Count && selectedCard == -1; i++)
             {
                 if (Hand[i].IsAvaible)

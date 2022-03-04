@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Kagic_Entities.Utilidades;
 
 namespace Kagic_Entities
 {
-    public abstract class clsCard : clsVMBase
+    public abstract class clsCard
     {
         #region atributes
         int id;

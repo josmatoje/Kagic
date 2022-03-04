@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\clsCreatureNotified.cs" />
     <Compile Include="Models\clsPlayer.cs" />
     <Compile Include="Models\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\BattlefieldDataTemplateSelector.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="ViewModels\UtilitiesVM\clsUnitNumberConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsVMBase.cs" />
     <Compile Include="ViewModels\UtilitiesVM\DelegateCommand.cs" />
+    <Compile Include="ViewModels\UtilitiesVM\TrulyObservableCollection.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
     <Compile Include="ViewModels\VMPruebas.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
