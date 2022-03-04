@@ -132,6 +132,8 @@ namespace Kagic_UI.Models
                     placeCreatures[selectedCreature] =  hand[selectedCard] as clsCreatureNotified;
                 }
                 remainingMana -= hand[selectedCard].Manacost;
+                NotifyPropertyChanged(nameof(RemainingMana));
+                NotifyPropertyChanged(nameof(ProgresBarMana));
                 hand.RemoveAt(selectedCard);
                 SetAvaibleCards();
             }

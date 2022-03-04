@@ -6,6 +6,7 @@ using Kagic_UI.ViewModels.UtilitiesVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
 
 namespace Kagic_UI.ViewModels
 {
@@ -62,7 +63,7 @@ namespace Kagic_UI.ViewModels
                 NotifyPropertyChanged(nameof(SelectedCreature));
                 attackContraryPlayerCommand.RaiseCanExecuteChanged();
                 healthPlayerCommand.RaiseCanExecuteChanged();
-
+                
             }
         }
 
@@ -73,10 +74,9 @@ namespace Kagic_UI.ViewModels
             {
                 selectedCreature = value;
 
-                if (iaPlayer.SelectedCreature != -1 && isPlayerTurn && lastSelectedCard[0] == null)
+                if ((iaPlayer.SelectedCreature > -1 || realPlayer.SelectedCreature>-1) && lastSelectedCard[0] == null)
                 {
-                    selectedCreature = null;
-                    NotifyPropertyChanged("SelectedCreature");
+                    UpdateSelectedCardsForNewAction();
                 }
                 else
                 {
@@ -89,6 +89,7 @@ namespace Kagic_UI.ViewModels
                     {
                         TrySendSpell(realPlayer);
                     }
+                    UpdateSelectedCardsForNewAction();
                 }
                 if (value != null && value.Id > 0 && value.ActualLife > 0) //Value se ve modificado por los metodos anteriores, 
                 {
@@ -97,7 +98,7 @@ namespace Kagic_UI.ViewModels
                 else
                 {
                     selectedCreature = null;
-                    SetLastSelectedCard(new clsCreature());
+                    SetLastSelectedCard(null);
                 }
                 attackContraryPlayerCommand.RaiseCanExecuteChanged();
             }
@@ -351,13 +352,9 @@ namespace Kagic_UI.ViewModels
         private void UpdateSelectedCardsForNewAction()
         {
             realPlayer.SelectedCard = -1;
-            NotifyPropertyChanged(nameof(RealPlayer.SelectedCard));
             realPlayer.SelectedCreature = -1;
-            NotifyPropertyChanged(nameof(RealPlayer.SelectedCreature));
             iaPlayer.SelectedCard = -1;
-            NotifyPropertyChanged(nameof(IaPlayer.SelectedCard));
             iaPlayer.SelectedCreature = -1;
-            NotifyPropertyChanged(nameof(IaPlayer.SelectedCreature));
             selectedCard = null;
             NotifyPropertyChanged(nameof(SelectedCard));
             selectedCreature = null;
@@ -374,7 +371,7 @@ namespace Kagic_UI.ViewModels
         private void IaTurn()
         {
             int enemyCreatureIndex;
-            bool usingCards = true, targetSelected, atackCreatures=true;
+            bool usingCards = true, targetSelected;
 
             //place creatures
             while (usingCards)
@@ -406,9 +403,13 @@ namespace Kagic_UI.ViewModels
                             }
                             else
                             {
-                                realPlayer.SelectedCreature = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
-                                selectedCreature = realPlayer.PlaceCreatures[realPlayer.SelectedCreature];
-                                TrySendSpell(iaPlayer);
+                                enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
+                                if(enemyCreatureIndex > -1) //If there are enemies
+                                {
+                                    realPlayer.SelectedCreature = enemyCreatureIndex;
+                                    selectedCreature = realPlayer.PlaceCreatures[realPlayer.SelectedCreature];
+                                    TrySendSpell(iaPlayer);
+                                }
                             }
                         }
                         else //Healing
@@ -464,10 +465,6 @@ namespace Kagic_UI.ViewModels
                         //TryAttackCreature(iaPlayer, realPlayer);
                         Creaturebattle();
                     }
-                    else
-                    {
-                        atackCreatures = false;
-                    }
                 }
                 else
                 {
@@ -495,7 +492,6 @@ namespace Kagic_UI.ViewModels
             {
                 player.PutCard();
                 //Una vez colocada la carta se modifican a -1 las criaturas seleccionadas
-                NotifyPropertyChanged(nameof(RealPlayer));
                 UpdateSelectedCardsForNewAction();
             }
         }
@@ -599,7 +595,6 @@ namespace Kagic_UI.ViewModels
                             {
                                 SendSpell(player);
                                 player.PutCard();
-                                NotifyPropertyChanged(nameof(RealPlayer));
                                 UpdateSelectedCardsForNewAction();
                             }
                         }
