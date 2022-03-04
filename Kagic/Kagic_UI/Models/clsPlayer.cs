@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Kagic_UI.Models
 {
@@ -78,7 +78,7 @@ namespace Kagic_UI.Models
             set
             {
                 selectedCard = value;
-                NotifyPropertyChanged("SelectedCard");
+                NotifyPropertyChanged("selectedCard");
             }
         }
         public int SelectedCreature 
@@ -87,7 +87,7 @@ namespace Kagic_UI.Models
             set 
             { 
                 selectedCreature = value;
-                NotifyPropertyChanged("SelectedCreature");
+                NotifyPropertyChanged("selectedCreature");
             }
         }
         public int ProgresBarLife { get => life * (100 / MAX_LIFE); }
@@ -102,7 +102,7 @@ namespace Kagic_UI.Models
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
-        public void DrawCard()
+        async public void DrawCard()
         {
             if (deck.Count == 0)
             {
@@ -123,7 +123,7 @@ namespace Kagic_UI.Models
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
-        public void PutCard()
+        async public void PutCard()
         {
             if (selectedCard > -1 && hand[selectedCard].IsAvaible)
             {
@@ -134,7 +134,7 @@ namespace Kagic_UI.Models
                 remainingMana -= hand[selectedCard].Manacost;
                 NotifyPropertyChanged(nameof(RemainingMana));
                 NotifyPropertyChanged(nameof(ProgresBarMana));
-                hand.RemoveAt(selectedCard);
+                hand.RemoveAt(selectedCard);               
                 SetAvaibleCards();
             }
         }
