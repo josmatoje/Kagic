@@ -58,6 +58,8 @@ namespace Kagic_UI.ViewModels
                     SetLastSelectedCard(value);
                     NotifyPropertyChanged(nameof(LastSelectedCard));
                 //}
+                selectedCreature = null;
+                NotifyPropertyChanged(nameof(SelectedCreature));
                 attackContraryPlayerCommand.RaiseCanExecuteChanged();
                 healthPlayerCommand.RaiseCanExecuteChanged();
 
@@ -70,28 +72,36 @@ namespace Kagic_UI.ViewModels
             set 
             {
                 selectedCreature = value;
-                //if (IsPlayerTurn) //Si sucede en el turno de la IA se controlará de otra forma --- ¡¡El seter siempre sucede en el turno del jugador!!
-                if(lastSelectedCard[0] is clsCreature)
+
+                if(iaPlayer.SelectedCreature != -1 && isPlayerTurn)
                 {
-                    TryPutCreature(realPlayer);
-                    TryAttackCreature(realPlayer,iaPlayer);
-                }
-                else //Spell
-                {
-                    TrySendSpell(RealPlayer);
-                }
-                
-                if(value != null && value.Id > 0 && value.ActualLife > 0) //Value se ve modificado por los metodos anteriores, 
-                {
-                    SetLastSelectedCard(value);
+                    selectedCreature = null;
+                    NotifyPropertyChanged("SelectedCreature");
                 }
                 else
                 {
-                    selectedCreature = new clsCreature();
-                    SetLastSelectedCard(new clsCreature());
-                }
-                attackContraryPlayerCommand.RaiseCanExecuteChanged();
-                UpdateIndexForNewAction();
+                    if (lastSelectedCard[0] is clsCreature)
+                    {
+                        TryPutCreature(realPlayer);
+                        TryAttackCreature(realPlayer, iaPlayer);
+                    }
+                    else //Spell
+                    {
+                        TrySendSpell(RealPlayer);
+                    }
+
+                    if (value != null && value.Id > 0 && value.ActualLife > 0) //Value se ve modificado por los metodos anteriores, 
+                    {
+                        SetLastSelectedCard(value);
+                    }
+                    else
+                    {
+                        selectedCreature = null;
+                        SetLastSelectedCard(new clsCreature());
+                    }
+                    attackContraryPlayerCommand.RaiseCanExecuteChanged();
+                    UpdateIndexForNewAction();
+                }               
             }
         }
 
@@ -196,7 +206,6 @@ namespace Kagic_UI.ViewModels
                 realPlayer.Life = clsPlayer.MAX_LIFE;
             }
             realPlayer.PutCard();
-            NotifyPropertyChanged(nameof(RealPlayer));
         }
 
         /// <summary>
@@ -347,9 +356,9 @@ namespace Kagic_UI.ViewModels
             NotifyPropertyChanged(nameof(IaPlayer.SelectedCard));
             iaPlayer.SelectedCreature = -1;
             NotifyPropertyChanged(nameof(IaPlayer.SelectedCreature));
-            selectedCard = new clsCreature();
+            selectedCard = null;
             NotifyPropertyChanged(nameof(SelectedCard));
-            selectedCreature = new clsCreature();
+            selectedCreature = null;
             NotifyPropertyChanged(nameof(SelectedCreature));
             SetLastSelectedCard(selectedCard);
         }

@@ -50,14 +50,46 @@ namespace Kagic_UI.Models
         #endregion
 
         #region public properties
-        public int Life { get => life; set => life = value; }
-        public int TotalMana { get => totalMana; set => totalMana = value; }
+        public int Life 
+        { 
+            get => life;
+            set 
+            { 
+                life = value;
+                NotifyPropertyChanged("Life");
+            }
+        }
+        public int TotalMana 
+        { 
+            get => totalMana;
+            set 
+            {
+                totalMana = value;
+                NotifyPropertyChanged("TotalMana");
+            }
+        }
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public ObservableCollection<clsCard> Hand { get => hand; set => hand = value; }
         public ObservableCollection<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
-        public int SelectedCard { get => selectedCard; set => selectedCard = value; }
-        public int SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
+        public int SelectedCard 
+        { 
+            get => selectedCard;
+            set
+            {
+                selectedCard = value;
+                NotifyPropertyChanged("SelectedCard");
+            }
+        }
+        public int SelectedCreature 
+        { 
+            get => selectedCreature; 
+            set 
+            { 
+                selectedCreature = value;
+                NotifyPropertyChanged("SelectedCreature");
+            }
+        }
         public int ProgresBarLife { get => life * (100 / MAX_LIFE); }
         public int ProgresBarMana { get => usedMana * (100 / MAX_MANA); }
 
