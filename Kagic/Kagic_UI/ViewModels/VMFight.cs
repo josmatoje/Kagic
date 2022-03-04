@@ -449,24 +449,32 @@ namespace Kagic_UI.ViewModels
                 }
             }
 
-            //attack enemies
-            atackCreatures = !NoEnemiesFront();
-            while (iaPlayer.PickOwnCreature() && atackCreatures) //While select creatures that can attack ande there is enemies infront
+            //attack enemies  
+            while (iaPlayer.PickOwnCreature()) //While select creatures that can attack ande there is enemies infront
             {
-                selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
-                SetLastSelectedCard(selectedCreature);
-                enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
-                if(enemyCreatureIndex != -1)
+                if (!NoEnemiesFront())
                 {
-                    selectedCreature = realPlayer.PlaceCreatures[enemyCreatureIndex];
-                    realPlayer.SelectedCreature = enemyCreatureIndex;
-                    //TryAttackCreature(iaPlayer, realPlayer);
-                    Creaturebattle();
+                    selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature];
+                    SetLastSelectedCard(selectedCreature);
+                    enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
+                    if (enemyCreatureIndex != -1)
+                    {
+                        selectedCreature = realPlayer.PlaceCreatures[enemyCreatureIndex];
+                        realPlayer.SelectedCreature = enemyCreatureIndex;
+                        //TryAttackCreature(iaPlayer, realPlayer);
+                        Creaturebattle();
+                    }
+                    else
+                    {
+                        atackCreatures = false;
+                    }
                 }
                 else
                 {
-                    atackCreatures=false;
+                    AttackContraryPlayer(iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Attack);
+                    iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Used = true;
                 }
+                
             }
 
             ChangeTurn();
