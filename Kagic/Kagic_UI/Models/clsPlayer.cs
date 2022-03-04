@@ -1,4 +1,5 @@
 ﻿using Kagic_Entities;
+using Kagic_UI.ViewModels.UtilitiesVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kagic_UI.Models
 {
-    public class clsPlayer
+    public class clsPlayer : clsVMBase
     {
         #region atributes
         protected int life;
