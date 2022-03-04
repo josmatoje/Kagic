@@ -11,6 +11,17 @@ namespace Kagic_UI.Models
 {
     public class clsCreatureNotified : clsCreature, INotifyPropertyChanged
     {
+        public clsCreatureNotified(clsCreature creature) : base(creature)
+        {
+        }
+
+        public clsCreatureNotified() : base()
+        {
+        }
+
+        public clsCreatureNotified(int id, string name, string description, string image, int manacost, int life, int attack) : base(id, name, description, image, manacost, life, attack)
+        {
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,16 +30,15 @@ namespace Kagic_UI.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        clsCreature creature;
-
-        public clsCreature Creature
-        {
-            get => creature;
+        public override int ActualLife 
+        { 
+            get => actualLife;
             set
             {
-                creature = value;
-                NotifyPropertyChanged(nameof(clsCreature.ActualLife));
+                actualLife = value;
+                NotifyPropertyChanged(nameof(ActualLife));
             }
         }
+
     }
 }

@@ -283,7 +283,7 @@ namespace Kagic_UI.ViewModels
                 {
                     if(cardsList[position] is clsCreature)
                     {
-                        deck.Add(new clsCreature (cardsList[position] as clsCreature));
+                        deck.Add(new clsCreatureNotified (cardsList[position] as clsCreature));
                     }
                     else
                     {
@@ -554,18 +554,17 @@ namespace Kagic_UI.ViewModels
             realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Used = true;
             iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].ActualLife -=  realPlayer.PlaceCreatures[realPlayer.SelectedCreature].Attack;
             iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].Used = true;
-            NotifyPropertyChanged(nameof(clsPlayer.PlaceCreatures));
             if (realPlayer.PlaceCreatures[realPlayer.SelectedCreature].ActualLife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
-                realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = new clsCreature();
+                realPlayer.PlaceCreatures[realPlayer.SelectedCreature] = new clsCreatureNotified();//-----------------------------------
                 //Forma de eliminar de la lista
                 //realPlayer.PlaceCreatures.RemoveAt(realPlayer.SelectedCreature);
             }
             if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature].ActualLife <= 0)
             {
                 //Forma de setear a una criatura por defecto para mantener espacios
-                iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = new clsCreature();
+                iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] = new clsCreatureNotified();//------------------------------------
                 //Forma de eliminar de la lista
                 //iaPlayer.PlaceCreatures.RemoveAt(iaPlayer.SelectedCreature);
             }
@@ -660,7 +659,7 @@ namespace Kagic_UI.ViewModels
             player.PlaceCreatures[player.SelectedCreature].ActualLife -= ((clsLifeModifyingSpell)lastSelectedCard[0]).Effect;
             if (player.PlaceCreatures[player.SelectedCreature].ActualLife <= 0)
             {
-                player.PlaceCreatures[player.SelectedCreature] = new clsCreature();
+                player.PlaceCreatures[player.SelectedCreature] = new clsCreatureNotified();//---------------------------------------------------
             }
         }
 

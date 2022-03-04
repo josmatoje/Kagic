@@ -16,7 +16,7 @@ namespace Kagic_UI.Models.Utilities
         public DataTemplate HealingSpell { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
-        {
+        {    
             return item is clsCreature ? Creature : ((clsLifeModifyingSpell)item).IsDamage ? DamageSpell : HealingSpell;
         }
     }

@@ -8,7 +8,7 @@ namespace Kagic_Entities
     {
         #region atributes
         int life;
-        int actualLife;
+        protected int actualLife;
         int attack;
         bool used;
         #endregion
@@ -33,7 +33,7 @@ namespace Kagic_Entities
         //Copyconstructor
         public clsCreature(clsCreature creature) : base(creature)
         {
-            if (creature!= null)
+            if (creature != null)
             {
                 this.life = creature.Life;
                 this.actualLife = creature.ActualLife;
@@ -45,7 +45,7 @@ namespace Kagic_Entities
 
         #region public properties
         public int Life { get => life; set => life = value; }
-        public int ActualLife { get => actualLife; set => actualLife = value; }
+        public virtual int ActualLife { get => actualLife; set => actualLife = value; }
         public int Attack { get => attack; set => attack = value; }
         public bool Used { get => used; set => used = value; }
 

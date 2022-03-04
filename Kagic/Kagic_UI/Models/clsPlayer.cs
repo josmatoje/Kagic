@@ -17,7 +17,7 @@ namespace Kagic_UI.Models
         protected int usedMana;
         protected List<clsCard> deck;
         protected ObservableCollection<clsCard> hand;
-        protected ObservableCollection<clsCreature> placeCreatures;
+        protected ObservableCollection<clsCreatureNotified> placeCreatures;
         protected int selectedCard;
         protected int selectedCreature;
         #endregion
@@ -38,7 +38,7 @@ namespace Kagic_UI.Models
             this.usedMana = 0;
             this.deck = deck;
             InitialHand();
-            this.placeCreatures = new ObservableCollection<clsCreature>();
+            this.placeCreatures = new ObservableCollection<clsCreatureNotified>();
             InitializePlaceCreatures();
             //SetAvaibleCards();
             this.selectedCard = -1;
@@ -55,7 +55,7 @@ namespace Kagic_UI.Models
         public int UsedMana { get => usedMana; set => usedMana = value; }
         public List<clsCard> Deck { get => deck; set => deck = value; }
         public ObservableCollection<clsCard> Hand { get => hand; set => hand = value; }
-        public ObservableCollection<clsCreature> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
+        public ObservableCollection<clsCreatureNotified> PlaceCreatures { get => placeCreatures; set => placeCreatures = value; }
         public int SelectedCard { get => selectedCard; set => selectedCard = value; }
         public int SelectedCreature { get => selectedCreature; set => selectedCreature = value; }
         public int ProgresBarLife { get => life * (100 / MAX_LIFE); }
@@ -95,9 +95,9 @@ namespace Kagic_UI.Models
         {
             if (selectedCard > -1 && hand[selectedCard].IsAvaible)
             {
-                if (hand[selectedCard] is clsCreature)
+                if (hand[selectedCard] is clsCreatureNotified)
                 {
-                    placeCreatures[selectedCreature] = (clsCreature)hand[selectedCard];
+                    placeCreatures[selectedCreature] =  hand[selectedCard] as clsCreatureNotified;
                 }
                 usedMana += hand[selectedCard].Manacost;
                 hand.RemoveAt(selectedCard);
@@ -173,7 +173,7 @@ namespace Kagic_UI.Models
         private void InitializePlaceCreatures()
         {
             for (int i = 0; i < MAX_PLACE_CREATURES; i++)
-                placeCreatures.Add(new clsCreature());
+                placeCreatures.Add(new clsCreatureNotified());
         }
         #endregion
 

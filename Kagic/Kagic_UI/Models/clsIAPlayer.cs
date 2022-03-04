@@ -84,7 +84,7 @@ namespace Kagic_UI.Models.Utilities
         /// <b>Postconditions: </b> <br/>
         /// </summary>
         /// <returns>int indicating de position of the target or -1 if ther is none enemy creatures</returns>
-        public int PickEnemyCreature(ObservableCollection<clsCreature> enemyCreatures)
+        public int PickEnemyCreature(ObservableCollection<clsCreatureNotified> enemyCreatures)//-------------------------------------------------------------------------------
         {
             int atackPlace = -1; //Posición a la que va a atacar
             for (int i = 0; i < enemyCreatures.Count && atackPlace == -1; i++)
