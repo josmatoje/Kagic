@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Kagic_UI.Models
 {
@@ -102,7 +102,7 @@ namespace Kagic_UI.Models
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
-        public void DrawCard()
+        async public void DrawCard()
         {
             if (deck.Count == 0)
             {
@@ -123,7 +123,7 @@ namespace Kagic_UI.Models
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
-        public void PutCard()
+        async public void PutCard()
         {
             if (selectedCardIndex > -1 && hand[selectedCardIndex].IsAvaible)
             {

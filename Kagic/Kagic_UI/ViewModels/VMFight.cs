@@ -6,6 +6,7 @@ using Kagic_UI.ViewModels.UtilitiesVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace Kagic_UI.ViewModels
@@ -74,9 +75,9 @@ namespace Kagic_UI.ViewModels
             {
                 selectedCreature = value;
 
-                if ((iaPlayer.SelectedCreatureIndex > -1 || realPlayer.SelectedCreatureIndex > -1) && lastSelectedCard[0] == null)
+                if ((iaPlayer.SelectedCreatureIndex > -1 || realPlayer.SelectedCreatureIndex > -1) && lastSelectedCard[0] == null && ((realPlayer.SelectedCreature > -1 && realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex] == new clsCreature()) || (iaPlayer.SelectedCreature > -1 && iaPlayer.PlaceCreatures[iaPlayer.SelectedCreature] == new clsCreature())))
                 {
-                    UpdateSelectedCardsForNewAction();
+                    selectedCreature = null;
                 }
                 else
                 {
@@ -91,7 +92,7 @@ namespace Kagic_UI.ViewModels
                             TryAttackCreature(realPlayer, iaPlayer);
                         }
                     }
-                    else //Spell
+                    else if(lastSelectedCard[0] is clsLifeModifyingSpell)//Spell
                     {
                         TrySendSpell(realPlayer);
                     }
@@ -234,7 +235,7 @@ namespace Kagic_UI.ViewModels
         ///     <Headboard>private void startGame()</cabecera>
         ///     <Description>First method done when a game start. Prepare the decks of the players</descripcion>
         /// </summary>
-        private void StartGame()
+        async private void StartGame()
         {
             List<clsCard> cards = new List<clsCard>(clsCardsManagementBL.getCardsListBL());
             realPlayer = new clsPlayer(CardsDeck(cards));
@@ -244,6 +245,7 @@ namespace Kagic_UI.ViewModels
             //random para ver quien empieza isPlayerTurn
             //isPlayerTurn = (new Random()).Next(10) > 5;
             isPlayerTurn = true;
+            await Task.Delay(1000);
             realPlayer.DrawCard();           
         }
 
@@ -320,13 +322,15 @@ namespace Kagic_UI.ViewModels
         ///     <Headboard>private void changeTurn()</cabecera>
         ///     <Description>it is done when a turn finishes. Set mana used and  reset selected cards</descripcion>
         /// </summary>
-        private void ChangeTurn()
+        private async void ChangeTurn()
         {
+            await Task.Delay(1000);
             isPlayerTurn = !isPlayerTurn;
             if (isPlayerTurn)
-            {
+            {            
                 realPlayer.SetMana();
                 realPlayer.DrawCard();
+                await Task.Delay(1000);
                 realPlayer.SetUsedCreatures();
                 NotifyPropertyChanged(nameof(RealPlayer));
                 UpdateSelectedCardsForNewAction();
@@ -335,6 +339,7 @@ namespace Kagic_UI.ViewModels
             {
                 iaPlayer.SetMana();
                 iaPlayer.DrawCard();
+                await Task.Delay(1000);
                 iaPlayer.SetUsedCreatures();
                 //NotifyPropertyChanged(nameof(IaPlayer));
                 UpdateSelectedCardsForNewAction();
@@ -366,11 +371,10 @@ namespace Kagic_UI.ViewModels
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
-        private void IaTurn()
+        private async void IaTurn()
         {
             int enemyCreatureIndex;
             bool usingCards = true, targetSelected;
-
             //place creatures
             while (usingCards)
             {
@@ -384,6 +388,7 @@ namespace Kagic_UI.ViewModels
                         {
                             selectedCreature = iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex];
                             TryPutCreature(iaPlayer);
+                            await Task.Delay(1000);
                         }
                         else
                         {
@@ -398,6 +403,7 @@ namespace Kagic_UI.ViewModels
                             {
                                 AttackContraryPlayer(((clsLifeModifyingSpell)selectedCard).Effect);
                                 iaPlayer.PutCard();
+                                await Task.Delay(1000);
                             }
                             else
                             {
@@ -407,6 +413,7 @@ namespace Kagic_UI.ViewModels
                                     realPlayer.SelectedCreatureIndex = enemyCreatureIndex; //No se actualizAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA :__________________________________(
                                     selectedCreature = realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex];
                                     TrySendSpell(iaPlayer);
+                                    await Task.Delay(1000);
                                 }
                             }
                         }
@@ -420,6 +427,7 @@ namespace Kagic_UI.ViewModels
                                     selectedCreature = iaPlayer.PlaceCreatures[i];
                                     iaPlayer.SelectedCreatureIndex = i;
                                     TrySendSpell(IaPlayer);
+                                    await Task.Delay(1000);
                                     targetSelected = true;
                                 }
                             }
@@ -433,6 +441,7 @@ namespace Kagic_UI.ViewModels
                                         iaPlayer.Life = clsPlayer.MAX_LIFE;
                                     }
                                     iaPlayer.PutCard();
+                                    await Task.Delay(1000);
                                 }
                                 else
                                 {
@@ -462,6 +471,7 @@ namespace Kagic_UI.ViewModels
                         realPlayer.SelectedCreatureIndex = enemyCreatureIndex;
                         NotifyPropertyChanged(nameof(RealPlayer));
                         Creaturebattle();
+                        await Task.Delay(1000);
                     }
                 }
                 else
@@ -707,12 +717,10 @@ namespace Kagic_UI.ViewModels
             if (!isPlayerTurn)
             {
                 realPlayer.Life -= damage;
-                NotifyPropertyChanged(nameof(RealPlayer));
             }
             else
             {
                 iaPlayer.Life -= damage;
-                NotifyPropertyChanged(nameof(IaPlayer));
             }
             FinishGame();
         }
