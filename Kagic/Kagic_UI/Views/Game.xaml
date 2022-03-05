@@ -30,7 +30,7 @@
                 <Image Name="Life"      Source="/Assets/Images/Life.png"                                                                            Style="{StaticResource ImgLifeSmall}"/>
                 <Image Name="numMana"   Source="{Binding Manacost, Converter={StaticResource unitNumConv}}"                                         Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
                 <Image Name="mana"      Source="/Assets/Images/Mana.png"                                                                            Style="{StaticResource ImgCardManaCostSmallManaImg}"/>
-                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4"  Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,104" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4"  Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,110" FontWeight="SemiBold" FontStyle="Italic"/>
                 <TextBlock Name="description" Text="{Binding Description}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True" Margin="0,130,0,0" MaxWidth="125" MaxHeight="300" MaxLines="3" TextWrapping="Wrap"/>
             </RelativePanel>
         </DataTemplate>
@@ -43,7 +43,7 @@
                 <Image Name="cure"      Source="/Assets/Images/Cure.png"                                    Style="{StaticResource ImgLifeSmall}"/>
                 <Image Name="numMana"   Source="{Binding Manacost, Converter={StaticResource unitNumConv}}" Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
                 <Image Name="mana"      Source="/Assets/Images/Mana.png"                                    Style="{StaticResource ImgCardManaCostSmallManaImg}"/>
-                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4"  Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,104" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4"  Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,110" FontWeight="SemiBold" FontStyle="Italic"/>
                 <TextBlock Name="description" Text="{Binding Description}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True" Margin="0,130,0,0" MaxWidth="125" MaxHeight="300" MaxLines="3" TextWrapping="Wrap"/>
                 <TextBlock Name="area" Text="AREA" FontWeight="Bold" Canvas.ZIndex="4" RelativePanel.AlignTopWith="numEffect" RelativePanel.AlignHorizontalCenterWithPanel="True"  Visibility="{Binding IsArea}"/>
             </RelativePanel>
@@ -57,7 +57,7 @@
                 <Image Name="damage"    Source="/Assets/Images/Damage.png"                                  Style="{StaticResource ImgLifeSmall}"/>
                 <Image Name="numMana"   Source="{Binding Manacost, Converter={StaticResource unitNumConv}}" Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
                 <Image Name="mana"      Source="/Assets/Images/Mana.png"                                    Style="{StaticResource ImgCardManaCostSmallManaImg}"/>
-                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,104" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock Name="name"  Text="{Binding Name}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Margin="0,0,0,110" FontWeight="SemiBold" FontStyle="Italic"/>
                 <TextBlock Name="description" Text="{Binding Description}" Canvas.ZIndex="4" Foreground="Black" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True" Margin="0,130,0,0" MaxWidth="125" MaxHeight="300" MaxLines="3" TextWrapping="Wrap"/>
                 <TextBlock Name="area" Text="AREA" FontWeight="Bold" Canvas.ZIndex="4" RelativePanel.AlignTopWith="numEffect" RelativePanel.AlignHorizontalCenterWithPanel="True"  Visibility="{Binding IsArea}"/>
             </RelativePanel>

@@ -56,13 +56,13 @@ namespace Kagic_UI.ViewModels
                 selectedCard = value;
                 //if (value != null && value.Id > 0) //Never could be null or ID <= 0 
                 //{
-                    SetLastSelectedCard(value);
-                    NotifyPropertyChanged(nameof(LastSelectedCard));
+                SetLastSelectedCard(value);
+                NotifyPropertyChanged(nameof(LastSelectedCard));
+                attackContraryPlayerCommand.RaiseCanExecuteChanged();
+                healthPlayerCommand.RaiseCanExecuteChanged();
                 //}
                 selectedCreature = null;
                 NotifyPropertyChanged(nameof(SelectedCreature));
-                attackContraryPlayerCommand.RaiseCanExecuteChanged();
-                healthPlayerCommand.RaiseCanExecuteChanged();
                 
             }
         }
@@ -90,7 +90,6 @@ namespace Kagic_UI.ViewModels
                         {
                             TryAttackCreature(realPlayer, iaPlayer);
                         }
-                        
                     }
                     else //Spell
                     {
@@ -195,7 +194,7 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool atackContraryPlayerCommand_CanExecute()
         {
-            return (realPlayer.SelectedCardIndex != -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible) || (realPlayer.SelectedCreatureIndex != -1 && !realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].Used && NoEnemiesFront());
+            return (realPlayer.SelectedCardIndex > -1 && selectedCard is clsLifeModifyingSpell && ((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible) || (realPlayer.SelectedCreatureIndex > -1 && !realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].Used && NoEnemiesFront());
         }
 
         /// <summary>
@@ -342,9 +341,6 @@ namespace Kagic_UI.ViewModels
                 //metodo accion ia
                 IaTurn();
             }
-            NotifyPropertyChanged(nameof(RealPlayer)); 
-            NotifyPropertyChanged(nameof(IaPlayer));
-
 
             passTurnCommand.RaiseCanExecuteChanged();
         }
@@ -357,10 +353,6 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void UpdateSelectedCardsForNewAction()
         {
-            realPlayer.SelectedCardIndex = -1;
-            realPlayer.SelectedCreatureIndex = -1;
-            iaPlayer.SelectedCardIndex = -1;
-            iaPlayer.SelectedCreatureIndex = -1;
             selectedCard = null;
             NotifyPropertyChanged(nameof(SelectedCard));
             selectedCreature = null;
@@ -601,7 +593,7 @@ namespace Kagic_UI.ViewModels
                             {
                                 SendSpell(player);
                                 player.PutCard();
-                                UpdateSelectedCardsForNewAction();
+                                //UpdateSelectedCardsForNewAction();
                             }
                         }
                     }
@@ -621,7 +613,7 @@ namespace Kagic_UI.ViewModels
             {
                 for (int i = 0; i < targetPlayer.PlaceCreatures.Count; i++)
                 {
-                    targetPlayer.SelectedCreatureIndex = i;
+                    targetPlayer.SelectedCreatureIndex = i; //Aqui peta tambien
                     if (targetPlayer.PlaceCreatures[i].Id > 0)
                     {
                         AttackOrHealthSpell(targetPlayer, ((clsLifeModifyingSpell)player.Hand[player.SelectedCardIndex]).IsDamage);
