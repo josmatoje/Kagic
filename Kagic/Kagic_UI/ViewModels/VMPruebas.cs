@@ -11,20 +11,23 @@ namespace Kagic_UI.ViewModels
     public class VMPruebas
     {
         private clsCard card;
+        ObservableCollection<clsCard> lastSelectedCard;
 
         private ObservableCollection<clsCard> playerCards;
         private ObservableCollection<clsCreature> playerCreatures;
         private ObservableCollection<clsCreature> iaCreatures;
         private ObservableCollection<clsCard> iaCards;
 
-        private string number = "/Assets/Images/Numbers/1.png";
+        private string number = "/Assets/Images/Numbers/2.png";
 
         //private string backImage = clsCard.BACK_IMAGE;
 
         public VMPruebas()
         {
             card = new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false);
-
+            lastSelectedCard = new ObservableCollection<clsCard>();
+            lastSelectedCard.Clear();
+            lastSelectedCard.Add(card);
             playerCards = new ObservableCollection<clsCard>
             {
                 new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
@@ -66,6 +69,7 @@ namespace Kagic_UI.ViewModels
             };
         }
 
+        public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard; }
         public clsCard Card { get => card; set => card = value; }
         public ObservableCollection<clsCard> IaCards { get => iaCards; set => iaCards = value; }
         public ObservableCollection<clsCard> PlayerCards { get => playerCards; set => playerCards = value; }

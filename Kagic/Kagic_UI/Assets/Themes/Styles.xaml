@@ -2,10 +2,156 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="RelativePanel" x:Key="card">
+    <!-- General styles -->
+    <Style TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <!-- Cards Styles -->
+        <!-- Frame -->
+        <Style TargetType="Image" x:Key="imgCardFrame">
+            <Setter Property="MaxHeight" Value="250"/>
+            <Setter Property="MaxWidth" Value="150"/>
+            <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
+            <Setter Property="Canvas.ZIndex" Value="1"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+
+        <Style TargetType="Image" x:Key="imgCardFrameBig">
+            <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
+            <Setter Property="MaxHeight" Value="300"/>
+            <Setter Property="MaxWidth" Value="200"/>
+            <Setter Property="Canvas.ZIndex" Value="2"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+   
+        <!-- Card Image -->
+    
+            <!-- FALTA 
+                 POR 
+                 HACER -->
+
+        <!-- Text -->
+        <Style TargetType="TextBlock" x:Key="txbCardText">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Canvas.ZIndex" Value="4"/>
+            <Setter Property="RelativePanel.AlignHorizontalCenterWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+        </Style>
+    
+            <!-- Name -->
+            <Style TargetType="TextBlock" x:Key="txbBaseCardName" BasedOn="{StaticResource txbCardText}">
+                <Setter Property="FontStyle" Value="Italic"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="txbCardName" BasedOn="{StaticResource txbBaseCardName}">
+                <Setter Property="Margin" Value="0,107,0,0"/>
+            </Style>    
+
+            <Style TargetType="TextBlock" x:Key="txbCardNameBig" BasedOn="{StaticResource txbBaseCardName}">
+                <Setter Property="Margin" Value="0,136,0,0"/>
+            </Style>
+    
+            <!-- Description -->
+            <Style TargetType="TextBlock" x:Key="txbBaseCardDescription" BasedOn="{StaticResource txbCardText}">
+                <Setter Property="MaxWidth" Value="125"/>
+                <Setter Property="MaxHeight" Value="300"/>
+                <Setter Property="MaxLines" Value="3"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="txbCardDescription" BasedOn="{StaticResource txbBaseCardDescription}">
+                <Setter Property="Margin" Value="0,130,0,0"/>
+            </Style>
+    
+            <Style TargetType="TextBlock" x:Key="txbCardDescriptionBig" BasedOn="{StaticResource txbBaseCardDescription}">
+                <Setter Property="Margin" Value="0,165,0,0"/>
+            </Style>
+
+    <!-- Traits -->
+        <Style TargetType="RelativePanel" x:Key="rpTraits">
+            <Setter Property="Canvas.ZIndex" Value="3"/>
+        </Style>
+
+        <Style TargetType="RelativePanel" x:Key="rpManaCost" BasedOn="{StaticResource rpTraits}">
+            <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+            <Setter Property="Margin" Value="4, 10, 0, 0"/>
+        </Style>
+
+        <Style TargetType="RelativePanel" x:Key="rpAttack" BasedOn="{StaticResource rpTraits}">
+            <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style TargetType="RelativePanel" x:Key="rpLifeOrEffect" BasedOn="{StaticResource rpTraits}">
+            <Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style TargetType="Image" x:Key="imgTraits">
+            <Setter Property="RelativePanel.AlignHorizontalCenterWithPanel" Value="True"/>
+            <Setter Property="RelativePanel.AlignVerticalCenterWithPanel" Value="True"/>
+        </Style>
+
+        <!-- Traits icons -->
+        <Style TargetType="Image" x:Key="traitsIcons" BasedOn="{StaticResource imgTraits}">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="35"/>
+        </Style>
+    
+        <Style TargetType="Image" x:Key="traitsIconsBig" BasedOn="{StaticResource imgTraits}">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+
+        <!-- Traits numbers -->
+        <Style TargetType="Image" x:Key="valueNumber" BasedOn="{StaticResource imgTraits}">
+            <Setter Property="Canvas.ZIndex" Value="2"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="20"/>
+        </Style>
+    
+        <Style TargetType="Image" x:Key="valueNumberBig" BasedOn="{StaticResource imgTraits}">
+            <Setter Property="Canvas.ZIndex" Value="2"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="25"/>
+        </Style>
+
+    <!-- Card details -->
+    <Style TargetType="GridView" x:Key="gdvCardDetails">
         <Setter Property="Height" Value="300"/>
         <Setter Property="Width" Value="200"/>
+        <Setter Property="RelativePanel.AlignRightWithPanel" Value="True"/>
+        <Setter Property="RelativePanel.AlignVerticalCenterWithPanel" Value="True"/>
     </Style>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- REVISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR -->
+
 
     <Style TargetType="Image" x:Key="ImgCardImage">
         <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
@@ -41,14 +187,6 @@
         <Setter Property="Margin" Value="0, 10, 0, 0"/>
     </Style>
 
-    <!--
-    <Style TargetType="Canvas" x:Key="attack" BasedOn="{StaticResource numberTemplate}">
-        <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
-        <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
-        <Setter Property="Margin" Value="0,0,0,10"/>
-    </Style>
-    -->
-
     <Style TargetType="Image" x:Key="ImageAttack" BasedOn="{StaticResource numberTemplate}">
         <Setter Property="RelativePanel.AlignLeftWithPanel" Value="True"/>
         <Setter Property="RelativePanel.AlignBottomWithPanel" Value="True"/>
@@ -82,16 +220,9 @@
         <Setter Property="MaxWidth" Value="150"/>
     </Style>
 
-    <Style TargetType="Image" x:Key="ImgCardManaCostSmall" BasedOn="{StaticResource cardManaCost}">
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="30"/>
-    </Style>
+    
 
-    <Style TargetType="Image" x:Key="ImgCardManaCostSmallManaImg" BasedOn="{StaticResource ImgCardManaCostSmall}">
-        <Setter Property="Height"   Value="30"/>
-        <Setter Property="Width"    Value="30"/>
-        <Setter Property="Margin" Value="3,9,0,0"/>
-    </Style>
+    
 
     <Style TargetType="Image" x:Key="ImgLifeSmall" BasedOn="{StaticResource life}">
         <Setter Property="Height" Value="30"/>
@@ -103,21 +234,24 @@
         <Setter Property="Width" Value="30"/>
     </Style>
     
-    <!-- LIFE -->
-    <Style TargetType="RelativePanel" x:Key="baseLife">
+    <!-- Player or IA life indicators -->
+    
+    <Style TargetType="RelativePanel" x:Key="basePlayerOrIaLife">
         <Setter Property="Background"   Value="White"/>
         <Setter Property="CornerRadius" Value="20"/>
         <Setter Property="Margin"       Value="5"/>
     </Style>
     
-    <Style TargetType="RelativePanel" x:Key="normalLife" BasedOn="{StaticResource baseLife}">
+    <Style TargetType="RelativePanel" x:Key="normalLife" BasedOn="{StaticResource basePlayerOrIaLife}">
         <Setter Property="Padding"      Value="20"/>
         <Setter Property="MinWidth"     Value="150"/>
         <Setter Property="MinHeight"    Value="250"/>
     </Style>
 
-    <Style TargetType="RelativePanel" x:Key="smallLife" BasedOn="{StaticResource baseLife}">
-        <Setter Property="Background" Value="Red"/>
+    <Style TargetType="RelativePanel" x:Key="smallLife" BasedOn="{StaticResource basePlayerOrIaLife}">
+        <Setter Property="Padding"      Value="10"/>
+        <Setter Property="MinWidth"     Value="100"/>
+        <Setter Property="MinHeight"    Value="200"/>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="ManaText">
@@ -125,5 +259,51 @@
         <Setter Property="Foreground" Value="MediumPurple"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
+
+    <Style TargetType="StackPanel" x:Key="spLifeNumbers">
+        
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+        <Setter Property="Margin" Value="0,30,0,0"/>
+    </Style>
+    
+    <Style TargetType="Image" x:Key="playerOrIaLife">
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Canvas.ZIndex" Value="2"/>
+        <Setter Property="RelativePanel.AlignTopWithPanel" Value="True"/>
+        <Setter Property="RelativePanel.AlignHorizontalCenterWithPanel" Value="True"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="playerOrIaLifeTensNumber" BasedOn="{StaticResource playerOrIaLife}">
+        <Setter Property="Margin" Value="0,25,60,0"/>
+    </Style>
+
+    <Style TargetType="Image" x:Key="playerOrIaLifeUnitsNumber" BasedOn="{StaticResource playerOrIaLife}">
+        <Setter Property="Margin" Value="60,25,0,0"/>
+    </Style>
+
+
+
+    <!-- BORRAR 
+    
+    <Style TargetType="RelativePanel" x:Key="card">
+        <Setter Property="Height" Value="300"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
+    
+    <Style TargetType="Image" x:Key="ImgCardManaCostSmallManaImg" BasedOn="{StaticResource ImgCardManaCostSmall}">
+        <Setter Property="Height"   Value="30"/>
+        <Setter Property="Width"    Value="30"/>
+        <Setter Property="Margin" Value="3,9,0,0"/>
+    </Style>
+    
+    <Style TargetType="Image" x:Key="ImgCardManaCostSmall" BasedOn="{StaticResource cardManaCost}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
+    </Style>
+    
+    
+    
+    -->
 
 </ResourceDictionary>

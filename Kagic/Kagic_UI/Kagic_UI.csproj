@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\clsPlayer.cs" />
+    <Compile Include="Models\Utilities\BattlefieldDataTemplateSelector.cs" />
     <Compile Include="Models\Utilities\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
@@ -138,26 +139,28 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\CardPosition.png" />
+    <Content Include="Assets\Images\DamageSpellFrame.png" />
     <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
     <Content Include="Assets\Images\ManaBar.png" />
     <Content Include="Assets\Images\Damage.png" />
-    <Content Include="Assets\Images\SpellFrame.png" />
+    <Content Include="Assets\Images\HealingSpellFrame.png" />
+    <Content Include="Assets\Images\Numbers\5.png" />
+    <Content Include="Assets\Images\Numbers\3.png" />
+    <Content Include="Assets\Images\Numbers\2.png" />
+    <Content Include="Assets\Images\Numbers\7.png" />
+    <Content Include="Assets\Images\Numbers\1.png" />
+    <Content Include="Assets\Images\Numbers\9.png" />
+    <Content Include="Assets\Images\Numbers\8.png" />
+    <Content Include="Assets\Images\Numbers\4.png" />
+    <Content Include="Assets\Images\Numbers\6.png" />
+    <Content Include="Assets\Images\Numbers\0.png" />
     <Content Include="Assets\Images\Cure.png" />
     <Content Include="Assets\Images\Mana.png" />
     <Content Include="Assets\Images\Life.png" />
     <Content Include="Assets\Images\Logo.png" />
-    <Content Include="Assets\Images\Numbers\0.png" />
-    <Content Include="Assets\Images\Numbers\1.png" />
-    <Content Include="Assets\Images\Numbers\2.png" />
-    <Content Include="Assets\Images\Numbers\3.png" />
-    <Content Include="Assets\Images\Numbers\4.png" />
-    <Content Include="Assets\Images\Numbers\5.png" />
-    <Content Include="Assets\Images\Numbers\6.png" />
-    <Content Include="Assets\Images\Numbers\7.png" />
-    <Content Include="Assets\Images\Numbers\8.png" />
-    <Content Include="Assets\Images\Numbers\9.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
     <Content Include="Assets\Images\CreatureFrame.png" />
