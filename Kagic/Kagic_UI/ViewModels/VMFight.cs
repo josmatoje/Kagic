@@ -390,6 +390,7 @@ namespace Kagic_UI.ViewModels
                     }
                     else
                     {
+                        await Task.Delay(1000);
                         if ((selectedCard as clsLifeModifyingSpell).IsDamage)
                         {
                             if (NoEnemiesFront())
