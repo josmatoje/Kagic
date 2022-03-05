@@ -25,6 +25,7 @@ namespace Kagic_UI.ViewModels
         clsCreature selectedCreature;
         ObservableCollection <clsCard> lastSelectedCard;
         bool cardDetailsVisibility;
+        ListViewSelectionMode selectionMode;
         #endregion
 
         #region constants
@@ -137,6 +138,8 @@ namespace Kagic_UI.ViewModels
                 return healthPlayerCommand;
             }
         }
+
+        public ListViewSelectionMode SelectionMode { get => selectionMode; }
         #endregion
 
 
@@ -241,6 +244,7 @@ namespace Kagic_UI.ViewModels
             //random para ver quien empieza isPlayerTurn
             //isPlayerTurn = (new Random()).Next(10) > 5;
             isPlayerTurn = true;
+            selectionMode = ListViewSelectionMode.Single;
             await Task.Delay(1000);
             realPlayer.DrawCard();
         }
@@ -318,6 +322,8 @@ namespace Kagic_UI.ViewModels
         private async void ChangeTurn()
         {
             isPlayerTurn = !isPlayerTurn;
+            selectionMode = isPlayerTurn ? ListViewSelectionMode.Single : ListViewSelectionMode.None;
+            NotifyPropertyChanged(nameof(SelectionMode));
             await Task.Delay(1000);
             if (isPlayerTurn)
             {
