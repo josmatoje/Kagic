@@ -107,6 +107,7 @@ namespace Kagic_UI.ViewModels
         public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard; }
 
         public bool CardDetailsVisibility { get => cardDetailsVisibility; set => cardDetailsVisibility = value; }
+        public ListViewSelectionMode SelectionMode { get => selectionMode; }
 
         #region commands getters
         public DelegateCommand PassTurnCommand { get => passTurnCommand; }
@@ -128,7 +129,6 @@ namespace Kagic_UI.ViewModels
             }
         }
 
-        public ListViewSelectionMode SelectionMode { get => selectionMode; }
         #endregion
 
 
@@ -309,6 +309,7 @@ namespace Kagic_UI.ViewModels
         private async void ChangeTurn()
         {
             isPlayerTurn = !isPlayerTurn;
+            passTurnCommand.RaiseCanExecuteChanged();
             selectionMode = isPlayerTurn ? ListViewSelectionMode.Single : ListViewSelectionMode.None;
             NotifyPropertyChanged(nameof(SelectionMode));
             await Task.Delay(1000);
@@ -332,7 +333,6 @@ namespace Kagic_UI.ViewModels
                 IaTurn();
             }
 
-            passTurnCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>

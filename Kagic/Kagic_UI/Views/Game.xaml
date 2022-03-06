@@ -165,7 +165,8 @@
         <!-- Player Cards -->
         <GridView x:Name="gdPlayerCards" MinHeight="200" MinWidth="800" ItemsSource="{Binding RealPlayer.Hand}"
             RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" 
-            ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedIndex="{Binding RealPlayer.SelectedCardIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            ItemTemplateSelector="{StaticResource CardsTemplates}" SelectedIndex="{Binding RealPlayer.SelectedCardIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding SelectedCard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  SelectionMode="{Binding SelectionMode}" >
         </GridView>
 
         <!--ManaBar-->
