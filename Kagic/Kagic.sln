@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kagic_Entities", "Kagic_Ent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kagic_BL", "Kagic_BL\Kagic_BL.csproj", "{8FA89E18-38A6-4525-B563-E66D2ABD576F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kagic_DAL", "Kagic_DAL\Kagic_DAL.csproj", "{B4340817-9D15-4E14-BB7B-E17CD962E496}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,26 @@ Global
 		{8FA89E18-38A6-4525-B563-E66D2ABD576F}.Release|x64.Build.0 = Release|Any CPU
 		{8FA89E18-38A6-4525-B563-E66D2ABD576F}.Release|x86.ActiveCfg = Release|Any CPU
 		{8FA89E18-38A6-4525-B563-E66D2ABD576F}.Release|x86.Build.0 = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|x64.Build.0 = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Debug|x86.Build.0 = Debug|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|ARM.Build.0 = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|ARM64.Build.0 = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|x64.ActiveCfg = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|x64.Build.0 = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4340817-9D15-4E14-BB7B-E17CD962E496}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Kagic_DAL\Kagic_DAL.csproj" />
     <ProjectReference Include="..\Kagic_Entities\Kagic_Entities.csproj" />
   </ItemGroup>
 

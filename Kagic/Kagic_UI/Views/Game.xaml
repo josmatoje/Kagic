@@ -192,6 +192,7 @@
                         <Setter Target="pgbPlayerLife.Style" Value="{StaticResource pgbPlayerOrIaLifeBar}"/>
 
                         <!-- Battlefield -->
+                        <Setter Target="rpBattlefield.Margin" Value="0"/>
                         <Setter Target="gdvIaCreatures.Style" Value="{StaticResource gdvPlayerOrIaBattlefield}"/>
                         <Setter Target="gdvPlayerCreatures.Style" Value="{StaticResource gdvPlayerOrIaBattlefield}"/>
                         
@@ -208,7 +209,7 @@
                 </VisualState>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="50"/>
+                        <AdaptiveTrigger MinWindowHeight="970"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <!-- IA cards -->
@@ -230,6 +231,7 @@
                         <Setter Target="pgbPlayerLife.Style" Value="{StaticResource pgbPlayerOrIaLifeBarBig}"/>
 
                         <!-- Battlefield -->
+                        <Setter Target="rpBattlefield.Margin" Value="0,30,0,0"/>
                         <Setter Target="gdvIaCreatures.Style" Value="{StaticResource gdvPlayerOrIaBattlefieldBig}"/>
                         <Setter Target="gdvPlayerCreatures.Style" Value="{StaticResource gdvPlayerOrIaBattlefieldBig}"/>
 
