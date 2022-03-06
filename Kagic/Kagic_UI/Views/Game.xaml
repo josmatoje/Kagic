@@ -80,9 +80,14 @@
 
     <RelativePanel>
 
+        <!--<ContentDialog x:Name="errorContentDialog" Title = "ERROR" SecondaryButtonText = "Volver al menu principal" SecondaryButtonClick="GoBack_Click">
+            <TextBlock Text="Ha ocurrido un error inesperado. Desde kagic lo lamentamos enormemento y sinceramento no sabemos como ha sucedido. 
+                       Seguramente habrás tocado algo que no debias porque el juego funciona perfectamente. 
+                       Te animamos a empezar una nueva y apasionante partida." />
+        </ContentDialog>-->
 
         <!-- Back button -->
-        <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" Margin="5" VerticalAlignment="Center" Click="AppBarButton_Click" Background="White" CornerRadius="10"/>
+        <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" Margin="5" VerticalAlignment="Center" Click="GoBack_Click" Background="White" CornerRadius="10"/>
 
         <!-- IA Cards -->
         <GridView x:Name="gdOpponentCards" Height="150" MinWidth="400" ItemsSource="{Binding IaPlayer.Hand, UpdateSourceTrigger=PropertyChanged}" 
