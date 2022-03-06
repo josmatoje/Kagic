@@ -108,13 +108,15 @@
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
             <!-- IA battlefield -->
             <GridView x:Name="gdOpponentCreatures" ItemsSource="{Binding IaPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource BattlefieldCardsTemplates}"  MinHeight="250" MinWidth="800" Margin="0,0,0,20" BorderThickness="3" Background="Red" CornerRadius="20"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True"                                           SelectedIndex="{Binding IaPlayer.SelectedCreatureIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SingleSelectionFollowsFocus="True">
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"                                           SelectedIndex="{Binding IaPlayer.SelectedCreatureIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding SelectionMode}">
             </GridView>
     
 
             <!-- Player battlefield -->
             <GridView x:Name="gdPlayerCreatures" ItemsSource="{Binding RealPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource BattlefieldCardsTemplates}" MinHeight="250" MinWidth="800" BorderThickness="3" Background="Blue" CornerRadius="20"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures" SelectedIndex="{Binding RealPlayer.SelectedCreatureIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                      RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="gdOpponentCreatures" SelectedIndex="{Binding RealPlayer.SelectedCreatureIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding SelectionMode}">
             </GridView>
         </RelativePanel>
     
