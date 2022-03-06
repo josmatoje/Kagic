@@ -34,13 +34,12 @@ namespace Kagic_UI.Models
         public clsPlayer(List<clsCard> deck)
         {
             this.life = MAX_LIFE;
-            this.totalMana = 10; //Modificado para pruebas CAMBIAR A 1!
+            this.totalMana = 3; 
             this.remainingMana = totalMana;
             this.deck = deck;
             InitialHand();
             this.placeCreatures = new ObservableCollection<clsCreatureNotified>();
             InitializePlaceCreatures();
-            //SetAvaibleCards();
             this.selectedCardIndex = -1;
             this.selectedCreatureIndex = -1;
         }
@@ -102,7 +101,7 @@ namespace Kagic_UI.Models
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand updated<br/>
         /// </summary>
-        async public void DrawCard()
+        public void DrawCard()
         {
             if (deck.Count == 0)
             {
@@ -123,7 +122,7 @@ namespace Kagic_UI.Models
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b>Hand and field updated<br/>
         /// </summary>
-        async public void PutCard()
+        public void PutCard()
         {
             if (selectedCardIndex > -1 && hand[selectedCardIndex].IsAvaible)
             {
