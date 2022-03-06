@@ -277,9 +277,11 @@ namespace Kagic_UI.ViewModels
                 position = random.Next(cardsList.Count);
                 counter = 0;
                 //foreach (clsCard card in deck) but exit if the condition is exceeded
-                for (int j = 0; j < deck.Count && counter <= MAX_REPETED_CARDS_DECK; j++)
+                for (int j = 0; j < deck.Count && counter < MAX_REPETED_CARDS_DECK; j++)
                 {
-                    if (deck[j].GetType() == cardsList[position].GetType() && deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
+                    if (((deck[j] is clsCreature && (cardsList[position] is clsCreature)) || 
+                        (deck[j] is clsLifeModifyingSpell && (cardsList[position] is clsLifeModifyingSpell))) && 
+                        deck[j].Id == cardsList[position].Id) //Assess the type of de card and the id 
                     {
                         counter++;
                     }
@@ -297,7 +299,6 @@ namespace Kagic_UI.ViewModels
                     i++;
                 }
             }
-
             return deck;
         }
 
