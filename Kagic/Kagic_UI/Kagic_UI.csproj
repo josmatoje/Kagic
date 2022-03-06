@@ -147,6 +147,7 @@
     <Content Include="Assets\Images\ManaBar.png" />
     <Content Include="Assets\Images\Damage.png" />
     <Content Include="Assets\Images\HealingSpellFrame.png" />
+    <Content Include="Assets\Images\Deck.png" />
     <Content Include="Assets\Images\Numbers\5.png" />
     <Content Include="Assets\Images\Numbers\3.png" />
     <Content Include="Assets\Images\Numbers\2.png" />

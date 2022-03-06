@@ -24,48 +24,48 @@ namespace Kagic_UI.ViewModels
 
         public VMPruebas()
         {
-            card = new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false);
+            card = new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, false, false);
             lastSelectedCard = new ObservableCollection<clsCard>();
             lastSelectedCard.Clear();
             lastSelectedCard.Add(card);
             playerCards = new ObservableCollection<clsCard>
             {
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, false, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false)
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, false, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false)
             };
 
             iaCards = new ObservableCollection<clsCard>
             {
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false),
-                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, true, false)
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false),
+                new clsLifeModifyingSpell(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, true, false)
             };
 
             playerCreatures = new ObservableCollection<clsCreature>
             {
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2)
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2)
             };
 
             iaCreatures = new ObservableCollection<clsCreature>
             {
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2),
-                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/CartaSeta.png", 2, 2, 2)
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2),
+                new clsCreature(1, "Seta venenosa", "Resta 2 de vida a un enemigo", "/Assets/PRUEBAS/solar_kitten.jpg", 2, 2, 2)
             };
         }
 
