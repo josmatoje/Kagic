@@ -108,12 +108,15 @@ namespace Kagic_DAL.Database
         {                                           //partes de clsLifeModifyingSpell(string name, string description, string image, int manacost, int effect, bool isDamage, bool isArea)
             SQLiteCommand createSpellCard = new SQLiteCommand("INSERT INTO SpellCards (Name, Description, Image, ManaCost, Effect, IsDamage, IsArea) " +
                                                               "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 4, 1, 0), "
-                                                               + "(\'Seta del Amor\',\'Cura a todas las criaturas con el poder del amor\', \'/Assets/PRUEBAS/CartaSeta.png\', 2, 2, 0, 1), "
-                                                               + "(\'Bola de Fuegardo\',\'Pelota en llamas\', \'/Assets/PRUEBAS/CartaSeta.png\', 6, 6, 1, 0), "
-                                                               + "(\'Lluvia de meteoros\',\'Arrasa con lo que veas... y generoso no seas!\', \'/Assets/PRUEBAS/CartaSeta.png\', 5, 3, 1, 1), "
-                                                               + "(\'Canto de Jigglypuff\',\'AAAAHHHhhhzzzz...\', \'/Assets/PRUEBAS/CartaSeta.png\', 3, 1, 1, 1), "
-                                                               + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
-                                                               + "(\'Codigo no comentado\',\'Destroza a un objetivo sin summaries\', \'/Assets/PRUEBAS/CartaSeta.png\', 7, 7, 1, 0) ",
+                                                                   + "(\'Seta del Amor\',\'Cura a todas las criaturas con el poder del amor\', \'/Assets/PRUEBAS/CartaSeta.png\', 2, 2, 0, 1), "
+                                                                   + "(\'Bola de Fuegardo\',\'Pelota en llamas\', \'/Assets/PRUEBAS/CartaSeta.png\', 6, 6, 1, 0), "
+                                                                   + "(\'Lluvia de meteoros\',\'Arrasa con lo que veas... y generoso no seas!\', \'/Assets/PRUEBAS/CartaSeta.png\', 5, 3, 1, 1), "
+                                                                   + "(\'Canto de Jigglypuff\',\'AAAAHHHhhhzzzz...\', \'/Assets/PRUEBAS/CartaSeta.png\', 3, 1, 1, 1), "
+                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
+                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
+                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
+                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
+                                                                   + "(\'Codigo no comentado\',\'Destroza a un objetivo sin summaries\', \'/Assets/PRUEBAS/CartaSeta.png\', 7, 7, 1, 0) ",
                                                               myconnection);
             createSpellCard.ExecuteNonQuery();
         }
