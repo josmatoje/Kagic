@@ -22,8 +22,8 @@ namespace Kagic_UI.ViewModels
         clsIAPlayer iaPlayer;
         bool isPlayerTurn;
         DelegateCommand passTurnCommand;
-        DelegateCommand attackContraryPlayerCommand;
-        DelegateCommand healthPlayerCommand;
+        DelegateCommand attackEnemyPlayerCommand;
+        DelegateCommand healPlayerCommand;
         clsCard selectedCard;
         clsCreature selectedCreature;
         ObservableCollection <clsCard> lastSelectedCard;
@@ -60,8 +60,8 @@ namespace Kagic_UI.ViewModels
             {
                 selectedCard = value;
                 SetLastSelectedCard(selectedCard);
-                attackContraryPlayerCommand.RaiseCanExecuteChanged();
-                healthPlayerCommand.RaiseCanExecuteChanged();
+                attackEnemyPlayerCommand.RaiseCanExecuteChanged();
+                healPlayerCommand.RaiseCanExecuteChanged();
                 selectedCreature = null;
                 NotifyPropertyChanged(nameof(SelectedCreature));
 
@@ -103,7 +103,7 @@ namespace Kagic_UI.ViewModels
                     selectedCreature = null;
                     NotifyPropertyChanged(nameof(SelectedCreature));
                 }
-                attackContraryPlayerCommand.RaiseCanExecuteChanged();
+                attackEnemyPlayerCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -114,21 +114,21 @@ namespace Kagic_UI.ViewModels
 
         #region commands getters
         public DelegateCommand PassTurnCommand { get => passTurnCommand; }
-        public DelegateCommand AttackContraryPlayerCommand
+        public DelegateCommand AttackEnemyPlayerCommand
         {
             get
             {
-                attackContraryPlayerCommand = new DelegateCommand(atackContraryPlayerCommand_Executed, atackContraryPlayerCommand_CanExecute);
-                return attackContraryPlayerCommand;
+                attackEnemyPlayerCommand = new DelegateCommand(attackEnemyPlayerCommand_Executed, attackEnemyPlayerCommand_CanExecute);
+                return attackEnemyPlayerCommand;
             }
         }
 
-        public DelegateCommand HealthPlayerCommand
+        public DelegateCommand HealPlayerCommand
         {
             get
             {
-                healthPlayerCommand = new DelegateCommand(healthPlayerCommand_Executed, healthPlayerCommand_CanExecute);
-                return healthPlayerCommand;
+                healPlayerCommand = new DelegateCommand(healPlayerCommand_Executed, healPlayerCommand_CanExecute);
+                return healPlayerCommand;
             }
         }
 
@@ -159,10 +159,10 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <Headboard>private void atackContraryPlayerCommand_Executed()</cabecera>
+        ///     <Headboard>private void attackEnemyPlayerCommand_Executed()</cabecera>
         ///     <Description> Make damage directly to the oponent player </descripcion> 
         /// </summary>
-        private void atackContraryPlayerCommand_Executed()
+        private void attackEnemyPlayerCommand_Executed()
         {
             int damage = 0;
 
@@ -177,16 +177,16 @@ namespace Kagic_UI.ViewModels
                 realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].Used = true;
             }
 
-            AttackContraryPlayer(damage);
-            attackContraryPlayerCommand.RaiseCanExecuteChanged();
+            AttackEnemyPlayer(damage);
+            attackEnemyPlayerCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
-        ///     <Headboard>private bool atackContraryPlayerCommand_CanExecute()</cabecera>
-        ///     <Description>If all conditions are fulfilled, command atackContraryPlayerCommand_CanExecute can be used</descripcion>
+        ///     <Headboard>private bool attackEnemyPlayerCommand_CanExecute()</cabecera>
+        ///     <Description>If all conditions are fulfilled, command attackEnemyPlayerCommand_CanExecute can be used</descripcion>
         /// </summary>
         /// <returns></returns>
-        private bool atackContraryPlayerCommand_CanExecute()
+        private bool attackEnemyPlayerCommand_CanExecute()
         {
             return ((realPlayer.SelectedCardIndex > -1 && selectedCard is clsLifeModifyingSpell)
                     && ((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible) 
@@ -194,13 +194,13 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <Headboard>private void healthPlayerCommand_Executed()</cabecera>
-        ///     <Description>Healths the life of the player </descripcion> 
+        ///     <Headboard>private void healPlayerCommand_Executed()</cabecera>
+        ///     <Description>Heals the life of the player </descripcion> 
         /// </summary>
-        private void healthPlayerCommand_Executed()
+        private void healPlayerCommand_Executed()
         {
-            int health = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCardIndex]).Effect;
-            realPlayer.Life += health;
+            int heal = ((clsLifeModifyingSpell)realPlayer.Hand[realPlayer.SelectedCardIndex]).Effect;
+            realPlayer.Life += heal;
             //life cannot be more than clsPlayer.MAX_LIFE`s value
             if (realPlayer.Life > clsPlayer.MAX_LIFE)
             {
@@ -211,11 +211,11 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        ///     <Headboard>private bool healthPlayerCommand_CanExecute()</cabecera>
-        ///     <Description>If all conditions are fulfilled, command healthPlayerCommand_CanExecute can be used</descripcion>
+        ///     <Headboard>private bool healPlayerCommand_CanExecute()</cabecera>
+        ///     <Description>If all conditions are fulfilled, command healPlayerCommand_CanExecute can be used</descripcion>
         /// </summary>
         /// <returns></returns>
-        private bool healthPlayerCommand_CanExecute()
+        private bool healPlayerCommand_CanExecute()
         {
             return realPlayer.SelectedCardIndex != -1 && selectedCard is clsLifeModifyingSpell && !((clsLifeModifyingSpell)selectedCard).IsDamage && selectedCard.IsAvaible;
         }
@@ -406,7 +406,7 @@ namespace Kagic_UI.ViewModels
                         {
                             if (NoEnemiesFront())
                             {
-                                AttackContraryPlayer(((clsLifeModifyingSpell)selectedCard).Effect);
+                                AttackEnemyPlayer(((clsLifeModifyingSpell)selectedCard).Effect);
                                 iaPlayer.PutCard();
                                 await Task.Delay(1000);
                             }
@@ -492,7 +492,7 @@ namespace Kagic_UI.ViewModels
                 }
                 else
                 {
-                    AttackContraryPlayer(iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].Attack);
+                    AttackEnemyPlayer(iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].Attack);
                     iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].Used = true;
                 }
             }
@@ -591,7 +591,7 @@ namespace Kagic_UI.ViewModels
 
         /// <summary>
         /// <b>Headboard: </b> private void Creaturebattle(int realSelectedCreatureIndex, int iaSelectedCreatureIndex)<br/>
-        /// <b>Description: </b> Method for update the criatures'life depends of criatures'atack
+        /// <b>Description: </b> Method for update the criatures'life depends of criatures'attack
         /// <b>Preconditions: </b> It muss be called after change selected creatures of both of players<br/>
         /// <b>Postconditions: </b> lifes set<br/>
         /// </summary>
@@ -664,26 +664,26 @@ namespace Kagic_UI.ViewModels
                     }
                     if (targetPlayer.PlaceCreatures[i].Id > 0)
                     {
-                        AttackOrHealthSpell(targetPlayer, isDamage, effect);
+                        AttackOrHealSpell(targetPlayer, isDamage, effect);
                     }
                 }
             }
             else
             {
-                AttackOrHealthSpell(targetPlayer, isDamage, effect);
+                AttackOrHealSpell(targetPlayer, isDamage, effect);
             }
         }
 
         /// <summary>
-        /// <b>Headboard: </b> private void AttackOrHealthSpell (clsPlayer player, bool isDamage, int effect)<br/>
-        /// <b>Description: </b> Select between a attack and a health action in function of the damage property of the selected card
+        /// <b>Headboard: </b> private void AttackOrHealSpell (clsPlayer player, bool isDamage, int effect)<br/>
+        /// <b>Description: </b> Select between a attack and a heal action in function of the damage property of the selected card
         /// <b>Preconditions: </b> None<br/>
         /// <b>Postconditions: </b>None<br/>
         /// </summary>
         /// <param name="player"></param>
         /// <param name="isDamage"></param>
         /// <param name="effect"></param>
-        private void AttackOrHealthSpell(clsPlayer player, bool isDamage, int effect)
+        private void AttackOrHealSpell(clsPlayer player, bool isDamage, int effect)
         {
             if (isDamage)
             {
@@ -691,7 +691,7 @@ namespace Kagic_UI.ViewModels
             }
             else
             {
-                HealthAction(player, effect);
+                HealAction(player, effect);
             }
         }
 
@@ -714,16 +714,16 @@ namespace Kagic_UI.ViewModels
 
 
         /// <summary>
-        /// <b>Headboard: </b> private void healthAction(clsPlayer player)<br/>
-        /// <b>Description: </b> Method for make spell health action
+        /// <b>Headboard: </b> private void healAction(clsPlayer player)<br/>
+        /// <b>Description: </b> Method for make spell heal action
         /// <b>Preconditions: </b> None<br/>
         /// <b>Postconditions: </b>creature´s life set<br/>
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="health"></param>
-        private void HealthAction(clsPlayer player, int health)
+        /// <param name="heal"></param>
+        private void HealAction(clsPlayer player, int heal)
         {
-            player.PlaceCreatures[player.SelectedCreatureIndex].ActualLife += health;
+            player.PlaceCreatures[player.SelectedCreatureIndex].ActualLife += heal;
             if (player.PlaceCreatures[player.SelectedCreatureIndex].ActualLife > player.PlaceCreatures[player.SelectedCreatureIndex].Life)
             {
                 player.PlaceCreatures[player.SelectedCreatureIndex].ActualLife = player.PlaceCreatures[player.SelectedCreatureIndex].Life;
@@ -752,13 +752,13 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// <b>Headboard: </b>private void attackContraryPlayer(int damage)<br/>
+        /// <b>Headboard: </b>private void attackEnemyPlayer(int damage)<br/>
         /// <b>Description: </b>Modifies the player life and check if the match is finished<br/>
         /// <b>Preconditions: </b>None<br/>
         /// <b>Postconditions: </b> None<br/>
         /// </summary>
         /// <param name="damage"></param>
-        private void AttackContraryPlayer(int damage)
+        private void AttackEnemyPlayer(int damage)
         {
             if (!isPlayerTurn)
             {
