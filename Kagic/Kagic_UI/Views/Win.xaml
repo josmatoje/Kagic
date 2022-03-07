@@ -12,7 +12,7 @@
     </Page.Background>
     
     <RelativePanel>
-        <TextBlock x:Name="txbwin" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">VICTORIAAAA!!!</TextBlock>
-        <Button RelativePanel.Below="txbwin"  RelativePanel.AlignHorizontalCenterWithPanel="True" Click="Button_Click">Volver a pantalla principal</Button>
+        <TextBlock x:Name="txbwin" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" FontSize="100" Foreground="yellow">VICTORIAAAA!!!</TextBlock>
+        <Button RelativePanel.Below="txbwin"  RelativePanel.AlignHorizontalCenterWithPanel="True" Click="Button_Click" Margin="50">Volver a pantalla principal</Button>
     </RelativePanel>
 </Page>
