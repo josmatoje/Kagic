@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,9 +38,9 @@ namespace Kagic_UI.Views
             ttBtnNextTurn.IsOpen = true;
         }
 
-        private void TeachingTipClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
+        private void TeachingTipClosed(TeachingTip sender, TeachingTipClosedEventArgs args)
         {
-            Microsoft.UI.Xaml.Controls.TeachingTip tt = (Microsoft.UI.Xaml.Controls.TeachingTip)sender;
+            TeachingTip tt = (TeachingTip)sender;
             switch (tt.Name) {
                 case "ttBtnNextTurn": ttGdPlayerCreatures.IsOpen = true;
                     break;
