@@ -246,6 +246,7 @@
         <!-- Next turn button -->
         <Button x:Name="btnNextTurn" Content="Next Turn" Margin="10" Background="White" CornerRadius="10"
                 RelativePanel.AlignVerticalCenterWith="rpBattlefield" RelativePanel.AlignLeftWithPanel="True" Command="{Binding PassTurnCommand}"/>
+<<<<<<< HEAD
         
         <!--// IA life ////////////////////////////////-->
         <RelativePanel x:Name="rpIaLife" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
@@ -253,6 +254,17 @@
             <Image x:Name="imgIaTensNumber" Source="{Binding IaPlayer.Life, Converter={StaticResource tensNumConv}, UpdateSourceTrigger=PropertyChanged}"/>
             <Image x:Name="imgIaUnitsNumber" Source="{Binding IaPlayer.Life, Converter={StaticResource unitNumConv}, UpdateSourceTrigger=PropertyChanged}"/>
             <ProgressBar x:Name="pgbIaLife" Value="{Binding IaPlayer.ProgresBarLife, UpdateSourceTrigger=PropertyChanged}" Foreground="Red"/>
+=======
+        <!--Cambiar por user control con bindeos y tal-->
+        <!-- IA life -->
+        <RelativePanel x:Name="stpIaLife" Style="{StaticResource normalLife}" 
+                    RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True">
+            <ProgressBar x:Name="pgbIaLife" Height="20" Width="150" Value="{Binding IaPlayer.ProgresBarLife, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" Background="LightGray"
+                     RelativePanel.AlignBottomWithPanel="True"/>
+            <Image x:Name="imgIaLife"           Source="/Assets/Images/Life.png"    Height="150"    Canvas.ZIndex="1" RelativePanel.AlignTopWithPanel="True"/>
+            <Image x:Name="imgIaTensNumber"     Source="{Binding IaPlayer.Life, Converter={StaticResource tensNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+            <Image x:Name="imgIaUnitsNumber"    Source="{Binding IaPlayer.Life, Converter={StaticResource unitNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+>>>>>>> RamaUnica
         </RelativePanel>
 
         <!--Boton para atacar al contrario-->
