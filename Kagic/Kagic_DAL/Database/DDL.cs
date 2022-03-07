@@ -90,8 +90,12 @@ namespace Kagic_DAL.Database
                                                                  + "(\'Gato gordo\', \'Es como shifu pero gordo y sin sombrero\', \'/Assets/PRUEBAS/gatogordo.png\', 5, 7, 4 ), "
                                                                  + "(\'Murciélago\', \'Rápido y furioso\', \'/Assets/PRUEBAS/murcielago.png\', 1, 1, 3 ), "
                                                                  + "(\'El pato\', \'Parece inofensivo pero cuidao\', \'/Assets/PRUEBAS/pato.png\', 3, 2, 5 ), "
-                                                                 + "(\'Sirpiente\', \'Sigiloso y letal\', \'/Assets/PRUEBAS/serpiente.png\', 3, 1, 4 ), "
-                                                                 + "(\'Don tortuga\', \'Lento pero agunta\', \'/Assets/PRUEBAS/tortuga.png\', 3, 8, 1 ) ",
+                                                                 + "(\'Sirpiente\', \'Sigiloso y letal\', \'/Assets/PRUEBAS/serpiente.png\', 3, 1, 6 ), "
+                                                                 + "(\'Don tortuga\', \'Lento pero agunta\', \'/Assets/PRUEBAS/tortuga.png\', 2, 4, 1 ), "
+                                                                 + "(\'Rana mágica\', \'Rana y encima mágica\', \'/Assets/PRUEBAS/rana.png\', 4, 4, 3 ), "
+                                                                 + "(\'Loro\', \'Un poco pesao pero buena gente\', \'/Assets/PRUEBAS/loro.png\', 3, 2, 4 ), "
+                                                                 + "(\'Tiburón\', \'Da miedo pero es bastante inocente\', \'/Assets/PRUEBAS/tiburon.png\', 4, 5, 2 ), "
+                                                                 + "(\'Berenjeno\', \'Tiene muy mal humor\', \'/Assets/PRUEBAS/berenjena.png\', 1, 1, 2 ) ",
                                                                  myconnection);
 
             createCreatureCard.ExecuteNonQuery();
@@ -108,15 +112,11 @@ namespace Kagic_DAL.Database
         {                                           //partes de clsLifeModifyingSpell(string name, string description, string image, int manacost, int effect, bool isDamage, bool isArea)
             SQLiteCommand createSpellCard = new SQLiteCommand("INSERT INTO SpellCards (Name, Description, Image, ManaCost, Effect, IsDamage, IsArea) " +
                                                               "VALUES (\'Seta Venenosa\',\'Envenena a la criatura objetivo\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 4, 1, 0), "
-                                                                   + "(\'Seta del Amor\',\'Cura a todas las criaturas con el poder del amor\', \'/Assets/PRUEBAS/CartaSeta.png\', 2, 2, 0, 1), "
-                                                                   + "(\'Bola de Fuegardo\',\'Pelota en llamas\', \'/Assets/PRUEBAS/CartaSeta.png\', 6, 6, 1, 0), "
-                                                                   + "(\'Lluvia de meteoros\',\'Arrasa con lo que veas... y generoso no seas!\', \'/Assets/PRUEBAS/CartaSeta.png\', 5, 3, 1, 1), "
-                                                                   + "(\'Canto de Jigglypuff\',\'AAAAHHHhhhzzzz...\', \'/Assets/PRUEBAS/CartaSeta.png\', 3, 1, 1, 1), "
-                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
-                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
-                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
-                                                                   + "(\'Canto de Sirena\',\'Revitaliza a todos tus oponentes\', \'/Assets/PRUEBAS/CartaSeta.png\', 4, 2, 0, 1), "
-                                                                   + "(\'Codigo no comentado\',\'Destroza a un objetivo sin summaries\', \'/Assets/PRUEBAS/CartaSeta.png\', 7, 7, 1, 0) ",
+                                                                   + "(\'Seta del Amor\',\'Cura a todas las criaturas con el poder del amor\', \'/Assets/PRUEBAS/setacura.png\', 2, 2, 0, 1), "
+                                                                   + "(\'Piedra\',\'Es una piedra\', \'/Assets/PRUEBAS/piedra.png\', 6, 6, 1, 0), "
+                                                                   + "(\'Pescao pocho\',\'Causa daño en todos los enemigos del rival\', \'/Assets/PRUEBAS/espinas.png\', 4, 3, 1, 1), "
+                                                                   + "(\'Señor Donut\',\'Está triste pero rico\', \'/Assets/PRUEBAS/donut.png\', 2, 2, 0, 0), "
+                                                                   + "(\'Perita\',\'Alegría pal cuerpo\', \'/Assets/PRUEBAS/pera.png\', 4, 3, 0, 0) ",
                                                               myconnection);
             createSpellCard.ExecuteNonQuery();
         }
