@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Kagic_UI.ViewModels
@@ -81,7 +82,7 @@ namespace Kagic_UI.ViewModels
                     }
                     else
                     {
-                        successfulTry = TryAttackCreature(realPlayer, iaPlayer);
+                        successfulTry = TryAttackCreature();
                     }
                 }
                 else if (lastSelectedCard[0] is clsLifeModifyingSpell)
@@ -152,7 +153,8 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool passTurnCommand_CanExecute()
         {
-            return isPlayerTurn;
+            bool passTurn = isPlayerTurn;
+            return passTurn;
         }
 
         /// <summary>
@@ -241,7 +243,7 @@ namespace Kagic_UI.ViewModels
             }
             catch
             {
-
+                ErrorMessage();
             }
             
         }
@@ -472,17 +474,17 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private async void enemyAttack()
         {
-            int enemyCreatureIndex;
+            int iaCreatureIndex, enemyCreatureIndex;
 
             while (iaPlayer.PickOwnCreature()) //While select creatures that can attack ande there is enemies infront
             {
                 if (!NoEnemiesFront())
                 {
+                    iaCreatureIndex = iaPlayer.SelectedCreatureIndex;
                     enemyCreatureIndex = iaPlayer.PickEnemyCreature(realPlayer.PlaceCreatures);
                     if (enemyCreatureIndex > -1)
                     {
-                        realPlayer.SelectedCreatureIndex = enemyCreatureIndex;
-                        Creaturebattle();
+                        Creaturebattle(enemyCreatureIndex, iaCreatureIndex);
                         await Task.Delay(1000);
                     }
                 }
@@ -517,7 +519,7 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private async void ErrorMessage()
         {
-            //MessageDialog errorMessage;
+            Frame mainFrame = Window.Current.Content as Frame;
             ContentDialog error = new ContentDialog()
             {
                 Title = "ERROR",
@@ -525,7 +527,7 @@ namespace Kagic_UI.ViewModels
                 SecondaryButtonText = "Volver al menu principal"
             };
             await error.ShowAsync();
-
+            mainFrame.Navigate(typeof(MainPage));
         }
         #endregion
 
@@ -568,16 +570,16 @@ namespace Kagic_UI.ViewModels
         /// <param name="defensor">clsPlayer</paramref>
         /// <returns>Boolean indicating if the try was successful</returns>
         /// </summary>
-        private bool TryAttackCreature(clsPlayer attacker, clsPlayer defensor)
+        private bool TryAttackCreature()
         {
             bool successfulTry = false;
             if ((lastSelectedCard != null && selectedCreature != null && selectedCreature.Id > 0)
-                && (attacker.SelectedCreatureIndex > -1 && defensor.SelectedCreatureIndex > -1)
-                && (!attacker.PlaceCreatures[attacker.SelectedCreatureIndex].Used)
-                && (lastSelectedCard.Contains(attacker.PlaceCreatures[attacker.SelectedCreatureIndex]))
-                && (selectedCreature == defensor.PlaceCreatures[defensor.SelectedCreatureIndex]))
+                && (realPlayer.SelectedCreatureIndex > -1 && iaPlayer.SelectedCreatureIndex > -1)
+                && (!realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].Used)
+                && (lastSelectedCard.Contains(realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex]))
+                && (selectedCreature == iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex]))
             {              
-                Creaturebattle();
+                Creaturebattle(realPlayer.SelectedCreatureIndex, iaPlayer.SelectedCreatureIndex);
                 SetLastSelectedCard(null);
                 successfulTry = true;
             }
@@ -586,24 +588,24 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
-        /// <b>Headboard: </b> private void creaturebattle()<br/>
+        /// <b>Headboard: </b> private void Creaturebattle(int realSelectedCreatureIndex, int iaSelectedCreatureIndex)<br/>
         /// <b>Description: </b> Method for update the criatures'life depends of criatures'atack
         /// <b>Preconditions: </b> It muss be called after change selected creatures of both of players<br/>
         /// <b>Postconditions: </b> lifes set<br/>
         /// </summary>
-        private void Creaturebattle()
+        private void Creaturebattle(int realSelectedCreatureIndex, int iaSelectedCreatureIndex)
         {
-            realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].ActualLife -= iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].Attack;
-            realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].Used = true;
-            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].ActualLife -= realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].Attack;
-            iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].Used = true;
-            if (realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex].ActualLife <= 0)
+            realPlayer.PlaceCreatures[realSelectedCreatureIndex].ActualLife -= iaPlayer.PlaceCreatures[iaSelectedCreatureIndex].Attack;
+            realPlayer.PlaceCreatures[realSelectedCreatureIndex].Used = true;
+            iaPlayer.PlaceCreatures[iaSelectedCreatureIndex].ActualLife -= realPlayer.PlaceCreatures[realSelectedCreatureIndex].Attack;
+            iaPlayer.PlaceCreatures[iaSelectedCreatureIndex].Used = true;
+            if (realPlayer.PlaceCreatures[realSelectedCreatureIndex].ActualLife <= 0)
             {
-                realPlayer.PlaceCreatures[realPlayer.SelectedCreatureIndex] = new clsCreatureNotified();
+                realPlayer.PlaceCreatures[realSelectedCreatureIndex] = new clsCreatureNotified();
             }
-            if (iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex].ActualLife <= 0)
+            if (iaPlayer.PlaceCreatures[iaSelectedCreatureIndex].ActualLife <= 0)
             {
-                iaPlayer.PlaceCreatures[iaPlayer.SelectedCreatureIndex] = new clsCreatureNotified();
+                iaPlayer.PlaceCreatures[iaSelectedCreatureIndex] = new clsCreatureNotified();
             }
         }
 
