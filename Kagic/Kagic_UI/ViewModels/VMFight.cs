@@ -3,6 +3,7 @@ using Kagic_Entities;
 using Kagic_UI.Models;
 using Kagic_UI.Models.Utilities;
 using Kagic_UI.ViewModels.UtilitiesVM;
+using Kagic_UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -255,15 +256,16 @@ namespace Kagic_UI.ViewModels
         /// <returns></returns>
         private bool FinishGame()
         {
+            Frame rootFrame = Window.Current.Content as Frame;
             bool finished = false;
             if (realPlayer.Life <= 0)
             {
-                //enviar a vista de error de victoria
+                rootFrame.Navigate(typeof(Lose));
                 finished = true;                
             }
             else if (iaPlayer.Life <= 0)
             {
-                //enviar a vista de error de derrota
+                rootFrame.Navigate(typeof(Win));
                 finished = true;
             }
             return finished;

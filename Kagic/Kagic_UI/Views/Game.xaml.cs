@@ -32,5 +32,33 @@ namespace Kagic_UI.Views
             Frame.GoBack();
         }
 
+        private void TutorialButtonClick(object sender, RoutedEventArgs e)
+        {
+            ttBtnNextTurn.IsOpen = true;
+        }
+
+        private void TeachingTipClosed(Microsoft.UI.Xaml.Controls.TeachingTip sender, Microsoft.UI.Xaml.Controls.TeachingTipClosedEventArgs args)
+        {
+            Microsoft.UI.Xaml.Controls.TeachingTip tt = (Microsoft.UI.Xaml.Controls.TeachingTip)sender;
+            switch (tt.Name) {
+                case "ttBtnNextTurn": ttGdPlayerCreatures.IsOpen = true;
+                    break;
+                       
+                case "ttGdPlayerCreatures": ttGdPlayerCards.IsOpen = true;
+                    break;
+
+                case "ttGdPlayerCards": ttRpActualMana.IsOpen = true;
+                    break;
+
+                case "ttRpActualMana": ttButtonAttackContrary.IsOpen = true;
+                    break;
+
+                case "ttButtonAttackContrary": ttButtonHealthyou.IsOpen = true;
+                    break;
+
+                case "ttButtonHealthyou": ttSelectedCard.IsOpen = true;
+                    break;
+            }
+        }
     }
 }

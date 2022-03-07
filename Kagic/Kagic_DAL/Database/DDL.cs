@@ -83,16 +83,15 @@ namespace Kagic_DAL.Database
         private static void fillTableCreatures(SQLiteConnection myconnection)
         {                                           // partes de clsCreature(string name, string description, string image, int manacost, int life, int attack)
             SQLiteCommand createCreatureCard = new SQLiteCommand("INSERT INTO CreatureCards (Name, Description, Image, ManaCost, Life, Attack) " +
-                                                                 "VALUES   (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 3, 3 ), "
-                                                                        + "(\'SHIFU\', \'EL GRAN SHIFU. Nerfeen al gato.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 7, 9, 9 ), "
-                                                                        + "(\'Un Loco Cualquiera\', \'Está total y absolutamente LOCO!\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 2, 1, 3 ), "
-                                                                        + "(\'Demoño Demoñiaco\', \'Que vienen los demonio\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 4, 2, 6 ), "
-                                                                        + "(\'Fernando Testeando\', \'Es capaz de destrozarte con tan solo una palabra.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 5, 7, 4 ), "
-                                                                        + "(\'Diseñadora gráfica\', \'Puede olvidar subir algo y destrozarlo todo.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 1, 1, 3 ), "
-                                                                        + "(\'Diseñadora gráfica\', \'Puede olvidar subir algo y destrozarlo todo.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 1, 1, 3 ), "
-                                                                        + "(\'Diseñadora gráfica\', \'Puede olvidar subir algo y destrozarlo todo.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 1, 1, 3 ), "
-                                                                        + "(\'Diseñadora gráfica\', \'Puede olvidar subir algo y destrozarlo todo.\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 1, 1, 3 ), "
-                                                                        + "(\'Goku\', \'Es Goku\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 5, 1 ) ",
+                                                                 "VALUES (\'Gatete Solar\', \'Dispara fuego por las orejas\', \'/Assets/PRUEBAS/solar_kitten.jpg\', 3, 3, 3 ), "
+                                                                 + "(\'SHIFU\', \'EL GRAN SHIFU. Nerfeen al gato.\', \'/Assets/PRUEBAS/shifu.png\', 7, 9, 9 ), "
+                                                                 + "(\'Abejita\', \'Cuidao que te pica\', \'/Assets/PRUEBAS/abeja.png\', 2, 1, 3 ), "
+                                                                 + "(\'Bichote verde\', \'Da miedo\', \'/Assets/PRUEBAS/bichoverde.png\', 4, 2, 6 ), "
+                                                                 + "(\'Gato gordo\', \'Es como shifu pero gordo y sin sombrero\', \'/Assets/PRUEBAS/gatogordo.png\', 5, 7, 4 ), "
+                                                                 + "(\'Murciélago\', \'Rápido y furioso\', \'/Assets/PRUEBAS/murcielago.png\', 1, 1, 3 ), "
+                                                                 + "(\'El pato\', \'Parece inofensivo pero cuidao\', \'/Assets/PRUEBAS/pato.png\', 3, 2, 5 ), "
+                                                                 + "(\'Sirpiente\', \'Sigiloso y letal\', \'/Assets/PRUEBAS/serpiente.png\', 3, 1, 4 ), "
+                                                                 + "(\'Don tortuga\', \'Lento pero agunta\', \'/Assets/PRUEBAS/tortuga.png\', 3, 8, 1 ) ",
                                                                  myconnection);
 
             createCreatureCard.ExecuteNonQuery();

@@ -131,12 +131,18 @@
     <Compile Include="ViewModels\UtilitiesVM\TrulyObservableCollection.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
     <Compile Include="ViewModels\VMPruebas.cs" />
+    <Compile Include="Views\Lose.xaml.cs">
+      <DependentUpon>Lose.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Win.xaml.cs">
+      <DependentUpon>Win.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -166,10 +172,22 @@
     <Content Include="Assets\Images\Numbers\7.png" />
     <Content Include="Assets\Images\Numbers\8.png" />
     <Content Include="Assets\Images\Numbers\9.png" />
+    <Content Include="Assets\PRUEBAS\abeja.png" />
+    <Content Include="Assets\PRUEBAS\bichoverde.png" />
     <Content Include="Assets\PRUEBAS\Carta Azul.png" />
     <Content Include="Assets\PRUEBAS\CartaSeta.png" />
     <Content Include="Assets\Images\CreatureFrame.png" />
+    <Content Include="Assets\PRUEBAS\donut.png" />
+    <Content Include="Assets\PRUEBAS\espinas.png" />
+    <Content Include="Assets\PRUEBAS\gatogordo.png" />
+    <Content Include="Assets\PRUEBAS\murcielago.png" />
+    <Content Include="Assets\PRUEBAS\pato.png" />
+    <Content Include="Assets\PRUEBAS\piedra.png" />
+    <Content Include="Assets\PRUEBAS\serpiente.png" />
+    <Content Include="Assets\PRUEBAS\setacura.png" />
+    <Content Include="Assets\PRUEBAS\shifu.png" />
     <Content Include="Assets\PRUEBAS\solar_kitten.jpg" />
+    <Content Include="Assets\PRUEBAS\tortuga.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -188,11 +206,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Lose.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Game.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Win.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
