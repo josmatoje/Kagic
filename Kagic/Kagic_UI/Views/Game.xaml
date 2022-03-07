@@ -81,11 +81,6 @@
 
     <RelativePanel>
 
-        <!--<ContentDialog x:Name="errorContentDialog" Title = "ERROR" SecondaryButtonText = "Volver al menu principal" SecondaryButtonClick="GoBack_Click">
-            <TextBlock Text="Ha ocurrido un error inesperado. Desde kagic lo lamentamos enormemento y sinceramento no sabemos como ha sucedido. 
-                       Seguramente habrás tocado algo que no debias porque el juego funciona perfectamente. 
-                       Te animamos a empezar una nueva y apasionante partida." />
-        </ContentDialog>-->
         <AppBarButton x:Name="btnTutorial" Click="TutorialButtonClick" Icon="Help" RelativePanel.RightOf="btnBack" Foreground="Black" Margin="5" VerticalAlignment="Center" Background="White" CornerRadius="10"></AppBarButton>
 
         <muxc:TeachingTip x:Name="ttBtnNextTurn"
