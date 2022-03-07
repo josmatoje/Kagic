@@ -35,31 +35,31 @@ namespace Kagic_UI.Views
 
         private void TutorialButtonClick(object sender, RoutedEventArgs e)
         {
-            ttBtnNextTurn.IsOpen = true;
+            //ttBtnNextTurn.IsOpen = true;
         }
 
-        private void TeachingTipClosed(TeachingTip sender, TeachingTipClosedEventArgs args)
-        {
-            TeachingTip tt = (TeachingTip)sender;
-            switch (tt.Name) {
-                case "ttBtnNextTurn": ttGdPlayerCreatures.IsOpen = true;
-                    break;
-                       
-                case "ttGdPlayerCreatures": ttGdPlayerCards.IsOpen = true;
-                    break;
+        //private void TeachingTipClosed(TeachingTip sender, TeachingTipClosedEventArgs args)
+        //{
+        //    TeachingTip tt = (TeachingTip)sender;
+        //    switch (tt.Name) {
+        //        case "ttBtnNextTurn": ttGdPlayerCreatures.IsOpen = true;
+        //            break;
 
-                case "ttGdPlayerCards": ttRpActualMana.IsOpen = true;
-                    break;
+        //        case "ttGdPlayerCreatures": ttGdPlayerCards.IsOpen = true;
+        //            break;
 
-                case "ttRpActualMana": ttButtonAttackContrary.IsOpen = true;
-                    break;
+        //        case "ttGdPlayerCards": ttRpActualMana.IsOpen = true;
+        //            break;
 
-                case "ttButtonAttackContrary": ttButtonHealthyou.IsOpen = true;
-                    break;
+        //        case "ttRpActualMana": ttButtonAttackContrary.IsOpen = true;
+        //            break;
 
-                case "ttButtonHealthyou": ttSelectedCard.IsOpen = true;
-                    break;
-            }
-        }
+        //        case "ttButtonAttackContrary": ttButtonHealthyou.IsOpen = true;
+        //            break;
+
+        //        case "ttButtonHealthyou": ttSelectedCard.IsOpen = true;
+        //            break;
+        //    }
+        //}
     }
 }

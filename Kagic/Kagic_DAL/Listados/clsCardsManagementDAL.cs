@@ -14,6 +14,13 @@ namespace Kagic_DAL.Listados
         private static string path = ApplicationData.Current.LocalFolder.Path + $"\\{dbName}";
         private static readonly SQLiteConnection myConnection = new SQLiteConnection($"Data Source={path}; version=3;");
 
+        /// <summary>
+        /// <b>Headboard: </b>public static ObservableCollection<clsCard> getCardsDAL()<br/>
+        /// <b>Description: </b>This method returns all the cards of the game.<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b><br/>
+        /// </summary>
+        /// <returns></returns>
         public static ObservableCollection<clsCard> getCardsDAL()
         {
             ObservableCollection<clsCard> cards = new ObservableCollection<clsCard>();
@@ -24,6 +31,13 @@ namespace Kagic_DAL.Listados
             return cards;
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>private static List<clsCard> getCreatureCards()<br/>
+        /// <b>Description: </b>This method returns all the creature cards from the database.<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b><br/>
+        /// </summary>
+        /// <returns></returns>
         private static List<clsCard> getCreatureCards()
         {
             List<clsCard> cardList = new List<clsCard>();
@@ -55,6 +69,13 @@ namespace Kagic_DAL.Listados
             return cardList;
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>private static List<clsCard> getSpellCards()<br/>
+        /// <b>Description: </b>This method returns all the spell cards from the database.<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b><br/>
+        /// </summary>
+        /// <returns></returns>
         private static List<clsCard> getSpellCards()
         {
             List<clsCard> cardList = new List<clsCard>();
@@ -86,9 +107,17 @@ namespace Kagic_DAL.Listados
             return cardList;
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>private static clsCreature constructCreatureCard(SQLiteDataReader reader)<br/>
+        /// <b>Description: </b>This method constructs a creature card from the data read in a row.<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b><br/>
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         private static clsCreature constructCreatureCard(SQLiteDataReader reader)
         {
-            return new clsCreature( Convert.ToInt32(reader["Id"]),
+            return new clsCreature(Convert.ToInt32(reader["Id"]),
                                     (string)reader["Name"],
                                     (string)reader["Description"],
                                     (string)reader["Image"],
@@ -97,6 +126,14 @@ namespace Kagic_DAL.Listados
                                     Convert.ToInt32(reader["Attack"]));
         }
 
+        /// <summary>
+        /// <b>Headboard: </b>public static void createDatabase()<br/>
+        /// <b>Description: </b>This method constructs a spell card from the data read in a row.<br/>
+        /// <b>Preconditions: </b>None<br/>
+        /// <b>Postconditions: </b><br/>
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         private static clsCard constructSpellCard(SQLiteDataReader reader)
         {
             return new clsLifeModifyingSpell(Convert.ToInt32(reader["Id"]),

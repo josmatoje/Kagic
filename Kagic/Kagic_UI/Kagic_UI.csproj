@@ -131,9 +131,6 @@
     <Compile Include="ViewModels\UtilitiesVM\TrulyObservableCollection.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
     <Compile Include="ViewModels\VMPruebas.cs" />
-    <Compile Include="Views\Game2.xaml.cs">
-      <DependentUpon>Game2.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Lose.xaml.cs">
       <DependentUpon>Lose.xaml</DependentUpon>
     </Compile>
@@ -157,6 +154,9 @@
     <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
+    <Content Include="Assets\Images\DamageSpellFrame.png" />
+    <Content Include="Assets\Images\Deck.png" />
+    <Content Include="Assets\Images\HealingSpellFrame.png" />
     <Content Include="Assets\Images\ManaBar.png" />
     <Content Include="Assets\Images\Damage.png" />
     <Content Include="Assets\Images\CardPosition.png" />
@@ -214,10 +214,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Lose.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -262,7 +258,11 @@
       <Name>Kagic_Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="Windows.Foundation.UniversalApiContract">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.UniversalApiContract\10.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

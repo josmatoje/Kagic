@@ -5,15 +5,16 @@
     xmlns:local="using:Kagic_UI"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls">
     
+    
+    
     <Application.Resources>
-        <controls:XamlControlsResources>
-            <controls:XamlControlsResources.MergedDictionaries>
-                <!-- Other app resources here -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Assets/Themes/Styles.xaml"/>
-            </controls:XamlControlsResources.MergedDictionaries>
-        </controls:XamlControlsResources>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 
-    
+
 
 </Application>
