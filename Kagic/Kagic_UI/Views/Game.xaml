@@ -8,6 +8,7 @@
     xmlns:numberConverter="using:Kagic_UI.ViewModels.UtilitiesVM"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -62,7 +63,7 @@
                 <TextBlock Name="area" Text="AREA" FontWeight="Bold" Canvas.ZIndex="4" RelativePanel.AlignTopWith="numEffect" RelativePanel.AlignHorizontalCenterWithPanel="True"  Visibility="{Binding IsArea}"/>
             </RelativePanel>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="dtEmpty">
             <RelativePanel>
                 <Image Name="frame" Source="/Assets/Images/CardPosition.png" Style="{StaticResource ImgCardImageSmall}" Opacity="0.2"/>
@@ -80,6 +81,56 @@
 
     <RelativePanel>
 
+        <AppBarButton x:Name="btnTutorial" Click="TutorialButtonClick" Icon="Help" RelativePanel.RightOf="btnBack" Foreground="Black" Margin="5" VerticalAlignment="Center" Background="White" CornerRadius="10"></AppBarButton>
+
+        <muxc:TeachingTip x:Name="ttBtnNextTurn"
+                        Target="{x:Bind btnNextTurn}"
+                        Title="Botón siguiente turno"
+                        Subtitle="Pulsalo para pasar al siguiente turno."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="ttGdPlayerCreatures"
+                        Target="{x:Bind gdPlayerCreatures}"
+                        Title="Campo de batalla"
+                        Subtitle="Aquí es donde colocarás tus cartas, selecciona una carta primero y luego colocala en el campo de batalla pulsando en uno de los 5 espacios."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="ttGdPlayerCards"
+                        Target="{x:Bind gdPlayerCards}"
+                        Title="Mano"
+                        Subtitle="Estas son tus cartas desplegables en el campo de batalla, cada turno robarás una carta automáticamente hasta un máximo de 7 cartas."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="ttRpActualMana"
+                        Target="{x:Bind rpActualMana}"
+                        Title="Barra de maná"
+                        Subtitle="Todas las cartas tienen un costo y esta barra indica cuanto maná posees, si no tienes maná suficiente no podrás desplegar tus cartas."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="ttButtonAttackContrary"
+                        Target="{x:Bind buttonAttackContrary}"
+                        Title="Atacar al enemigo"
+                        Subtitle="Existen ciertos hechizos que pueden hacer daño directamente al jugador enemigo, aunque también puedes atacar con las criaturas desplegadas siempre que el jugador contrario no tenga criaturas en el terreno."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="ttButtonHealthyou"
+                        Target="{x:Bind buttonHealthyou}"
+                        Title="Curar"
+                        Subtitle="Al igual que puedes atacar directamente al enemigo tambien puedes lanzar hechizos de cura sobre ti mismo."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
+
+        <muxc:TeachingTip x:Name="ttSelectedCard"
+                        Target="{x:Bind selectedCard}"
+                        Title="Carta seleccionada"
+                        Subtitle="Aquí podrás ver las características de la carta seleccionada."
+                        Closed="TeachingTipClosed">
+        </muxc:TeachingTip>
 
         <!-- Back button -->
         <AppBarButton x:Name="btnBack" Icon="Back" Foreground="Black" Margin="5" VerticalAlignment="Center" Click="AppBarButton_Click" Background="White" CornerRadius="10"/>
@@ -103,7 +154,7 @@
 
 
         <!-- Battlefield -->
-        
+
         <RelativePanel x:Name="rpBattlefield" Margin="0,30,0,0" BorderThickness="3" Padding="5" Background="White" CornerRadius="20"
                        RelativePanel.Below="gdOpponentCards" RelativePanel.AlignHorizontalCenterWithPanel="True" >
             <!-- IA battlefield -->
@@ -111,7 +162,7 @@
                       RelativePanel.AlignHorizontalCenterWithPanel="True"                                           SelectedIndex="{Binding IaPlayer.SelectedCreatureIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding SelectionMode}">
             </GridView>
-    
+
 
             <!-- Player battlefield -->
             <GridView x:Name="gdPlayerCreatures" ItemsSource="{Binding RealPlayer.PlaceCreatures, UpdateSourceTrigger=PropertyChanged}" ItemTemplateSelector="{StaticResource BattlefieldCardsTemplates}" MinHeight="250" MinWidth="800" BorderThickness="3" Background="Blue" CornerRadius="20"
@@ -119,7 +170,7 @@
                       SelectedItem="{Binding SelectedCreature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding SelectionMode}">
             </GridView>
         </RelativePanel>
-    
+
 
         <!-- Next turn button -->
         <Button x:Name="btnNextTurn" Content="Next Turn" Margin="10" Background="White" CornerRadius="10"
@@ -134,13 +185,13 @@
             <Image x:Name="imgIaTensNumber"     Source="{Binding IaPlayer.Life, Converter={StaticResource tensNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
             <Image x:Name="imgIaUnitsNumber"    Source="{Binding IaPlayer.Life, Converter={StaticResource unitNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
-        
+
         <!--Boton para atacar al contrario-->
         <Button x:Name="buttonAttackContrary" RelativePanel.Below="stpIaLife" RelativePanel.AlignRightWithPanel="True" Margin="40,10" Background="LightGray" Command="{Binding AttackContraryPlayerCommand}">Atacar contrario</Button>
 
         <!--Boton para curarte-->
         <Button x:Name="buttonHealthyou" RelativePanel.Above="stpPlayerLife" RelativePanel.AlignLeftWithPanel="True" Margin="40,10" Background="LightGray" Command="{Binding HealthPlayerCommand}">Curar</Button>
-        
+
         <!-- Player life -->
         <RelativePanel x:Name="stpPlayerLife" Style="{StaticResource normalLife}"
                     RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True">
@@ -150,11 +201,11 @@
             <Image x:Name="imgTensNumber"   Source="{Binding RealPlayer.Life, Converter={StaticResource tensNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
             <Image x:Name="imgUnitsNumber"  Source="{Binding RealPlayer.Life, Converter={StaticResource unitNumConv}, UpdateSourceTrigger=PropertyChanged}" Height="80" Canvas.ZIndex="2" Margin="0,20,0,0" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
-       
+
         <!--Cambiar por user control con bindeos y tal-->
 
         <!-- Card details -->
-        <RelativePanel Height="300" Width="200" x:Name="laCartaSeleccionada"
+        <RelativePanel Height="300" Width="200" x:Name="selectedCard"
             RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
             <GridView x:Name="gdSelectedCard"  ItemsSource="{Binding LastSelectedCard, UpdateSourceTrigger=PropertyChanged}"
             RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" ItemTemplateSelector="{StaticResource CardsTemplates}" Visibility="{Binding CardDetailsVisibility, UpdateSourceTrigger=PropertyChanged}">
@@ -182,7 +233,7 @@
                 <TextBlock Text="Máximo:"                           Style="{StaticResource ManaText}"/>
                 <TextBlock Text="{Binding RealPlayer.TotalMana}"    Style="{StaticResource ManaText}" Margin="5,0"/>
             </StackPanel>
-            
+
             <RelativePanel x:Name="rpPlayerMana"  CornerRadius="5" Background="White" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
                 <ProgressBar Foreground="DarkViolet" CornerRadius="15" Value="{Binding RealPlayer.ProgresBarMana}" Background="LightGray" Height="26" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                 <Image Source="/Assets/Images/ManaBar.png" Width="800" Margin="20, 10" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Canvas.ZIndex="2"/>
