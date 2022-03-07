@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,5 +33,33 @@ namespace Kagic_UI.Views
             Frame.GoBack();
         }
 
+        private void TutorialButtonClick(object sender, RoutedEventArgs e)
+        {
+            ttBtnNextTurn.IsOpen = true;
+        }
+
+        private void TeachingTipClosed(TeachingTip sender, TeachingTipClosedEventArgs args)
+        {
+            TeachingTip tt = (TeachingTip)sender;
+            switch (tt.Name) {
+                case "ttBtnNextTurn": ttGdPlayerCreatures.IsOpen = true;
+                    break;
+                       
+                case "ttGdPlayerCreatures": ttGdPlayerCards.IsOpen = true;
+                    break;
+
+                case "ttGdPlayerCards": ttRpActualMana.IsOpen = true;
+                    break;
+
+                case "ttRpActualMana": ttButtonAttackContrary.IsOpen = true;
+                    break;
+
+                case "ttButtonAttackContrary": ttButtonHealthyou.IsOpen = true;
+                    break;
+
+                case "ttButtonHealthyou": ttSelectedCard.IsOpen = true;
+                    break;
+            }
+        }
     }
 }
