@@ -12,7 +12,10 @@
     </Page.Background>
 
     <RelativePanel>
-        <Button x:Name="btnPlay" Content="Vamòh a jugah!" Click="btnPlay_Click" Height="100" Width="500" FontSize="50" Foreground="Wheat"
-                RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+        <RelativePanel RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+            <Image x:Name="imgKagic" Source="/Assets/Images/Kagic.png" Height="600" Margin="0,0,0,20" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
+            <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Height="100" Width="500" FontSize="50" Background="White" Foreground="Black" CornerRadius="5"
+                    RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="imgKagic"/>
+        </RelativePanel>
     </RelativePanel>
 </Page>

@@ -154,6 +154,7 @@
     <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
+    <Content Include="Assets\Images\Kagic.png" />
     <Content Include="Assets\Images\ManaBar.png" />
     <Content Include="Assets\Images\Damage.png" />
     <Content Include="Assets\Images\CardPosition.png" />
@@ -172,6 +173,8 @@
     <Content Include="Assets\Images\Numbers\7.png" />
     <Content Include="Assets\Images\Numbers\8.png" />
     <Content Include="Assets\Images\Numbers\9.png" />
+    <Content Include="Assets\LogoKagic24x24.png" />
+    <Content Include="Assets\LogoKagic300x300.png" />
     <Content Include="Assets\PRUEBAS\abeja.png" />
     <Content Include="Assets\PRUEBAS\berenjena.png" />
     <Content Include="Assets\PRUEBAS\bichoverde.png" />
