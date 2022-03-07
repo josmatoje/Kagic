@@ -489,6 +489,10 @@ namespace Kagic_UI.ViewModels
                         Creaturebattle(enemyCreatureIndex, iaCreatureIndex);
                         await Task.Delay(1000);
                     }
+                    else
+                    {
+                        isPlayerTurn = false; //A binding error has ocurred and it is necesary to redefine isPlayerTurn 
+                    }
                 }
                 else
                 {
