@@ -491,7 +491,8 @@ namespace Kagic_UI.ViewModels
                     }
                     else
                     {
-                        isPlayerTurn = false; //A binding error has ocurred and it is necesary to redefine isPlayerTurn 
+                        //
+                        isPlayerTurn = false; //A binding error has ocurred and it is necesary to redefine isPlayerTurn to avoid an infinite loop
                     }
                 }
                 else
