@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace Kagic_UI.ViewModels
@@ -107,6 +108,7 @@ namespace Kagic_UI.ViewModels
         public ObservableCollection<clsCard> LastSelectedCard { get => lastSelectedCard; }
 
         public bool CardDetailsVisibility { get => cardDetailsVisibility; set => cardDetailsVisibility = value; }
+        public ListViewSelectionMode SelectionMode { get => selectionMode; }
 
         #region commands getters
         public DelegateCommand PassTurnCommand { get => passTurnCommand; }
@@ -128,7 +130,6 @@ namespace Kagic_UI.ViewModels
             }
         }
 
-        public ListViewSelectionMode SelectionMode { get => selectionMode; }
         #endregion
 
 
@@ -226,15 +227,23 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private void StartGame()
         {
-            List<clsCard> cards = new List<clsCard>(clsCardsManagementBL.getCardsListBL());
-            realPlayer = new clsPlayer(CardsDeck(cards));
-            iaPlayer = new clsIAPlayer(CardsDeck(cards));
-            lastSelectedCard = new ObservableCollection<clsCard>();
-            SetLastSelectedCard(null);
-            //random para ver quien empieza isPlayerTurn
-            selectionMode = ListViewSelectionMode.Single;
-            isPlayerTurn = (new Random()).Next(10) > 5;
-            ChangeTurn();
+            try
+            {
+                List<clsCard> cards = new List<clsCard>(clsCardsManagementBL.getCardsListBL());
+                realPlayer = new clsPlayer(CardsDeck(cards));
+                iaPlayer = new clsIAPlayer(CardsDeck(cards));
+                lastSelectedCard = new ObservableCollection<clsCard>();
+                SetLastSelectedCard(null);
+                //random para ver quien empieza isPlayerTurn
+                selectionMode = ListViewSelectionMode.Single;
+                isPlayerTurn = (new Random()).Next(10) > 5;
+                ChangeTurn();
+            }
+            catch
+            {
+
+            }
+            
         }
 
         /// <summary>
@@ -308,31 +317,38 @@ namespace Kagic_UI.ViewModels
         /// </summary>
         private async void ChangeTurn()
         {
-            isPlayerTurn = !isPlayerTurn;
-            selectionMode = isPlayerTurn ? ListViewSelectionMode.Single : ListViewSelectionMode.None;
-            NotifyPropertyChanged(nameof(SelectionMode));
-            await Task.Delay(1000);
-            if (isPlayerTurn)
+            try
             {
-                realPlayer.SetMana();
-                realPlayer.DrawCard();
-                await Task.Delay(500);
-                realPlayer.SetUsedCreatures();
-                NotifyPropertyChanged(nameof(RealPlayer));
-                UpdateSelectedCardsForNewAction();
-            }
-            else
-            {
-                iaPlayer.SetMana();
-                iaPlayer.DrawCard();
+                isPlayerTurn = !isPlayerTurn;
+                passTurnCommand.RaiseCanExecuteChanged();
+                selectionMode = isPlayerTurn ? ListViewSelectionMode.Single : ListViewSelectionMode.None;
+                NotifyPropertyChanged(nameof(SelectionMode));
                 await Task.Delay(1000);
-                iaPlayer.SetUsedCreatures();
-                UpdateSelectedCardsForNewAction();
-                //method ia accion 
-                IaTurn();
+                if (isPlayerTurn)
+                {
+                    realPlayer.SetMana();
+                    realPlayer.DrawCard();
+                    realPlayer.SetUsedCreatures();
+                    NotifyPropertyChanged(nameof(RealPlayer));
+                    UpdateSelectedCardsForNewAction();
+                    await Task.Delay(500);
+                }
+                else
+                {
+                    iaPlayer.SetMana();
+                    iaPlayer.DrawCard();
+                    iaPlayer.SetUsedCreatures();
+                    UpdateSelectedCardsForNewAction();
+                    await Task.Delay(500);
+                    //method ia accion 
+                    IaTurn();
+                }
+            }catch
+            {
+                ErrorMessage();
             }
+            
 
-            passTurnCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
@@ -442,7 +458,7 @@ namespace Kagic_UI.ViewModels
                 }
             }
 
-            //attack enemies  
+            //attack enemies
             enemyAttack();
 
             ChangeTurn();
@@ -479,6 +495,42 @@ namespace Kagic_UI.ViewModels
         }
 
         /// <summary>
+        /// <b>Headboard: </b>private void SetLastSelectedCard(clsCard card)<br/>
+        /// <b>Description: </b>Change the las selectedCard and the cardDetailsVisibility<br/>
+        /// <b>Preconditions: </b> None<br/>
+        /// <b>Postconditions: </b> LastSelectedCard set<br/>
+        /// </summary>
+        /// <param name="card"></param>
+        private void SetLastSelectedCard(clsCard card)
+        {
+            cardDetailsVisibility = (card != null && card.Id > 0 && !(card is clsCreature && (card as clsCreature).ActualLife <= 0)); //Id==0 -> new clsCreature();
+            NotifyPropertyChanged(nameof(CardDetailsVisibility));
+            lastSelectedCard.Clear();
+            lastSelectedCard.Add(card);
+        }
+
+        /// <summary>
+        /// <b>Headboard: </b>private async void ErrorMessage()<br/>
+        /// <b>Description: </b>Show a error message<br/>
+        /// <b>Preconditions: </b> None<br/>
+        /// <b>Postconditions: </b> None<br/>
+        /// </summary>
+        private async void ErrorMessage()
+        {
+            //MessageDialog errorMessage;
+            ContentDialog error = new ContentDialog()
+            {
+                Title = "ERROR",
+                Content = "Ha ocurrido un error inesperado. Desde kagic lo lamentamos enormemento y sinceramento no sabemos como ha sucedido. Seguramente habrás tocado algo que no debias porque el juego funciona perfectamente. Te animamos a empezar una nueva y apasionante partida.",
+                SecondaryButtonText = "Volver al menu principal"
+            };
+            await error.ShowAsync();
+
+        }
+        #endregion
+
+        #region battleField management
+        /// <summary>
         /// <b>Headboard: </b>private void TryPutCreature(clsPlayer player)<br/>
         /// <b>Description: </b>Check if is posible to put the selected card on the batelfield and, if it is, do it<br/>
         /// <b>Preconditions: </b> It muss be called after change de selectedCreature but before change the lastSelectedCard<br/>
@@ -499,21 +551,6 @@ namespace Kagic_UI.ViewModels
                 successfulTry = true;
             }
             return successfulTry;
-        }
-
-        /// <summary>
-        /// <b>Headboard: </b>private void SetLastSelectedCard(clsCard card)<br/>
-        /// <b>Description: </b>Change the las selectedCard and the cardDetailsVisibility<br/>
-        /// <b>Preconditions: </b> None<br/>
-        /// <b>Postconditions: </b> LastSelectedCard set<br/>
-        /// </summary>
-        /// <param name="card"></param>
-        private void SetLastSelectedCard(clsCard card)
-        {
-            cardDetailsVisibility = (card != null && card.Id > 0 && !(card is clsCreature && (card as clsCreature).ActualLife <= 0)); //Id==0 -> new clsCreature();
-            NotifyPropertyChanged(nameof(CardDetailsVisibility));
-            lastSelectedCard.Clear();
-            lastSelectedCard.Add(card);
         }
         #endregion
 
