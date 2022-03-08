@@ -154,6 +154,9 @@
     <Content Include="Assets\Images\Attack.png" />
     <Content Include="Assets\Images\Background.png" />
     <Content Include="Assets\Images\BackImage.png" />
+    <Content Include="Assets\Images\DamageSpellFrame.png" />
+    <Content Include="Assets\Images\Deck.png" />
+    <Content Include="Assets\Images\HealingSpellFrame.png" />
     <Content Include="Assets\Images\Kagic.png" />
     <Content Include="Assets\Images\ManaBar.png" />
     <Content Include="Assets\Images\Damage.png" />

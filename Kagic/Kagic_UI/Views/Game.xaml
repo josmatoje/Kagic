@@ -39,7 +39,7 @@
         <DataTemplate x:Key="dtHealingSpell">
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Name="image"     Source="{Binding Image}"                                            Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Name="frame"     Source="/Assets/Images/SpellFrame.png"                              Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="frame"     Source="/Assets/Images/HealingSpellFrame.png"                              Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Name="numEffect" Source="{Binding Effect, Converter={StaticResource unitNumConv}}"   Style="{StaticResource ImgLifeSmall}" Canvas.ZIndex="4"/>
                 <Image Name="cure"      Source="/Assets/Images/Cure.png"                                    Style="{StaticResource ImgLifeSmall}"/>
                 <Image Name="numMana"   Source="{Binding Manacost, Converter={StaticResource unitNumConv}}" Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
@@ -53,7 +53,7 @@
         <DataTemplate x:Key="dtDamageSpell">
             <RelativePanel Style="{StaticResource RpCardSmall}">
                 <Image Name="image"     Source="{Binding Image}"                                            Style="{StaticResource ImgCardImageSmall}"/>
-                <Image Name="frame"     Source="/Assets/Images/SpellFrame.png"                              Style="{StaticResource ImgCardImageSmall}"/>
+                <Image Name="frame"     Source="/Assets/Images/DamageSpellFrame.png"                              Style="{StaticResource ImgCardImageSmall}"/>
                 <Image Name="numEffect" Source="{Binding Effect, Converter={StaticResource unitNumConv}}"   Style="{StaticResource ImgLifeSmall}" Canvas.ZIndex="4"/>
                 <Image Name="damage"    Source="/Assets/Images/Damage.png"                                  Style="{StaticResource ImgLifeSmall}"/>
                 <Image Name="numMana"   Source="{Binding Manacost, Converter={StaticResource unitNumConv}}" Style="{StaticResource ImgCardManaCostSmall}" Canvas.ZIndex="4"/>
