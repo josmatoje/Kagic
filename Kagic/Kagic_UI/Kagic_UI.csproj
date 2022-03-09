@@ -124,13 +124,12 @@
     <Compile Include="Models\clsIAPlayer.cs" />
     <Compile Include="Models\Utilities\BattlefieldDataTemplateSelector.cs" />
     <Compile Include="Models\Utilities\MyDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\UtilitiesVM\clsCardList.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsTensNumberConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsUnitNumberConverter.cs" />
     <Compile Include="ViewModels\UtilitiesVM\clsVMBase.cs" />
     <Compile Include="ViewModels\UtilitiesVM\DelegateCommand.cs" />
-    <Compile Include="ViewModels\UtilitiesVM\TrulyObservableCollection.cs" />
     <Compile Include="ViewModels\VMFight.cs" />
-    <Compile Include="ViewModels\VMPruebas.cs" />
     <Compile Include="Views\Lose.xaml.cs">
       <DependentUpon>Lose.xaml</DependentUpon>
     </Compile>
