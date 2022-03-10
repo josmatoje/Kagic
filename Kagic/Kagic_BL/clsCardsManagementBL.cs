@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Kagic_DAL.Listados;
+using Kagic_DAL;
 
 namespace Kagic_BL
 {
@@ -18,7 +18,7 @@ namespace Kagic_BL
         /// <returns>List<clsCard></returns>
         public static ObservableCollection<clsCard> getCardsListBL()
         {
-            return clsCardsManagementDAL.getCardsDAL();
+            return CardsManagementDAL.getCardsListDAL();
         }
     }
 }

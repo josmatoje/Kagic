@@ -10,13 +10,6 @@
     <None Remove="NewFolder\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-    <PackageReference Include="SQLite.Net.Standard" Version="1.0.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Kagic_Entities\Kagic_Entities.csproj" />
   </ItemGroup>

@@ -1,7 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
-using SQLite.Net;
-using SQLite.Net.Platform.WinRT;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -46,10 +43,7 @@ namespace Kagic_UI
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
-            
-            Kagic_BL.DDL_BL.createDatabase();
-
+            this.Suspending += OnSuspending;           
         }
 
         /// <summary>
